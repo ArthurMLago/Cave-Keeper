@@ -1,4 +1,4 @@
-package Interfaces;
+package monster.Interfaces;
 
 public interface AbstractMonsterFactory {
 	

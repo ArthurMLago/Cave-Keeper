@@ -1,4 +1,4 @@
-package Fonte;
+package monster.Fonte;
 
 public class NormalGuardian extends AbstractMonster {
 

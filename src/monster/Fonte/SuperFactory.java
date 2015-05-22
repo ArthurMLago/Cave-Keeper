@@ -1,6 +1,6 @@
-package Fonte;
+package monster.Fonte;
 
-import Interfaces.AbstractMonsterFactory;
+import monster.Interfaces.AbstractMonsterFactory;
 
 public class SuperFactory implements AbstractMonsterFactory {
 

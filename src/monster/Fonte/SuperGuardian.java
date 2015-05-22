@@ -1,4 +1,4 @@
-package Fonte;
+package monster.Fonte;
 
 public class SuperGuardian extends AbstractMonster {
 

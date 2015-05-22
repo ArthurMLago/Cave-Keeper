@@ -31,6 +31,27 @@ public class MapGenerator {
 	public Map generateMap(){
 		int[][] Matriz = new int[MapWidth][MapHeight];
 		
+		//Inicializar a matriz:
+		for (int i = 0; i < MapWidth; i++){
+			for (int j = 0; j < MapHeight; j++){
+				Matriz[i][j] = 0;
+			}
+		}
+		
+		//Posicao inicial do random blobber:
+		int PosX = MapWidth/2;
+		int PosY = MapHeight/2;
+		
+		//Geracao do mapa bruto:
+		//Contagem de passos do random blobber:
+		int WalkCount = 0;
+		//Contagem de vezes que o o blobber alterou a matriz:
+		int ChangeCount = 0;
+		while (ChangeCount > MapWalkablePaths){
+			
+		}
+		
+		
 		Map Result = new Map();
 		
 		return Result;

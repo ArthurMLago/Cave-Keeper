@@ -1,4 +1,4 @@
-package Fonte;
+package monster.Fonte;
 
 public abstract class AbstractMonster {
 	
