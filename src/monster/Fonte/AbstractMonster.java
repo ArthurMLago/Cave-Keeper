@@ -36,7 +36,7 @@ public abstract class AbstractMonster {
 			live = false;
 	}
 	
-	public boolean isLive() {
+	public boolean isALive() {
 		return live;
 	}
 	
