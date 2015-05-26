@@ -1,29 +1,37 @@
 package monster.Fonte;
 
-public abstract class AbstractMonster {
+import gameController.Entidade;
+
+public abstract class AbstractMonster implements Entidade {
 	
 	int hp, posX, posY;
 	boolean live = true; 
+	
+	public String getTipo() {
+		return "monster";
+	}
 	
 	public void setPosition(int x, int y) {
 		posX = x;
 		posY = y;
 	}
 	
-	public int getPosX() {
+	public int getX() {
 		return posX;
 	}
 	
-	public int getPosY() {
+	public int getY() {
 		return posY;
 	}
 	
-	public double getDistance(int playerX, int playerY) {
-		return /*A fazer*/ 0;
-	}
-	
-	public void emitSound() {
-		/*Algo*/
+	public void emitSound(int playerX, int playerY) {
+		double distance = Math.sqrt( Math.pow((this.getX() - (double) playerX), 2) + Math.pow((this.getY() - (double) playerY), 2) );
+		if(distance <= 10)
+			/* Emitir som pequeno. */;
+		else if(distance > 10 && distance <= 20)
+			/* Emitir som medio. */;
+		else
+			/* Emitir som alto. */;
 	}
 	
 	public int getHp() {

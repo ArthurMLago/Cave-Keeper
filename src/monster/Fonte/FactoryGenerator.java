@@ -1,3 +1,7 @@
+package monster.Fonte;
+
+import monster.Interfaces.AbstractMonsterFactory;
+
 public class FactoryGenerator {
 
 	public static AbstractMonsterFactory getFactory(String factoryName) {

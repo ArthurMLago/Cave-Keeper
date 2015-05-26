@@ -1,5 +1,8 @@
 package monster;
 
+import monster.Interfaces.*;
+import monster.Fonte.*;
+
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -46,6 +49,8 @@ public class Monster {
 				list.add(monsterToBeGenerated);
 			}
 		}
+		
+		return list;
 	}
 	
 	public boolean isMonstersAlive() {
