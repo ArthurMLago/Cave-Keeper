@@ -30,6 +30,7 @@ public class GeneralItems implements IItems {
 	
 	public void effect() {
 		this.decrease();
+		this.notifica();
 	}
 	
 	public void notifica() {
