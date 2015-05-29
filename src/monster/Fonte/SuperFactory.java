@@ -6,10 +6,12 @@ public class SuperFactory implements AbstractMonsterFactory {
 
 	@Override
 	public AbstractMonster createSuper(String monsterType) {
-		if(monsterType.equalsIgnoreCase("Guardian"))
+		if (monsterType.equalsIgnoreCase("Guardian"))
 			return new SuperGuardian();
-		else
+		else if (monsterType.equalsIgnoreCase("Ghost"))
 			return new SuperGhost();
+		else
+			return null;
 	}
 
 	@Override

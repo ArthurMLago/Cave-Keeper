@@ -24,8 +24,17 @@ public abstract class AbstractMonster implements Entidade {
 		return posY;
 	}
 	
-	public void emitSound(int playerX, int playerY) {
-		double distance = Math.sqrt( Math.pow((this.getX() - (double) playerX), 2) + Math.pow((this.getY() - (double) playerY), 2) );
+	public double getDistance (double playerX, double playerY) {
+		double distance;
+		distance = Math.sqrt(Math.pow((this.getX() - playerX), 2) + Math.pow((this.getY() - playerY), 2));
+		return distance;
+	}
+	
+	public void emitSound () {
+		double playerX = Player.getPlayerX;
+		double playerY = Player.getPlayerY;
+		int distance = (int) getDistance (playerX, playerY);
+		
 		if(distance <= 10)
 			/* Emitir som pequeno. */;
 		else if(distance > 10 && distance <= 20)
@@ -44,7 +53,7 @@ public abstract class AbstractMonster implements Entidade {
 			live = false;
 	}
 	
-	public boolean isALive() {
+	public boolean isAlive() {
 		return live;
 	}
 	

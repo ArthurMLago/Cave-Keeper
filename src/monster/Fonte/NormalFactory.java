@@ -11,10 +11,12 @@ public class NormalFactory implements AbstractMonsterFactory {
 
 	@Override
 	public AbstractMonster createNormal(String monsterType) {
-		if(monsterType.equalsIgnoreCase("Guardian"))
+		if (monsterType.equalsIgnoreCase("Guardian"))
 			return new NormalGuardian();
-		else
+		else if (monsterType.equalsIgnoreCase("Normal"))
 			return new NormalGhost();
+		else
+			return null;
 
 	}
 
