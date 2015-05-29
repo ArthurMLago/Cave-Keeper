@@ -4,7 +4,7 @@ import gameController.Entidade;
 
 public abstract class AbstractMonster implements Entidade {
 	
-	int hp, posX, posY;
+	int hp, posX, posY, spaces;
 	boolean live = true; 
 	
 	public String getTipo() {

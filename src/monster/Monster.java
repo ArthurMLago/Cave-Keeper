@@ -16,6 +16,7 @@ public class Monster {
 		list = new ArrayList<AbstractMonster>();
 	}
 	
+	/* Função iniciadora do componente. Gera os monstros e os increve no observer. */
 	public ArrayList<AbstractMonster> generateMonsters() {
 
 		AbstractMonster monsterToBeGenerated;
@@ -53,6 +54,7 @@ public class Monster {
 		return list;
 	}
 	
+	/* Retorna um boolean se os monstros estao vivos. */
 	public boolean isMonstersAlive() {
 		
 		boolean vivos = true;
