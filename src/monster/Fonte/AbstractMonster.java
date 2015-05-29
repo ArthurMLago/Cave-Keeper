@@ -1,8 +1,9 @@
 package monster.Fonte;
 
 import gameController.Entidade;
+import monster.Interfaces.*;
 
-public abstract class AbstractMonster implements Entidade {
+public abstract class AbstractMonster implements IAbstractMonster {
 	
 	int hp, posX, posY, spaces;
 	boolean live = true; 
@@ -58,5 +59,6 @@ public abstract class AbstractMonster implements Entidade {
 	}
 	
 	public abstract void walk();
+	public abstract int getImage();
 	
 }

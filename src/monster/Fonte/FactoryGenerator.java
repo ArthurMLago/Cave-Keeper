@@ -7,10 +7,10 @@ public class FactoryGenerator {
 	public static AbstractMonsterFactory getFactory(String factoryName) {
 		
 		AbstractMonsterFactory aux = null;
-		if(factoryName.equalsIgnoreCase("super"))
-			aux = new SuperFactory();
-		else if (factoryName.equalsIgnoreCase("normal")){
-			aux = new NormalFactory();
+		if(factoryName.equalsIgnoreCase("guardian"))
+			aux = new GuardianFactory();
+		else if (factoryName.equalsIgnoreCase("ghost")){
+			aux = new GhostFactory();
 		}
 		
 		return aux;

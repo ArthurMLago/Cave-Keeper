@@ -8,6 +8,11 @@ public class SuperGhost extends AbstractMonster {
 	}
 	
 	@Override
+	public int getImage() {
+		return 0/*Por enquanto. */;
+	}
+	
+	@Override
 	public void walk() {
 	
 		
