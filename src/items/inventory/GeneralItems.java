@@ -1,4 +1,4 @@
-package items.inventario;
+package items.inventory;
 
 import items.interfaces.IItems;
 

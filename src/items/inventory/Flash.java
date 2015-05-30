@@ -1,4 +1,4 @@
-package items.inventario;
+package items.inventory;
 
 public class Flash extends GeneralItems {
 	

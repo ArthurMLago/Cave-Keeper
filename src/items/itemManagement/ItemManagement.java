@@ -1,7 +1,7 @@
 package items.itemManagement;
 
 import items.interfaces.*;
-import items.inventario.*;
+import items.inventory.*;
 
 import java.util.ArrayList;
 

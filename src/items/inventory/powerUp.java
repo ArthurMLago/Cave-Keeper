@@ -1,4 +1,4 @@
-package items.inventario;
+package items.inventory;
 
 public class powerUp extends GeneralItems {
 	public powerUp(String name, int number) {
