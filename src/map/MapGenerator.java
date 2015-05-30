@@ -7,6 +7,15 @@ package map;
 import java.util.Random;
 
 
+/**
+ * Classe responsavel por gerar mapas jogaveis aleatoriamente, recebendo caracteristicas do mapa através dos diversos
+ * métodos setters, e retorna uma instância de {@link map.Map Mapa} através do método {@link #generateMap() generateMap()}.
+ * <p>
+ * É um singleton, portanto, existe apenas uma instância dessa classe que pode ser acessada através do método 
+ * {@link #sharedInstance() sharedInstance()}.
+ * @author Arthur Moraes do Lago
+ *
+ */
 public class MapGenerator {
 	private static MapGenerator sharedInstancee;
 	
@@ -14,10 +23,15 @@ public class MapGenerator {
 	
 	private int MapWidth, MapHeight;
 	private int MapWalkablePaths;
-//	private double lightPercentage;
+	private double lightPercentage;
 	
 	private int[][] Matriz;
 	
+	
+	/**
+	 * Método para obter a instância da classe singleton, criando-a se ainda nao existir.
+	 * @return A instância única da classe MapGenerator
+	 */
 	public static MapGenerator sharedInstance(){
 		if (sharedInstancee == null){
 			sharedInstancee = new MapGenerator();
@@ -25,22 +39,55 @@ public class MapGenerator {
 		return sharedInstancee;
 	}
 	
+	
+	/**
+	 * Construtor padrão, com valores de propriedades padrões.
+	 */
 	private MapGenerator(){
 		MapWidth = 30;
 		MapHeight = 30;
 		MapWalkablePaths = 450;
-//		lightPercentage = 0.1;
+		lightPercentage = 0.1;
 		
 		randomGenerator = new Random();
 	}
 	
+	
+	/**
+	 * Define a largura do mapa a ser gerado.
+	 * @param value Largura do mapa em Tiles
+	 */
 	public void setMapWidth(int value){	MapWidth = value;}
+	
+	
+	/**
+	 * Define a altura do mapa a ser gerado.
+	 * @param value Altura do mapa em Tiles
+	 */
 	public void setMapHeight(int value){	MapHeight = value;}
+	
+	
+	/**
+	 * Define a quantidade de Tiles passaveis que estarão presentes no mapa.
+	 * <p>
+	 * Um valor de 0, gerara um mapa sem Tiles passaveis, enquanto que um valor igual a área do mapa gerará um mapa sem
+	 * paredes.
+	 * @param value Numero de Tiles passaveis
+	 */
 	public void setWalkablePath(int value){	MapWalkablePaths = value;}
-//	public void setLightPercentage(double value){	lightPercentage = value;}
 	
 	
+	/**
+	 * Define a porcentagem do mapa que estará iluminada por luzes permanentes:
+	 * @param value  Porcentagem do mapa iluminado (0.0 -> 1.0)
+	 */
+	public void setLightPercentage(double value){	lightPercentage = value;}
 	
+	
+	/**
+	 * Método que gera um mapa aleatório jogavel com as caracteristicas especificadas.
+	 * @return Um objeto da classe Mapa, contendo um mapa jogavel com as caracteristicas especificadas.
+	 */
 	public void generateMap(){
 		Matriz = new int[MapWidth][MapHeight];
 		
@@ -102,6 +149,7 @@ public class MapGenerator {
 
 	}
 	
+	
 	/**
 	 * Métodos para facilitar a verificação se dada coordenada esta dentro do mapa, para valores de largura.
 	 * @param x : Posicao na horizontal;
@@ -116,6 +164,7 @@ public class MapGenerator {
 		return x;
 	}
 	
+	
 	/**
 	 * Métodos para facilitar a verificação se dada coordenada esta dentro do mapa, para valores de altura.
 	 * @param x : Posicao na vertical;
@@ -129,6 +178,7 @@ public class MapGenerator {
 		}
 		return y;
 	}
+	
 	
 	/**
 	 * Método para aplicar filtro de remoção de Tiles isolados dso mapa.
@@ -168,6 +218,7 @@ public class MapGenerator {
 			}
 		}
 	}
+	
 	
 	/**
 	 * Método para aplicar filtro de remoção de passagems estreitas.
