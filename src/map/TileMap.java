@@ -16,6 +16,7 @@ public class TileMap {
 	
 	public TileMap(TileType type, int tileImage, ArrayList<Event> EventList){
 		
+		
 	}
 	
 	public TileType getType(){
