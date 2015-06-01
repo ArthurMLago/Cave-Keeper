@@ -1,7 +1,7 @@
 package player;
 
-import items.interfaces.Iitems;
-import map.Map;
+import gameController.GameController;
+import items.itemManagement.ItemManagement;
 
 public class Player {
 	
@@ -49,7 +49,7 @@ public class Player {
 		facing = direction; 
 		
 		if (direction == 'N') {
-			if (GameController.sharedInstance.map.getTipe(posX, posY + 1)) == "walkable")
+			if ((GameController.sharedInstance.map.getTipe(posX, posY + 1)) == "walkable")
 				posY++;
 			else
 				return false;			
