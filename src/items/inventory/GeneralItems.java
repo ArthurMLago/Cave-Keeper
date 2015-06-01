@@ -2,11 +2,13 @@ package items.inventory;
 
 import items.interfaces.IItems;
 
+import java.io.Serializable;
+
 /**
  * @author Vicente
  * classe mae de todos os items, assim contendo os metodos e atributos basicos
  */
-public class GeneralItems implements IItems {
+public class GeneralItems implements IItems, Serializable {
 
 /**
  * atributos: nome e quantidade no inventario
