@@ -1,5 +1,10 @@
 package map.exceptions;
 
+/**
+ * Exceção que ocorre qunado tenta-se acessar uma coordenada fora dos limites do mapa.
+ * @author ArthurMLago
+ *
+ */
 public class OutOfMapBoundsException extends Exception {
 	
 	private static final long serialVersionUID = 0x18fe9a0c;

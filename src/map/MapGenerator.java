@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  * Classe responsavel por gerar mapas jogaveis aleatoriamente, recebendo caracteristicas do mapa através dos diversos
- * métodos setters, e retorna uma instância de {@link map.Map Mapa} através do método {@link #generateMap() generateMap()}.
+ * métodos setters, e retorna uma instância de {@link map.GameMap Mapa} através do método {@link #generateMap() generateMap()}.
  * <p>
  * É um singleton, portanto, existe apenas uma instância dessa classe que pode ser acessada através do método 
  * {@link #sharedInstance() sharedInstance()}.

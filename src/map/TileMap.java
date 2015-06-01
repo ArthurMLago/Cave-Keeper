@@ -2,12 +2,7 @@ package map;
 
 import java.util.ArrayList;
 
-enum TileType{
-	Walkable,
-	Wall,
-	Void,
-	
-}
+import map.enumerations.TileType;
 
 public class TileMap {
 	private TileType type;

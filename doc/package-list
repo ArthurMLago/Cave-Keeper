@@ -1,1 +1,12 @@
+gameController
+items.interfaces
+items.inventory
+items.itemManagement
 map
+map.enumerations
+map.exceptions
+monster
+monster.Fonte
+monster.Interfaces
+player
+visual
