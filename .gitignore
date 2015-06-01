@@ -37,3 +37,7 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
+#Minhas proprias adicoes (Arthur Moraes do Lago)
+.DS_Store
+doc/
