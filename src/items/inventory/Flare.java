@@ -9,6 +9,8 @@ public class Flare extends GeneralItems {
 	public void effect() {
 		super.effect();
 		
-//		chama funcao que ilumina parte do mapa onde o item foi usado
+/**	
+ * chama funcao que ilumina parte do mapa onde o item foi usado
+ */
 	}
 }
