@@ -5,23 +5,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+/**
+ * 
+ * @author Vicente
+ *
+ * @param <T> uso de Generics para poder serializar quarquer objeto
+ */
 
 public class saveGame <T>{
 	
-	public static Employee inicia() {	
-		Employee e = new Employee();
-		e.name = "Reyan Ali";
-	    e.address = "Phokka Kuan, Ambehta Peer";
-	    e.SSN = 11122333;
-	    e.number = 101;
-	    
-	    return e;
-	}
 	
+//	   saveGame<Employee> salvador = new saveGame<Employee>();
+
+/**
+ * 	
+ * @param e recebe parametro de um tipo generico T e faz sua serializacao, levando o arquivo a
+ * src/saveGame/tmp/alou.ser
+ */
 	public void saveState(T e) {
 		try {
 			FileOutputStream fileOut = new FileOutputStream("src/saveGame/tmp/alou.ser");
@@ -36,6 +37,11 @@ public class saveGame <T>{
 			i.printStackTrace();
 		}
 	}
+	
+/**
+ * classe que le o arquivo src/saveGame/tmp/alou.ser e deserializa o objeto	
+ * @return o objeto serializado
+ */
 	
 	public T obtainState() {
 		
