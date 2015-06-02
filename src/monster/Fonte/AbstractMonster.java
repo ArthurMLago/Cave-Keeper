@@ -1,6 +1,7 @@
 package monster.Fonte;
 
 import gameController.Entidade;
+
 import monster.Interfaces.*;
 
 public abstract class AbstractMonster implements IAbstractMonster {
