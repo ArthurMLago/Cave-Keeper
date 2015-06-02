@@ -37,7 +37,7 @@ public class ItemManagement implements IItemManagement{
 /**
  * ao obter um novo item, chama-se tal metodo para aumentar sua quantidade
  */
-	public void obtainItem(int place) {
+	public void obtainItem(int place) {/*agora recebe a posicao no mapa*/
 		inventory.get(place).increase();
 	}
 	
