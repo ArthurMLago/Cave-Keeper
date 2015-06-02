@@ -3,7 +3,7 @@ package gameController;
 //import map.*;
 import map.MapGenerator;
 
-public class GameController {
+public class GameController implements IGameController {
 	private static final GameController sharedInstance = new GameController();;
 	
 	private GameController() { }
@@ -13,10 +13,15 @@ public class GameController {
 	}
 	
 	public static void main(String[] args) {
-		MapGenerator.sharedInstance().generateMap();
-		
-		
 
+	}
+	
+	public IMap getMap() {
+		return Map;
+	}
+	
+	public IPlayer getPlayer() {
+		return Player
 	}
 
 }
