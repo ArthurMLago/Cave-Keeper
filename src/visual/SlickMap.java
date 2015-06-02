@@ -1,9 +1,12 @@
 package visual;
 
+import gameController.Entidade;
+import gameController.IGameController;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import gameController.IGameController;
 import map.IMap;
 
 import org.newdawn.slick.Animation;
@@ -12,21 +15,29 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 import player.IPlayer;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
 
-public class CompositeMap extends BasicGame implements
+/**
+ * Mapa que realiza a interação com a biblioteca utilizado para imprimir as informações na janela
+ * 
+ * @author eitiyamamoto
+ *
+ */
+public class SlickMap extends BasicGame implements
 		IRequires<IGameController> {
 	private Animation spritePlayer, playerUp, playerDown, playerLeft,
 			playerRight;
 	private Animation shadowPlayer, shadowUp, shadowDown, shadowLeft,
 			shadowRight, shadowNext;
-	private ArrayList<Integer[]> tileRender;
 	private int x = 32, y = 32;
-	private int posX, posY, xFacing, yFacing;
+	private int xFacing, yFacing;
 	private IGameController gameController;
 	private IPlayer player;
 	private IMap map;
@@ -34,9 +45,13 @@ public class CompositeMap extends BasicGame implements
 	private int duration = 10;
 	private boolean flare = false;
 	private int flareTime;
-	private HashMap<Integer, Image> imageMap;
+	private HashMap<String, Image> imageMap, monsterMap;
+	private Audio footstepAudio;
+	private ArrayList<Entidade> entidades;
+	private boolean explosionShoot = false;
+	private int explosionX, explosionY, explosionTime;
 
-	public CompositeMap(String title) {
+	public SlickMap(String title) {
 		super(title);
 	}
 
@@ -47,34 +62,33 @@ public class CompositeMap extends BasicGame implements
 		drawTile(player.getX() + xFacing, player.getY() + yFacing);
 
 		if (flare) {
-			for (int xR = 0; xR < map.getLimiteX(); xR++) {
-				for (int yR = 0; yR < map.getLimiteY(); yR++) {
-					drawTile(xR, yR);
-
-				}
-			}
-			
-
-			if (flareTime > 2000)
-				flare = false;
+			drawFlare();
 		} else {
 			shadowNext.draw((player.getX() + xFacing) * this.x,
 					(player.getY() + yFacing) * this.y);
 
 			shadowPlayer.draw(player.getX() * x, player.getY() * y);
+
+			for (Entidade e : entidades) {
+				if (e.getX() == player.getX() + xFacing
+						&& e.getY() == player.getY() + yFacing)
+					drawEntidade(e);
+			}
 		}
+		if(explosionShoot)
+			drawExplosion();
 
 		spritePlayer.draw(player.getX() * x, player.getY() * y);
 	}
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
-		Image[] movementUp = { new Image("character/" + character + "_up.png") };
-		Image[] movementDown = { new Image("character/" + character
+		Image[] movementUp = { new Image("resource/character/" + character + "_up.png") };
+		Image[] movementDown = { new Image("resource/character/" + character
 				+ "_down.png") };
-		Image[] movementLeft = { new Image("character/" + character
+		Image[] movementLeft = { new Image("resource/character/" + character
 				+ "_left.png") };
-		Image[] movementRight = { new Image("character/" + character
+		Image[] movementRight = { new Image("resource/character/" + character
 				+ "_right.png") };
 
 		// Iniciando as animações
@@ -83,7 +97,7 @@ public class CompositeMap extends BasicGame implements
 		playerLeft = new Animation(movementLeft, duration, false);
 		playerRight = new Animation(movementRight, duration, false);
 
-		String pathShadow = "tile/shadow/";
+		String pathShadow = "resource/tile/shadow/";
 		Image[] shaPlayer = { new Image(pathShadow + "on_character.png") };
 		Image[] shaUp = { new Image(pathShadow + "up.png") };
 		Image[] shaDown = { new Image(pathShadow + "down.png") };
@@ -95,11 +109,25 @@ public class CompositeMap extends BasicGame implements
 		shadowRight = new Animation(shaRight, duration, false);
 		shadowLeft = new Animation(shaLeft, duration, false);
 
+		String pathAudio = "resource/audio/";
+		try {
+			footstepAudio = AudioLoader.getAudio(
+					"OGG",
+					ResourceLoader.getResourceAsStream(pathAudio
+							+ "footstep.ogg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		faceSprite(gameController.getPlayer().getFacing());
-		tileRender = new ArrayList<Integer[]>();
-		imageMap = new HashMap<Integer, Image>();
+		imageMap = new HashMap<String, Image>();
 	}
 
+	/**
+	 * Verifica qual o lado que o personagem está olhando
+	 * e define qual tile deve ser mostrado na tela
+	 * @param facing
+	 */
 	private void faceSprite(String facing) {
 		if ("up".compareTo(facing) == 0) {
 			spritePlayer = playerUp;
@@ -124,28 +152,126 @@ public class CompositeMap extends BasicGame implements
 		}
 	}
 
+	/**
+	 * Desenha o tile desejado
+	 * Só funciona quando chamado no render
+	 * @param x - Posição x do tile a ser desenhado
+	 * @param y - POsição Y do tile a ser desenhado
+	 */
 	private void drawTile(int x, int y) {
 		try {
-			Image tile;
-			if (imageMap.containsKey(map.getTileAt(x, y).getImage())) {
-				tile =imageMap.get(map.getTileAt(x, y).getImage());
-			} else {
-				tile = new Image("tile/"
-						+ map.getTileAt(x, y).getImage() + ".png");
-				imageMap.put(map.getTileAt(x, y).getImage(), tile);
-			}
+			Image tile = getImage("resource/tile/" + map.getTileAt(x, y).getImage()
+					+ ".png", imageMap);
+
 			Image[] tiles = { tile };
 			Animation tileAnimation = new Animation(tiles, 1000);
 			tileAnimation.draw(x * this.x, y * this.y);
 		} catch (SlickException e) {
 			System.out.println(e);
 		}
-
 	}
 
+	/**
+	 * Desenha a entidade desejada
+	 * Só funciona quando chamado no render
+	 * @param e - Entidade a ser desenhada
+	 */
+	private void drawEntidade(Entidade e) {
+		try {
+			Image tile = getImage("resource/monster/" + e.getImage() + ".png",
+					monsterMap);
+
+			Image[] tiles = { tile };
+			Animation tileAnimation = new Animation(tiles, 1000);
+			tileAnimation.draw(e.getX() * this.x, e.getY() * this.y);
+		} catch (SlickException ex) {
+			System.out.println(ex);
+		}
+	}
+	
+	private void drawFlare(){
+		for (int xR = 0; xR < map.getLimiteX(); xR++) {
+			for (int yR = 0; yR < map.getLimiteY(); yR++) {
+				drawTile(xR, yR);
+			}
+		}
+
+		for (Entidade e : entidades) {
+			drawEntidade(e);
+		}
+
+		if (flareTime > 2000)
+			flare = false;
+	}
+	
+	private void drawExplosion(){
+		Image explosionImage;
+		try {
+			explosionImage = getImage("resource/shoot/explosion.png", imageMap);
+			Image[] explosions = { explosionImage };
+			Animation explosionAnimation = new Animation(explosions, 1000);
+			explosionAnimation.draw(explosionX*this.x, explosionY*this.y);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		
+		if(explosionTime > 800)
+			explosionShoot = false;
+				
+	}
+
+	/**
+	 * A função mostra que no momento do render deve considerar a ação por um tempo
+	 * determinado
+	 */
 	public void flare() {
 		flare = true;
 		flareTime = 0;
+	}
+
+	public void shoot(){
+		explosionShoot = true;
+		explosionTime = 0;
+		int xR = player.getX();
+		int yR = player.getY();
+		boolean wallFind = false;
+		while(!wallFind){
+			xR += xFacing;
+			yR += yFacing;
+			for(Entidade e : entidades){
+				if(e.getX() == xR && e.getY() == yR){
+					explosionX = xR;
+					explosionY = yR;
+					wallFind = true;
+				}
+			}
+			if(!wallFind && !map.getTileAt(xR, yR).isWalkable()){
+				explosionX = xR;
+				explosionY = yR;
+				wallFind = true;
+			}
+		}
+	}
+	
+	/**
+	 * Reproduz o som de passos do monstro
+	 * @param gain
+	 */
+	public void playFootstep(float gain) {
+		footstepAudio.playAsSoundEffect(1.0f, gain, false);
+	}
+
+	private Image getImage(String path, HashMap<String, Image> map)
+			throws SlickException {
+		Image tile;
+		if (imageMap.containsKey(path)) {
+			tile = imageMap.get(path);
+		} else {
+			tile = new Image(path);
+			imageMap.put(path, tile);
+		}
+
+		return tile;
 	}
 
 	@Override
@@ -155,6 +281,8 @@ public class CompositeMap extends BasicGame implements
 		gameController.update();
 
 		flareTime += delta;
+		
+		explosionTime += delta;
 	}
 
 	@Override
@@ -162,6 +290,7 @@ public class CompositeMap extends BasicGame implements
 		this.gameController = gameController;
 		map = gameController.getMap();
 		player = gameController.getPlayer();
+		entidades = gameController.getEntidades();
 	}
 
 	@Override

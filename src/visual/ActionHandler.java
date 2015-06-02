@@ -4,9 +4,17 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Input;
 
+import visual.interfaces.IAction;
+import visual.interfaces.IHandler;
 import anima.component.IRequires;
 import anima.component.base.ComponentBase;
 
+/**
+ * Classe básica que executa todas as ações que tiverem sua chave registrada para a ação
+ * 
+ * @author eitiyamamoto
+ *
+ */
 public class ActionHandler extends ComponentBase implements IHandler, IRequires<IAction>{
 	private ArrayList<IAction> command;
 	
@@ -25,7 +33,6 @@ public class ActionHandler extends ComponentBase implements IHandler, IRequires<
 
 	@Override
 	public void connect(IAction execute) {
-		System.out.println(execute.getKey());
 		command.add(execute);
 	}
 
