@@ -1,12 +1,15 @@
 package monster.Fonte;
 import map.*;
 
+
 public class SuperGhost extends AbstractMonster {
 
 	public SuperGhost() {
 		hp = 2;
 		spaces = 1;
 	}
+	
+	/*  Nada */
 	
 	@Override
 	public int getImage() {

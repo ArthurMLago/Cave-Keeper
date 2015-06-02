@@ -1,3 +1,10 @@
+/* O que deve ser feito:
+ *   - saber as coordenadas do player para implementar o metodo walk.
+ *   - setar a posicao inicial dos monstros de acordo com o gerador do mapa.
+ *   - completar o metodo walk nos outros monstros e implementar a caminhada aleatoria.
+ *   - adicionar funcoes extras de manipulacao de monstros.
+ *   - deixar o algoritmos de seguir o player um pouco mais aleatorio. */
+
 package monster;
 
 import monster.Interfaces.*;
@@ -15,13 +22,12 @@ public class Monster extends ComponentBase {
 		list = new ArrayList<AbstractMonster>();
 	}
 	
-	/* Função iniciadora do componente. Gera os monstros e os increve no observer. */
+	/* Função iniciadora do componente. */
 	public ArrayList<AbstractMonster> generateMonsters() {
 
 		AbstractMonster monsterToBeGenerated;
 		AbstractMonsterFactory factoryToBeGenerated;
-		/* OBS: falta setar a posicao dos monstros e outras coisas. Isso deve ser feita no
-		 * metodo construtor da classe abstrata. */
+
 		if(fase == 1) {
 			factoryToBeGenerated = FactoryGenerator.getFactory("guardian");
 			monsterToBeGenerated = factoryToBeGenerated.createGuardian("normal");
@@ -63,6 +69,13 @@ public class Monster extends ComponentBase {
 		}
 		return vivos;
 			
+	}
+	
+	public AbstractMonster getMonster() {
+		if(fase >= 1 && fase < 5)
+			return list.get(0);
+		else
+			return list.get(0); /*Ajustar*/
 	}
 	
 	
