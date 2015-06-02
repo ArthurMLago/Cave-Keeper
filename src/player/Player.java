@@ -2,8 +2,9 @@ package player;
 
 import gameController.GameController;
 import items.itemManagement.ItemManagement;
+import player.IPlayerMax;
 
-public class Player {
+public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
 	
 	private int posX,
 		        posY;
@@ -30,6 +31,10 @@ public class Player {
 		return posY;
 	}
 	
+	public char getFacing() {
+		return facing;
+	}
+	
 	public boolean getLighter() {
 		return lighter;
 	}
@@ -46,7 +51,7 @@ public class Player {
 	}
 	
 	public boolean move(char direction) {
-		facing = direction; 
+		facing = direction;
 		
 		if (direction == 'N') {
 			if ((GameController.sharedInstance.map.getTipe(posX, posY + 1)) == "walkable")
@@ -78,11 +83,14 @@ public class Player {
 		else
 			return false;
 		
+		bag.update(posX, posY);
+		GameController.SharedInstance.map.update(posX, posY);
+		
 		return true;
 	}
 	
 	public boolean shoot(char direction) {
-		if (bag.getAmmo == 0)
+		if (bag.displayNumber(4/*AMMO*/) == 0)
 			return false;
 		
 		facing = direction;
@@ -134,4 +142,11 @@ public class Player {
 		
 	}
 
+	public void useFlare() {
+		bag.useItem(0/*FLARE*/);
+	}
+	
+	public void useStick() {
+		bag.useItem(5);
+	}
 }

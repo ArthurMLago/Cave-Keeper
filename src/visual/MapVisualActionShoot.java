@@ -1,12 +1,11 @@
 package visual;
 
 import visual.interfaces.IActionMapVisual;
-import visual.interfaces.IAudioEffect;
 import visual.interfaces.IMapVisual;
 import anima.component.IRequires;
 import anima.component.base.ComponentBase;
 
-public class MapVisualActionFlare extends ComponentBase implements IActionMapVisual, IRequires<IMapVisual>{
+public class MapVisualActionShoot extends ComponentBase implements IActionMapVisual, IRequires<IMapVisual>{
 	private int key;
 	private IMapVisual map;
 	
@@ -22,11 +21,12 @@ public class MapVisualActionFlare extends ComponentBase implements IActionMapVis
 
 	@Override
 	public void execute() {
-		map.flareVisual();
+		map.shoot();
 	}
 
 	@Override
 	public void connect(IMapVisual map) {
 		this.map = map;
 	}
+
 }
