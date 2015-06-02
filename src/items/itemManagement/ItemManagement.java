@@ -1,15 +1,21 @@
 package items.itemManagement;
 
 import items.interfaces.*;
-import items.inventario.*;
-
+import items.inventory.*;
 import java.util.ArrayList;
 
+/**
+ * @author Vicente
+ * Classe responsavel pela comunicacao entre outras classes e o inventario
+ */
 public class ItemManagement implements IItemManagement{
 	
-//	ArrayList em que cada posicao armazena um objeto correspondente a um TIPO de item
+	/**
+	 * ArrayList em que cada posicao armazena um objeto correspondente a um TIPO de item
+	 */
 	private ArrayList <IItems> inventory = new ArrayList <IItems>();
-	
+
+
 	public void startInventory() {
 		inventory.add(new Flare("flare", 0));
 		inventory.add(new Flash("flash", 0));
@@ -20,22 +26,25 @@ public class ItemManagement implements IItemManagement{
 		
 	}
 	
-//funcao a ser chamada para usar um item, dando como parametro, a posicao no ArrayList do item a ser usado	
+/**
+ * @param posicao do ArrayList em que se encontra o tipo do item
+ * chama o metodo que faz o efeito do item
+ */
 	public void useItem(int place) {
 		inventory.get(place).effect();		
 	}
 
-//funcao a ser chamada ao um item, dando como parametro, a posicao no ArrayList do item a ser recebido
+/**
+ * ao obter um novo item, chama-se tal metodo para aumentar sua quantidade
+ */
 	public void obtainItem(int place) {
 		inventory.get(place).increase();
 	}
 	
-//funcao que retorna a quantidade de um item
 	public int displayNumber(int place) {
 		return inventory.get(place).getNumber();
 	}
 	
-//funcao que retorna o nome de um item	
 	public String displayName(int place) {
 		return inventory.get(place).getName();
 	}

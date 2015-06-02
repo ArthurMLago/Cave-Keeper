@@ -1,4 +1,4 @@
-package items.inventario;
+package items.inventory;
 
 public class Flash extends GeneralItems {
 	
@@ -7,6 +7,8 @@ public class Flash extends GeneralItems {
 	}
 	
 	public void effect() {
-//		chama funcao que ilumina o mapa todo por uma rodada
+/**		
+ * chama funcao que ilumina o mapa todo por uma rodada
+*/
 	}
 }

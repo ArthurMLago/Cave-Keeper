@@ -1,9 +1,12 @@
 package gameController;
 
+//import map.*;
+import map.MapGenerator;
+
 public class GameController {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		MapGenerator.sharedInstance().generateMap();
 
 	}
 

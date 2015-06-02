@@ -1,4 +1,4 @@
-package items.inventario;
+package items.inventory;
 
 public class Stick extends GeneralItems {
 	
@@ -9,6 +9,8 @@ public class Stick extends GeneralItems {
 	public void effect() {
 		super.effect();
 		
-//		chama funcao que checa o que envolta do carinha e detona a armadilha, caso exista
+/**
+ * chama funcao que checa o que envolta do carinha e detona a armadilha, caso exista
+ */
 	}
 }

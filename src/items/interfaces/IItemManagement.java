@@ -1,5 +1,9 @@
 package items.interfaces;
 
+/**
+ * @author Vicente
+ *
+ */
 public interface IItemManagement {
 	
 	public void startInventory();

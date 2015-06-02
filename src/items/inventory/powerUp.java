@@ -1,4 +1,4 @@
-package items.inventario;
+package items.inventory;
 
 public class powerUp extends GeneralItems {
 	public powerUp(String name, int number) {
@@ -8,6 +8,8 @@ public class powerUp extends GeneralItems {
 	public void effect() {
 		super.effect();
 		
-//		chama funcao que aumenta o poder da arma
+/**
+ * 	chama funcao que aumenta o poder da arma
+ */
 	}
 }

@@ -2,12 +2,7 @@ package map;
 
 import java.util.ArrayList;
 
-enum TileType{
-	Walkable,
-	Wall,
-	Void,
-	
-}
+import map.enumerations.TileType;
 
 public class TileMap {
 	private TileType type;
@@ -15,6 +10,7 @@ public class TileMap {
 	private ArrayList<Event> EventList;
 	
 	public TileMap(TileType type, int tileImage, ArrayList<Event> EventList){
+		
 		
 	}
 	
