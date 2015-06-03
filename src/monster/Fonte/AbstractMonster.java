@@ -1,8 +1,13 @@
 package monster.Fonte;
 
 import gameController.Entidade;
-import java.io.Serializable;
 
+import java.io.Serializable;
+import java.util.Random;
+
+import player.Player;
+import gameController.*;
+import map.GameMap;
 import monster.Interfaces.*;
 
 public abstract class AbstractMonster implements IAbstractMonster, Serializable {
@@ -73,7 +78,134 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 		return live;
 	}
 	
-	public abstract void walk();
+	public void followWalk() {
+		Player player = getPlayer();
+		Map map = getMap();
+		Random random = new Random();
+		
+		int playerX = player.getPlayerX();
+		int playerY = player.getPlayerY();
+		
+		int monsterX = getX();
+		int monsterY = getY();
+		
+		int steps = spaces;
+		
+		while (steps >= 0) {
+			int direcao = random.nextInt(1);
+			
+			if (playerX > monsterX && playerY > monsterY) {
+				if (direcao == 0) {
+					if (map.getTileAt(monsterX+1, monsterY).getType() == Walkable) {
+						this.setPosition(monsterX+1, monsterY);
+						steps--;
+					}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX, monsterY+1).getType() == Walkable) {
+						this.setPosition(monsterX, monsterY+1);
+						steps--;
+					}
+				}
+			}
+			if (playerX < monsterX && playerY > monsterY) {
+				if (direcao == 0) {
+					if (map.getTileAt(monsterX, monsterY+1).getType() == Walkable) {
+						this.setPosition(monsterX, monsterY+1);
+						steps--;
+					}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX-1, monsterY).getType() == Walkable) {
+						this.setPosition(monsterX-1, monsterY);
+						steps--;
+					}
+				}
+			}
+			if (playerX < monsterX && playerY < monsterY) {
+				if (direcao == 0) {
+					if (map.getTileAt(monsterX, monsterY-1).getType() == Walkable) {
+						this.setPosition(monsterX, monsterY-1);
+						steps--;
+					}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX-1, monsterY).getType() == Walkable) {
+						this.setPosition(monsterX-1, monsterY);
+						steps--;
+					}
+				}
+			}
+			if (playerX > monsterX && playerY < monsterY) {
+				if (direcao == 0) {
+					if (map.getTileAt(monsterX, monsterY-1).getType() == Walkable) {
+						this.setPosition(monsterX, monsterY-1);
+						steps--;
+					}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX+1, monsterY).getType() == Walkable) {
+						this.setPosition(monsterX+1, monsterY);
+						steps--;
+					}
+				}
+			}
+			if (playerX == monsterX) {
+				if (playerY > monsterY) {
+					if (map.getTileAt(monsterX, monsterY+1).getType() == Walkable) {
+						this.setPosition(monsterX, monsterY+1);
+						steps--;
+					}
+				}
+				else if (playerY < monsterY) {
+					if (map.getTileAt(monsterX, monsterY-1).getType() == Walkable) {
+						this.setPosition(monsterX, monsterY-1);
+						steps--;
+					}
+				}
+			}
+			if (playerY == monsterY) {
+				if (playerX > monsterX) {
+					if (map.getTileAt(monsterX+1, monsterY).getType() == Walkable) {
+						this.setPosition(monsterX+1, monsterY);
+						steps--;
+					}
+				}
+				else if (playerX < monsterX) {
+					if (map.getTileAt(monsterX-1, monsterY).getType() == Walkable) {
+						this.setPosition(monsterX-1, monsterY);
+						steps--;
+					}
+				}
+			}
+		}
+	}
+	public void randomWalk() {
+		Random random = new Random();
+		int direcao = random.nextInt(4);
+		
+		int monsterX = getX();
+		int monsterY = getY();
+		
+		
+		Map map = getMap();
+		if (direcao == 0) {
+			if(map.getTileAt(monsterX, monsterY+1).getType() == Walkable)
+				this.setPosition(monsterX, monsterY+1);
+		}
+		else if (direcao == 1) {
+			if(map.getTileAt(monsterX, monsterY-1).getType() == Walkable)
+				this.setPosition(monsterX, monsterY-1);
+		}
+		else if (direcao == 2) {
+			if(map.getTileAt(monsterX+1, monsterY).getType() == Walkable)
+				this.setPosition(monsterX+1, monsterY);
+		}
+		else if (direcao == 3) {
+			if(map.getTileAt(monsterX-1, monsterY).getType() == Walkable)
+				this.setPosition(monsterX-1, monsterY);
+		}
+	}
 	public abstract int getImage();
 	
 }
