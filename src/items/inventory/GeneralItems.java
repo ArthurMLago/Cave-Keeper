@@ -8,7 +8,10 @@ import java.io.Serializable;
  * @author Vicente
  * classe mae de todos os items, assim contendo os metodos e atributos basicos
  */
-public class GeneralItems implements IItems {
+public class GeneralItems implements IItems, Serializable {
+
+
+	private static final long serialVersionUID = 1L;
 
 /**
  * atributos: nome e quantidade no inventario
@@ -32,6 +35,10 @@ public class GeneralItems implements IItems {
 	
 	public int getNumber() {
 		return this.number;
+	}
+	
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	
 	public void increase() {

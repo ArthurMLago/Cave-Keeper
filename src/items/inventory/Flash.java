@@ -7,6 +7,8 @@ import anima.component.ISupports;
 import anima.component.InterfaceType;
 
 public class Flash extends GeneralItems implements IAction{
+	
+	private static final long serialVersionUID = 1L;
 	private int key;
 	private IMapVisual map;
 	

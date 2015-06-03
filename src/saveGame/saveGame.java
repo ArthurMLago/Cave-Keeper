@@ -25,7 +25,7 @@ public class saveGame <T>{
  */
 	public void saveState(T e) {
 		try {
-			FileOutputStream fileOut = new FileOutputStream("src/saveGame/tmp/alou.ser");
+			FileOutputStream fileOut = new FileOutputStream("src/saveGame/tmp/teste.ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(e);
 			
@@ -43,16 +43,19 @@ public class saveGame <T>{
  * @return o objeto serializado
  */
 	
+	
+	@SuppressWarnings("unchecked")
 	public T obtainState() {
 		
 		try {
 			T e1 = null;
-			FileInputStream fileIn = new FileInputStream("src/saveGame/tmp/alou.ser");
+			FileInputStream fileIn = new FileInputStream("src/saveGame/tmp/teste.ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			e1 = (T) in.readObject();
 			
 			in.close();
 	        fileIn.close();
+	        System.out.println("Deserialization complete");
 	        
 	        return e1;
 		}
