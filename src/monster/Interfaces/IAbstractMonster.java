@@ -2,6 +2,7 @@ package monster.Interfaces;
 
 import gameController.Entidade;
 
+/** Interface que define as operacoes basicas de um monstro. */
 public interface IAbstractMonster extends Entidade {
 	
 	public String getTipo();

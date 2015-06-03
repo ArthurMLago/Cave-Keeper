@@ -3,7 +3,10 @@
  *   - setar a posicao inicial dos monstros de acordo com o gerador do mapa.
  *   - completar o metodo walk nos outros monstros e implementar a caminhada aleatoria.
  *   - adicionar funcoes extras de manipulacao de monstros.
- *   - deixar o algoritmos de seguir o player um pouco mais aleatorio. */
+ *   - deixar o algoritmos de seguir o player um pouco mais aleatorio.
+ *   - escolher imagem dos monstros
+ *   - verificar qual funcao utilizar para reproduzir sons
+ *   - criar documentacao javadocs */
 
 package monster;
 
@@ -12,19 +15,24 @@ import anima.component.base.ComponentBase;
 import monster.Fonte.*;
 import java.util.ArrayList;
 
+/** Classe de gerenciamento dos monstros. Realiza a interacao com o game controller.
+ * @author Mateus Coelho
+ * @author Pedro Ono */
 public class Monster extends ComponentBase {
 	
-	int fase;
-	ArrayList<AbstractMonster> list;
+	private int fase;
+	private ArrayList<AbstractMonster> list;
 	
 	public Monster() {
-		fase = 1;
 		list = new ArrayList<AbstractMonster>();
 	}
 	
-	/* Função iniciadora do componente. */
-	public ArrayList<AbstractMonster> generateMonsters() {
+	/** Gera os monstros de acordo com o nivel do jogo.
+	 * @param f Fase atual do jogo.
+	 * @return ArrayList dos monstros. */
+	public ArrayList<AbstractMonster> generateMonsters(int f) {
 
+		this.fase = f;
 		AbstractMonster monsterToBeGenerated;
 		AbstractMonsterFactory factoryToBeGenerated;
 
@@ -58,8 +66,8 @@ public class Monster extends ComponentBase {
 		
 		return list;
 	}
-	
-	/* Retorna um boolean se os monstros estao vivos. */
+
+	/** Verifica se todos os monstros estao vivos. */
 	public boolean isMonstersAlive() {
 		
 		boolean vivos = true;
@@ -71,13 +79,12 @@ public class Monster extends ComponentBase {
 			
 	}
 	
+	/** Disponibiliza o objeto de um monstro. */
 	public AbstractMonster getMonster() {
 		if(fase >= 1 && fase < 5)
 			return list.get(0);
 		else
 			return list.get(0); /*Ajustar*/
 	}
-	
-	
 	
 }
