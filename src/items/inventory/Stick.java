@@ -2,6 +2,8 @@ package items.inventory;
 
 public class Stick extends GeneralItems {
 	
+	private static final long serialVersionUID = 1L;
+
 	public Stick(String name, int number) {
 		super(name,number);
 	}

@@ -10,6 +10,9 @@ import java.io.Serializable;
  */
 public class GeneralItems implements IItems, Serializable {
 
+
+	private static final long serialVersionUID = 1L;
+
 /**
  * atributos: nome e quantidade no inventario
  */
@@ -32,6 +35,10 @@ public class GeneralItems implements IItems, Serializable {
 	
 	public int getNumber() {
 		return this.number;
+	}
+	
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	
 	public void increase() {

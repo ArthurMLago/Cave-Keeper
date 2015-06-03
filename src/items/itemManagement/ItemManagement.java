@@ -1,22 +1,30 @@
 package items.itemManagement;
 
-import items.interfaces.*;
-import items.inventory.*;
+import items.interfaces.IItemManagement;
+import items.interfaces.IItems;
+import items.inventory.Flare;
+import items.inventory.Flash;
+import items.inventory.GeneralItems;
+import items.inventory.Stick;
+import items.inventory.powerUp;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author Vicente
  * Classe responsavel pela comunicacao entre outras classes e o inventario
  */
-public class ItemManagement implements IItemManagement{
+public class ItemManagement implements IItemManagement, Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	/**
 	 * ArrayList em que cada posicao armazena um objeto correspondente a um TIPO de item
 	 */
 	private ArrayList <IItems> inventory = new ArrayList <IItems>();
 
 
-	public void startInventory() {
+	public ItemManagement() {
 		inventory.add(new Flare("flare", 0));
 		inventory.add(new Flash("flash", 0));
 		inventory.add(new GeneralItems("fuel", 0));
@@ -24,6 +32,12 @@ public class ItemManagement implements IItemManagement{
 		inventory.add(new GeneralItems("saltAmmo", 0));
 		inventory.add(new Stick("stick", 0));
 		
+	}
+	
+	public void startInventoryNumbers(ArrayList<Integer> quantities) {
+		for(int i = 0; i < quantities.size(); i++) {
+			inventory.get(i).setNumber(quantities.get(i));
+		}
 	}
 	
 /**
@@ -45,7 +59,21 @@ public class ItemManagement implements IItemManagement{
 		return inventory.get(place).getNumber();
 	}
 	
+	public void setNumber(int place, int number) {
+		inventory.get(place).setNumber(number);
+	}
+	
 	public String displayName(int place) {
 		return inventory.get(place).getName();
+	}
+	
+	public void printEverything() {
+		int value;
+		String name;
+		for(int i = 0;i < inventory.size();i ++) {
+			value = displayNumber(i);
+			name = displayName(i);
+			System.out.println("Nome: " + name + "  Quantidade: " + value);
+		}
 	}
 }

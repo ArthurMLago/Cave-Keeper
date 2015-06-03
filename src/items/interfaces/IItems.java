@@ -11,6 +11,7 @@ public interface IItems {
 	
 	public String getName();
 	public int getNumber();
+	public void setNumber(int number);
 	public void increase();
 	public void decrease();
 	public void effect();

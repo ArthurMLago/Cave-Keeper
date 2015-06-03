@@ -2,6 +2,9 @@ package items.inventory;
 
 public class Flare extends GeneralItems {
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	public Flare(String name, int number) {
 		super(name,number);
 	}
@@ -9,8 +12,8 @@ public class Flare extends GeneralItems {
 	public void effect() {
 		super.effect();
 		
-/**	
- * chama funcao que ilumina parte do mapa onde o item foi usado
- */
+
+//		GameController.sharedInstance.map.iluminateRadius();
+
 	}
 }
