@@ -1,7 +1,6 @@
 package visual.interfaces;
 
-import player.IPlayer;
-import anima.component.ISupports;
+import player.IPlayerAction;
 
 /**
  * Interface de ação que depende de um player
@@ -14,5 +13,5 @@ public interface IActionPlayer extends IAction{
 	 * 
 	 * @param player - Player utilizado;
 	 */
-	public void connect(IPlayer player);
+	public void connect(IPlayerAction player);
 }

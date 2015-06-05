@@ -1,6 +1,6 @@
 package player;
 
-public interface IPlayerMax {
+public interface IPlayerMax{
 	
 	public void setLighter();
 	public boolean move(char direction);
