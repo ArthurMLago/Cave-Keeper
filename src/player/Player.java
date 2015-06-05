@@ -54,28 +54,28 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
 		facing = direction;
 		
 		if (direction == Facing.NORTH) {
-			if ((GameController.sharedInstance.map.getTipe(posX, posY + 1)) == "walkable")
+			if ((GameController.getSharedInstance().map.getTipe(posX, posY + 1)) == "walkable")
 				posY++;
 			else
 				return false;			
 		}
 		
 		else if (direction == Facing.SOUTH) {
-			if (GameController.sharedInstance.map.getTipe(posX, posY - 1) == "walkable")
+			if (GameController.getSharedInstance().map.getTipe(posX, posY - 1) == "walkable")
 				posY--;
 			else
 				return false;
 		}
 		
 		else if (direction == Facing.EAST) {
-			if (GameController.sharedInstance.map.getTipe(posX + 1, posY) == "walkable")
+			if (GameController.getSharedInstance().map.getTipe(posX + 1, posY) == "walkable")
 				posX++;
 			else
 				return false;
 		}
 		
 		else if (direction == Facing.WEST) {
-			if (GameController.sharedInstance.map.getTipe(posX - 1, posY) == "walkable")
+			if (GameController.getSharedInstance().map.getTipe(posX - 1, posY) == "walkable")
 				posX--;
 			else
 				return false;
@@ -84,7 +84,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
 			return false;
 		
 		bag.update(posX, posY);
-		GameController.SharedInstance.map.update(posX, posY);
+		GameController.getSharedInstance().map.update(posX, posY);
 		
 		return true;
 	}
@@ -101,36 +101,36 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
 		
 		if (direction == 'E') {
 			for(int i = x + 1; flag == 0; i++) {
-				if (GameController.sharedInstance.gameMap.getTipe(i, y) == "wall")
+				if (GameController.getSharedInstance().gameMap.getTipe(i, y) == "wall")
 					flag = 1;
-				else if((gameController.sharedInstance.gameMonster.getX() == i) && (gameController.sharedInstance.gameMonster.getX() == posY))
+				else if((gameController.getSharedInstance().gameMonster.getX() == i) && (gameController.sharedInstance.gameMonster.getX() == posY))
 					flag = 2;
 			}
 		}
 		
 		if (direction == 'W') {
 			for(int i = x - 1; flag == 0; i--) {
-				if (GameController.sharedInstance.gameMap.getTipe(i, y) == "wall")
+				if (GameController.getSharedInstance().gameMap.getTipe(i, y) == "wall")
 					flag = 1;
-				else if((gameController.sharedInstance.gameMonster.getX() == i) && (gameController.sharedInstance.gameMonster.getX() == posY))
+				else if((gameController.getSharedInstance().gameMonster.getX() == i) && (gameController.sharedInstance.gameMonster.getX() == posY))
 					flag = 2;
 			}
 		}
 		
 		if (direction == 'N') {
 			for(int i = y + 1; flag == 0; i++) {
-				if (GameController.sharedInstance.gameMap.getTipe(x, i) == "wall")
+				if (GameController.getSharedInstance().gameMap.getTipe(x, i) == "wall")
 					flag = 1;
-				else if((gameController.sharedInstance.gameMonster.getX() == posX) && (gameController.sharedInstance.gameMonster.getX() == i))
+				else if((gameController.getSharedInstance().gameMonster.getX() == posX) && (gameController.sharedInstance.gameMonster.getX() == i))
 					flag = 2;
 			}
 		}
 		
 		if (direction == 'S') {
 			for(int i = y - 1; flag == 0; i--) {
-				if (GameController.sharedInstance.gameMap.getTipe(x, i) == "wall")
+				if (GameController.getSharedInstance().gameMap.getTipe(x, i) == "wall")
 					flag = 1;
-				else if((gameController.sharedInstance.gameMonster.getX() == posX) && (gameController.sharedInstance.gameMonster.getX() == i))
+				else if((gameController.getSharedInstance().gameMonster.getX() == posX) && (gameController.sharedInstance.gameMonster.getX() == i))
 					flag = 2;
 			}
 		}

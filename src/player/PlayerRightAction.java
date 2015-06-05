@@ -1,10 +1,9 @@
 package player;
 
+import visual.interfaces.IActionPlayer;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
-import visual.interfaces.IActionPlayer;
-import player.IPlayerAction;
 
 public class PlayerRightAction implements IActionPlayer {
 	private int key;
@@ -22,7 +21,7 @@ public class PlayerRightAction implements IActionPlayer {
 
 	@Override
 	public void execute() {
-		player.move('E');
+		player.move(Facing.EAST);
 	}
 
 	@Override

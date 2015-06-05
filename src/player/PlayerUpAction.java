@@ -4,9 +4,11 @@ import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
 import visual.interfaces.IActionPlayer;
+import visual.interfaces.IActionPlayerMapVisual;
+import visual.interfaces.IMapVisual;
 import player.IPlayerAction;
 
-public class PlayerUpAction implements IActionPlayer {
+public class PlayerUpAction implements IActionPlayer{
 	private int key;
 	private IPlayerAction player;
 
@@ -22,7 +24,7 @@ public class PlayerUpAction implements IActionPlayer {
 
 	@Override
 	public void execute() {
-		player.move('N');
+		player.move(Facing.NORTH);
 	}
 
 	@Override

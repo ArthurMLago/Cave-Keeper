@@ -4,6 +4,8 @@ import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
 import visual.interfaces.IActionPlayer;
+import visual.interfaces.IActionPlayerMapVisual;
+import visual.interfaces.IMapVisual;
 import player.IPlayerAction;
 
 public class PlayerLeftAction implements IActionPlayer {
@@ -22,14 +24,14 @@ public class PlayerLeftAction implements IActionPlayer {
 
 	@Override
 	public void execute() {
-		player.move('W');
+		player.move(Facing.WEST);
 	}
 
 	@Override
 	public void connect(IPlayerAction player) {
 		this.player = player;
 	}
-
+	
 	@Override
 	public int addRef() {
 		// TODO Auto-generated method stub

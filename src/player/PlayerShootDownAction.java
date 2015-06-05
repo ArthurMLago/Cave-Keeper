@@ -4,11 +4,14 @@ import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
 import visual.interfaces.IActionPlayer;
+import visual.interfaces.IActionPlayerMapVisual;
+import visual.interfaces.IMapVisual;
 import player.IPlayerAction;
 
-public class PlayerShootDownAction implements IActionPlayer {
+public class PlayerShootDownAction implements IActionPlayerMapVisual {
 	private int key;
 	private IPlayerAction player;
+	private IMapVisual map;
 
 	@Override
 	public int getKey() {
@@ -22,12 +25,18 @@ public class PlayerShootDownAction implements IActionPlayer {
 
 	@Override
 	public void execute() {
-		player.shoot('S');
+		player.shoot(Facing.SOUTH);
+		map.shootDirection(Facing.SOUTH);
 	}
 
 	@Override
 	public void connect(IPlayerAction player) {
 		this.player = player;
+	}
+	
+	@Override
+	public void connect(IMapVisual map) {
+		this.map = map;
 	}
 
 	@Override

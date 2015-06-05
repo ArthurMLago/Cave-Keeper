@@ -4,6 +4,8 @@ import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
 import visual.interfaces.IActionPlayer;
+import visual.interfaces.IActionPlayerMapVisual;
+import visual.interfaces.IMapVisual;
 import player.IPlayerAction;
 
 public class PlayerDownAction implements IActionPlayer {
@@ -22,7 +24,7 @@ public class PlayerDownAction implements IActionPlayer {
 
 	@Override
 	public void execute() {
-		player.move('S');
+		player.move(Facing.SOUTH);
 	}
 
 	@Override

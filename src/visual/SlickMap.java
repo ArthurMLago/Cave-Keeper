@@ -66,17 +66,8 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 
 		if (flare) {
 			drawFlare();
-		} else {
-			shadowNext.draw((player.getX() + xFacing) * this.x,
-					(player.getY() + yFacing) * this.y);
-
-			shadowPlayer.draw(player.getX() * x, player.getY() * y);
-
-			for (Entidade e : entidades) {
-				if (e.getX() == player.getX() + xFacing
-						&& e.getY() == player.getY() + yFacing)
-					drawEntidade(e);
-			}
+		} else if(player.getLighter()){
+			drawShadowWithLighter();
 		}
 		if (explosionShoot)
 			drawExplosion();
@@ -125,40 +116,6 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 
 		faceSprite(gameController.getPlayer().getFacing());
 		imageMap = new HashMap<String, Image>();
-	}
-
-	/**
-	 * Verifica qual o lado que o personagem está olhando e define qual tile
-	 * deve ser mostrado na tela
-	 * 
-	 * @param c
-	 */
-	private void faceSprite(int facing) {
-		switch (facing) {
-		case Facing.NORTH:
-			spritePlayer = playerUp;
-			shadowNext = shadowUp;
-			yFacing = -1;
-			xFacing = 0;
-			break;
-		case Facing.SOUTH:
-			spritePlayer = playerDown;
-			shadowNext = shadowDown;
-			yFacing = 1;
-			xFacing = 0;
-		case Facing.WEST:
-			spritePlayer = playerLeft;
-			shadowNext = shadowLeft;
-			xFacing = -1;
-			yFacing = 0;
-		case Facing.EAST:
-			spritePlayer = playerRight;
-			shadowNext = shadowRight;
-			xFacing = 1;
-			yFacing = 0;
-		default:
-			break;
-		}
 	}
 
 	/**
@@ -235,6 +192,19 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 			explosionShoot = false;
 
 	}
+	
+	private void drawShadowWithLighter(){
+		shadowNext.draw((player.getX() + xFacing) * this.x,
+				(player.getY() + yFacing) * this.y);
+
+		shadowPlayer.draw(player.getX() * x, player.getY() * y);
+
+		for (Entidade e : entidades) {
+			if (e.getX() == player.getX() + xFacing
+					&& e.getY() == player.getY() + yFacing)
+				drawEntidade(e);
+		}
+	}
 
 	/**
 	 * A função mostra que no momento do render deve considerar a ação por um
@@ -245,15 +215,37 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		flareTime = 0;
 	}
 
-	public void shoot() {
+	public void shootDirection(char direction) {
 		explosionShoot = true;
 		explosionTime = 0;
+		int xExDir = 1, yExDir = 1;
 		int xR = player.getX();
 		int yR = player.getY();
 		boolean wallFind = false;
+		
+		switch (direction) {
+		case Facing.NORTH:
+			yExDir = -1;
+			xExDir = 0;
+			break;
+		case Facing.SOUTH:
+			yExDir = 1;
+			xExDir = 0;
+			break;
+		case Facing.WEST:
+			xExDir = -1;
+			yExDir = 0;
+			break;
+		case Facing.EAST:
+			xExDir = 1;
+			yExDir = 0;
+		default:
+			break;
+		}
+		
 		while (!wallFind) {
-			xR += xFacing;
-			yR += yFacing;
+			xR += xExDir;
+			yR += yExDir;
 			for (Entidade e : entidades) {
 				if (e.getX() == xR && e.getY() == yR) {
 					explosionX = xR;
@@ -314,6 +306,41 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		map = gameController.getMap();
 		player = (IPlayerPosition) gameController.getPlayer();
 		entidades = gameController.getEntidades();
+	}
+	
+	
+	/**
+	 * Verifica qual o lado que o personagem está olhando e define qual tile
+	 * deve ser mostrado na tela
+	 * 
+	 * @param c
+	 */
+	public void faceSprite(int facing) {
+		switch (facing) {
+		case Facing.NORTH:
+			spritePlayer = playerUp;
+			shadowNext = shadowUp;
+			yFacing = -1;
+			xFacing = 0;
+			break;
+		case Facing.SOUTH:
+			spritePlayer = playerDown;
+			shadowNext = shadowDown;
+			yFacing = 1;
+			xFacing = 0;
+		case Facing.WEST:
+			spritePlayer = playerLeft;
+			shadowNext = shadowLeft;
+			xFacing = -1;
+			yFacing = 0;
+		case Facing.EAST:
+			spritePlayer = playerRight;
+			shadowNext = shadowRight;
+			xFacing = 1;
+			yFacing = 0;
+		default:
+			break;
+		}
 	}
 
 	@Override

@@ -51,7 +51,12 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 	}
 
 	@Override
-	public void shoot() {
-		compositeMap.shoot();
+	public void shootDirection(char direction) {
+		compositeMap.shootDirection(direction);
+	}
+
+	@Override
+	public void changePlayerFacing(int facing) {
+		compositeMap.faceSprite(facing);
 	}
 }

@@ -19,5 +19,7 @@ public interface IMapVisual extends ISupports{
 	 */
 	public void flareVisual();
 	
-	public void shoot();
+	public void shootDirection(char direction);
+	
+	public void changePlayerFacing(int facing);
 }

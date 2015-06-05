@@ -1,6 +1,6 @@
 package player;
 
 public class Facing {
-	public static final int NORTH = 1, SOUTH = 2, WEST = 3, EAST = 4;
+	public static final char NORTH = 'N', SOUTH = 'S', WEST = 'W', EAST = 'E';
 	
 }
