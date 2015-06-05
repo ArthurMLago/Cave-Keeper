@@ -9,6 +9,6 @@ public interface IPlayerMax{
 	public void useStick();
 	public int getX();
 	public int getY();
-	public char getFacing();
+	public int getFacing();
 
 }

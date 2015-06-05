@@ -16,7 +16,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
 	private ItemManagement bag;
 	
 	public Player(int x, int y) {
-		facing = 'S';
+		facing = Facing.SOUTH;
 		lighter = false;
 		bag = new ItemManagement();	
 		this.posX = x;
@@ -31,7 +31,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
 		return posY;
 	}
 	
-	public char getFacing() {
+	public int getFacing() {
 		return facing;
 	}
 	
@@ -53,28 +53,28 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
 	public boolean move(char direction) {
 		facing = direction;
 		
-		if (direction == 'N') {
+		if (direction == Facing.NORTH) {
 			if ((GameController.sharedInstance.map.getTipe(posX, posY + 1)) == "walkable")
 				posY++;
 			else
 				return false;			
 		}
 		
-		else if (direction == 'S') {
+		else if (direction == Facing.SOUTH) {
 			if (GameController.sharedInstance.map.getTipe(posX, posY - 1) == "walkable")
 				posY--;
 			else
 				return false;
 		}
 		
-		else if (direction == 'E') {
+		else if (direction == Facing.EAST) {
 			if (GameController.sharedInstance.map.getTipe(posX + 1, posY) == "walkable")
 				posX++;
 			else
 				return false;
 		}
 		
-		else if (direction == 'W') {
+		else if (direction == Facing.WEST) {
 			if (GameController.sharedInstance.map.getTipe(posX - 1, posY) == "walkable")
 				posX--;
 			else
