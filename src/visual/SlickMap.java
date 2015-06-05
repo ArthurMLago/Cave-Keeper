@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import map.IMap;
+import map.GameMap;
+import map.enumerations.TileType;
+import map.exceptions.OutOfMapBoundsException;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.BasicGame;
@@ -19,19 +21,20 @@ import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
-import player.IPlayer;
+import player.Facing;
+import player.IPlayerPosition;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
 
 /**
- * Mapa que realiza a interação com a biblioteca utilizado para imprimir as informações na janela
+ * Mapa que realiza a interação com a biblioteca utilizado para imprimir as
+ * informações na janela
  * 
  * @author eitiyamamoto
  *
  */
-public class SlickMap extends BasicGame implements
-		IRequires<IGameController> {
+public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	private Animation spritePlayer, playerUp, playerDown, playerLeft,
 			playerRight;
 	private Animation shadowPlayer, shadowUp, shadowDown, shadowLeft,
@@ -39,13 +42,13 @@ public class SlickMap extends BasicGame implements
 	private int x = 32, y = 32;
 	private int xFacing, yFacing;
 	private IGameController gameController;
-	private IPlayer player;
-	private IMap map;
+	private IPlayerPosition player;
+	private GameMap map;
 	private String character = "cat";
 	private int duration = 10;
 	private boolean flare = false;
 	private int flareTime;
-	private HashMap<String, Image> imageMap, monsterMap;
+	private HashMap<String, Image> imageMap;
 	private Audio footstepAudio;
 	private ArrayList<Entidade> entidades;
 	private boolean explosionShoot = false;
@@ -75,7 +78,7 @@ public class SlickMap extends BasicGame implements
 					drawEntidade(e);
 			}
 		}
-		if(explosionShoot)
+		if (explosionShoot)
 			drawExplosion();
 
 		spritePlayer.draw(player.getX() * x, player.getY() * y);
@@ -83,7 +86,8 @@ public class SlickMap extends BasicGame implements
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
-		Image[] movementUp = { new Image("resource/character/" + character + "_up.png") };
+		Image[] movementUp = { new Image("resource/character/" + character
+				+ "_up.png") };
 		Image[] movementDown = { new Image("resource/character/" + character
 				+ "_down.png") };
 		Image[] movementLeft = { new Image("resource/character/" + character
@@ -124,62 +128,74 @@ public class SlickMap extends BasicGame implements
 	}
 
 	/**
-	 * Verifica qual o lado que o personagem está olhando
-	 * e define qual tile deve ser mostrado na tela
-	 * @param facing
+	 * Verifica qual o lado que o personagem está olhando e define qual tile
+	 * deve ser mostrado na tela
+	 * 
+	 * @param c
 	 */
-	private void faceSprite(String facing) {
-		if ("up".compareTo(facing) == 0) {
+	private void faceSprite(int facing) {
+		switch (facing) {
+		case Facing.NORTH:
 			spritePlayer = playerUp;
 			shadowNext = shadowUp;
 			yFacing = -1;
 			xFacing = 0;
-		} else if ("down".compareTo(facing) == 0) {
+			break;
+		case Facing.SOUTH:
 			spritePlayer = playerDown;
 			shadowNext = shadowDown;
 			yFacing = 1;
 			xFacing = 0;
-		} else if ("left".compareTo(facing) == 0) {
+		case Facing.WEST:
 			spritePlayer = playerLeft;
 			shadowNext = shadowLeft;
 			xFacing = -1;
 			yFacing = 0;
-		} else if ("right".compareTo(facing) == 0) {
+		case Facing.EAST:
 			spritePlayer = playerRight;
 			shadowNext = shadowRight;
 			xFacing = 1;
 			yFacing = 0;
+		default:
+			break;
 		}
 	}
 
 	/**
-	 * Desenha o tile desejado
-	 * Só funciona quando chamado no render
-	 * @param x - Posição x do tile a ser desenhado
-	 * @param y - POsição Y do tile a ser desenhado
+	 * Desenha o tile desejado Só funciona quando chamado no render
+	 * 
+	 * @param x
+	 *            - Posição x do tile a ser desenhado
+	 * @param y
+	 *            - POsição Y do tile a ser desenhado
 	 */
 	private void drawTile(int x, int y) {
 		try {
-			Image tile = getImage("resource/tile/" + map.getTileAt(x, y).getImage()
-					+ ".png", imageMap);
+			if (map.getTileAt(x, y).getType() != TileType.Void) {
+				Image tile = getImage("resource/tile/"
+						+ map.getTileAt(x, y).getImage() + ".png", imageMap);
 
-			Image[] tiles = { tile };
-			Animation tileAnimation = new Animation(tiles, 1000);
-			tileAnimation.draw(x * this.x, y * this.y);
+				Image[] tiles = { tile };
+				Animation tileAnimation = new Animation(tiles, 1000);
+				tileAnimation.draw(x * this.x, y * this.y);
+			}
 		} catch (SlickException e) {
 			System.out.println(e);
+		} catch (OutOfMapBoundsException e) {
+			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Desenha a entidade desejada
-	 * Só funciona quando chamado no render
-	 * @param e - Entidade a ser desenhada
+	 * Desenha a entidade desejada Só funciona quando chamado no render
+	 * 
+	 * @param e
+	 *            - Entidade a ser desenhada
 	 */
 	private void drawEntidade(Entidade e) {
 		try {
 			Image tile = getImage("resource/monster/" + e.getImage() + ".png",
-					monsterMap);
+					imageMap);
 
 			Image[] tiles = { tile };
 			Animation tileAnimation = new Animation(tiles, 1000);
@@ -188,8 +204,8 @@ public class SlickMap extends BasicGame implements
 			System.out.println(ex);
 		}
 	}
-	
-	private void drawFlare(){
+
+	private void drawFlare() {
 		for (int xR = 0; xR < map.getLimiteX(); xR++) {
 			for (int yR = 0; yR < map.getLimiteY(); yR++) {
 				drawTile(xR, yR);
@@ -203,58 +219,65 @@ public class SlickMap extends BasicGame implements
 		if (flareTime > 2000)
 			flare = false;
 	}
-	
-	private void drawExplosion(){
+
+	private void drawExplosion() {
 		Image explosionImage;
 		try {
 			explosionImage = getImage("resource/shoot/explosion.png", imageMap);
 			Image[] explosions = { explosionImage };
 			Animation explosionAnimation = new Animation(explosions, 1000);
-			explosionAnimation.draw(explosionX*this.x, explosionY*this.y);
+			explosionAnimation.draw(explosionX * this.x, explosionY * this.y);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		
-		if(explosionTime > 800)
+
+		if (explosionTime > 800)
 			explosionShoot = false;
-				
+
 	}
 
 	/**
-	 * A função mostra que no momento do render deve considerar a ação por um tempo
-	 * determinado
+	 * A função mostra que no momento do render deve considerar a ação por um
+	 * tempo determinado
 	 */
 	public void flare() {
 		flare = true;
 		flareTime = 0;
 	}
 
-	public void shoot(){
+	public void shoot() {
 		explosionShoot = true;
 		explosionTime = 0;
 		int xR = player.getX();
 		int yR = player.getY();
 		boolean wallFind = false;
-		while(!wallFind){
+		while (!wallFind) {
 			xR += xFacing;
 			yR += yFacing;
-			for(Entidade e : entidades){
-				if(e.getX() == xR && e.getY() == yR){
+			for (Entidade e : entidades) {
+				if (e.getX() == xR && e.getY() == yR) {
 					explosionX = xR;
 					explosionY = yR;
 					wallFind = true;
 				}
 			}
-			if(!wallFind && !map.getTileAt(xR, yR).isWalkable()){
-				explosionX = xR;
-				explosionY = yR;
+			try {
+				if (!wallFind
+						&& map.getTileAt(xR, yR).getType() != TileType.Walkable) {
+					explosionX = xR;
+					explosionY = yR;
+					wallFind = true;
+				}
+			} catch (OutOfMapBoundsException e1) {
+				e1.printStackTrace();
 				wallFind = true;
 			}
 		}
 	}
-	
+
 	/**
 	 * Reproduz o som de passos do monstro
+	 * 
 	 * @param gain
 	 */
 	public void playFootstep(float gain) {
@@ -281,7 +304,7 @@ public class SlickMap extends BasicGame implements
 		gameController.update();
 
 		flareTime += delta;
-		
+
 		explosionTime += delta;
 	}
 
@@ -289,7 +312,7 @@ public class SlickMap extends BasicGame implements
 	public void connect(IGameController gameController) {
 		this.gameController = gameController;
 		map = gameController.getMap();
-		player = gameController.getPlayer();
+		player = (IPlayerPosition) gameController.getPlayer();
 		entidades = gameController.getEntidades();
 	}
 

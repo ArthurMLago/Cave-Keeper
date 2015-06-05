@@ -10,8 +10,10 @@ import org.newdawn.slick.SlickException;
 
 import visual.interfaces.IAudioEffect;
 import visual.interfaces.IMapVisual;
+import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
+@Component(id="cavekeeper/visual.mapVisual")
 public class MapVisual extends ComponentBase implements IMapVisual,
 		IAudioEffect {
 	private SlickMap compositeMap;
