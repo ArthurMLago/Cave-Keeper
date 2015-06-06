@@ -206,6 +206,7 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 				this.setPosition(monsterX-1, monsterY);
 		}
 	}
+	public abstract void walk();
 	public abstract int getImage();
 	
 }

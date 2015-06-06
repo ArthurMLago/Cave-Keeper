@@ -3,21 +3,25 @@
  *   - setar a posicao inicial dos monstros de acordo com o gerador do mapa.
  *   - completar o metodo walk nos outros monstros e implementar a caminhada aleatoria.
  *   - adicionar funcoes extras de manipulacao de monstros.
- *   - deixar o algoritmos de seguir o player um pouco mais aleatorio.
+ * OK  - deixar o algoritmos de seguir o player um pouco mais aleatorio.
  *   - escolher imagem dos monstros
  *   - verificar qual funcao utilizar para reproduzir sons
- *   - criar documentacao javadocs */
+ *  OK - criar documentacao javadocs */
 
 package monster;
 
 import monster.Interfaces.*;
+import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 import monster.Fonte.*;
+
 import java.util.ArrayList;
 
 /** Classe de gerenciamento dos monstros. Realiza a interacao com o game controller.
  * @author Mateus Coelho
  * @author Pedro Ono */
+
+@Component(id="<http://santanvarzea.com/monster.Monster>", provides={"<http://santanvarzea.com/monster.Interfaces.IMonster>"})
 public class Monster extends ComponentBase {
 	
 	private int fase;

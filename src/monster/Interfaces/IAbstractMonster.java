@@ -14,6 +14,8 @@ public interface IAbstractMonster extends Entidade {
 	public int getHp();
 	public void takeShot();
 	public boolean isAlive();
+	public void randomWalk();
+	public void followWalk();
 	public abstract void walk();
 	public int getImage();
 	
