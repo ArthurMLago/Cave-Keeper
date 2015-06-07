@@ -98,12 +98,4 @@ public class Monster extends ComponentBase {
 		return vivos;
 			
 	}
-	
-	/** Disponibiliza o objeto de um monstro. */
-	public AbstractMonster getMonster() {
-		if(fase >= 1 && fase < 5)
-			return list.get(0);
-		else
-			return list.get(0); /*Ajustar*/
-	}
 }

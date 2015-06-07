@@ -53,12 +53,9 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 		double playerY = Player.getPlayerY;
 		int distance = (int) getDistance (playerX, playerY);
 		
-		if(distance <= 10)
-			/* Emitir som pequeno. */;
-		else if(distance > 10 && distance <= 20)
-			/* Emitir som medio. */;
-		else
-			/* Emitir som alto. */;
+		if (distance < 10) {
+			/* ReproduzirSom(10-distance); */
+		}
 	}
 	
 	/** Getter da vida do monstro. */
