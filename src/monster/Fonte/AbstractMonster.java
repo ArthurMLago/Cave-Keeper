@@ -13,7 +13,8 @@ import monster.Interfaces.*;
 public abstract class AbstractMonster implements IAbstractMonster, Serializable {
 	
 	protected int hp, posX, posY, spaces;
-	protected boolean live = true; 
+	protected boolean live = true;
+	protected boolean following;
 	
 	/** Getter do tipo de entidade, no caso um monstro. */
 	public String getTipo() {
@@ -75,6 +76,7 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 		return live;
 	}
 	
+	/** Realiza um movimento seguindo o player */
 	public void followWalk() {
 		Player player = getPlayer();
 		Map map = getMap();
@@ -177,6 +179,8 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 			}
 		}
 	}
+	
+	/** Realiza um movimento aleatorio pelo mapa */
 	public void randomWalk() {
 		Random random = new Random();
 		int direcao = random.nextInt(4);
@@ -202,6 +206,15 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 			if(map.getTileAt(monsterX-1, monsterY).getType() == Walkable)
 				this.setPosition(monsterX-1, monsterY);
 		}
+	}
+	/** Define se o monstro deve começar a seguir o jogador */
+	public void setFollowing(boolean following) {
+		this.following = following;
+	}
+	
+	/** Diz se o monstro esta seguindo ou nao o player */
+	public boolean getFollowing() {
+		return this.following;
 	}
 	public abstract void walk();
 	public abstract int getImage();

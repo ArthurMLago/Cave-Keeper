@@ -73,14 +73,20 @@ public class Monster extends ComponentBase {
 	}
 	
 	private void runMonstersActions(int playerX, int playerY, boolean wasHit, int monsterID) {
-		
+		AbstractMonster monster = list.get(monsterID);
+		monster.emitSound();
 		if(wasHit) {
-			
+			monster.takeShot();
+			if (monster.isAlive()) {
+				monster.setFollowing(true);
+			}
 		}
-		else {
-			
+		if (monster.getFollowing() == true) {
+			monster.followWalk();
 		}
-			
+		else if (monster.getFollowing() == false) {
+			monster.randomWalk();
+		}
 	}
 	
 	public void deleteMonsters() {
