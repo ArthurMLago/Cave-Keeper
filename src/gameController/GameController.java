@@ -21,8 +21,6 @@ import player.PlayerUpAction;
 import player.PlayerWaitAction;
 import visual.ActionHandler;
 import visual.MapVisual;
-import visual.MapVisualActionFlare;
-import visual.MapVisualActionShoot;
 import visual.interfaces.IActionMapVisual;
 import visual.interfaces.IActionPlayer;
 import visual.interfaces.IActionPlayerMapVisual;
@@ -41,9 +39,10 @@ public class GameController implements IGameController {
 	private IMapVisual mapVisual;
 	private Input command;
 	private ActionHandler handler;
-	private IActionPlayerMapVisual playerDown, playerFlare, playerLeft, playerRight,
+	private IActionPlayerMapVisual playerFlare,
 			playerSetLighter, playerShootDown, playerShootLeft,
-			playerShootRight, playerShootUp, playerStick, playerUp, playerWait;
+			playerShootRight, playerShootUp;
+	private IActionPlayer playerDown, playerLeft, playerRight, playerUp, playerStick, playerWait;
 	private ArrayList<Entidade> entidades;
 	
 	private GameController() { }
@@ -55,47 +54,47 @@ public class GameController implements IGameController {
 	
 		
 		//TODO: Instanciar as outras ações do player
-		playerDown = (IActionPlayerMapVisual) new PlayerDownAction();
+		playerDown =  new PlayerDownAction();
 		playerDown.setKey(Input.KEY_DOWN);
 		playerDown.connect((IPlayerAction) player);
 		
-		playerLeft = (IActionPlayerMapVisual) new PlayerLeftAction();
+		playerLeft =  new PlayerLeftAction();
 		playerLeft.setKey(Input.KEY_LEFT);
 		playerLeft.connect((IPlayerAction) player);
 		
-		playerRight = (IActionPlayerMapVisual) new PlayerRightAction();
+		playerRight = new PlayerRightAction();
 		playerRight.setKey(Input.KEY_RIGHT);
 		playerRight.connect((IPlayerAction) player);
 		
-		playerUp = (IActionPlayerMapVisual) new PlayerUpAction();
+		playerUp = new PlayerUpAction();
 		playerUp.setKey(Input.KEY_UP);
 		playerUp.connect((IPlayerAction) player);
 		
-		playerShootDown = (IActionPlayerMapVisual) new PlayerShootDownAction();
+		playerShootDown = new PlayerShootDownAction();
 		playerShootDown.setKey(Input.KEY_S);
 		playerShootDown.connect((IPlayerAction) player);
 		
-		playerShootLeft = (IActionPlayerMapVisual) new PlayerShootLeftAction();
+		playerShootLeft = new PlayerShootLeftAction();
 		playerShootLeft.setKey(Input.KEY_A);
 		playerShootLeft.connect((IPlayerAction) player);
 		
-		playerShootRight = (IActionPlayerMapVisual) new PlayerShootRightAction();
+		playerShootRight = new PlayerShootRightAction();
 		playerShootRight.setKey(Input.KEY_D);
 		playerShootRight.connect((IPlayerAction) player);
 		
-		playerShootUp = (IActionPlayerMapVisual) new PlayerShootUpAction();
+		playerShootUp = new PlayerShootUpAction();
 		playerShootUp.setKey(Input.KEY_W);
 		playerShootUp.connect((IPlayerAction) player);
 		
-		playerFlare = (IActionPlayerMapVisual) new PlayerFlareAction();
+		playerFlare = new PlayerFlareAction();
 		playerFlare.setKey(Input.KEY_R);
 		playerFlare.connect((IPlayerAction) player);
 		
-		playerStick = (IActionPlayerMapVisual) new PlayerStickAction();
+		playerStick = new PlayerStickAction();
 		playerStick.setKey(Input.KEY_E);
 		playerStick.connect((IPlayerAction) player);
 		
-		playerWait = (IActionPlayerMapVisual) new PlayerWaitAction();
+		playerWait = new PlayerWaitAction();
 		playerWait.setKey(Input.KEY_G);
 		playerWait.connect((IPlayerAction) player);
 		
@@ -117,17 +116,11 @@ public class GameController implements IGameController {
 		//TODO: Conectar mapVisual as outras ações
 		
 		mapVisual = new MapVisual();
-		playerDown.connect(mapVisual);
-		playerUp.connect(mapVisual);
-		playerRight.connect(mapVisual);
-		playerLeft.connect(mapVisual);
 		playerShootDown.connect(mapVisual);
 		playerShootUp.connect(mapVisual);
 		playerShootLeft.connect(mapVisual);
 		playerShootRight.connect(mapVisual);
 		playerFlare.connect(mapVisual);
-		playerStick.connect(mapVisual);
-		playerWait.connect(mapVisual);
 		
 		//TODO: Conectar o mapVisual ao gameController
 		mapVisual.connect(this);
