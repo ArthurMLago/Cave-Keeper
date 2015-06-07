@@ -27,8 +27,10 @@ public class Monster extends ComponentBase {
 	private int fase;
 	private ArrayList<AbstractMonster> list;
 	
-	public Monster() {
+	public Monster(int fase) {
+		this.fase = fase;
 		list = new ArrayList<AbstractMonster>();
+		this.list = this.generateMonsters(fase);
 	}
 	
 	/** Gera os monstros de acordo com o nivel do jogo.
@@ -90,5 +92,4 @@ public class Monster extends ComponentBase {
 		else
 			return list.get(0); /*Ajustar*/
 	}
-	
 }

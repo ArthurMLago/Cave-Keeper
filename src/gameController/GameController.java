@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 
 import player.IPlayerAction;
 import player.IPlayerMax;
+import player.Player;
 import player.PlayerDownAction;
 import player.PlayerUpAction;
 import player.PlayerLeftAction;
@@ -31,10 +32,12 @@ import anima.component.InterfaceType;
 import map.GameMap;
 //import map.*;
 import map.MapGenerator;
+import map.Position;
+import monster.Monster;
 
 public class GameController implements IGameController {
 	private static final GameController sharedInstance = new GameController();;
-	private IPlayerMax player;
+	private Entidade player;
 	private GameMap map;
 	private IMapVisual mapVisual;
 	private Input command;
@@ -43,17 +46,20 @@ public class GameController implements IGameController {
 			playerSetLighter, playerShootDown, playerShootLeft,
 			playerShootRight, playerShootUp;
 	private IActionPlayer playerDown, playerLeft, playerRight, playerUp, playerStick, playerWait;
-	private ArrayList<Entidade> entidades;
+	private Entidade entidades;
 	
 	private GameController() { }
 	
-	private void bootGameController() {
-		entidades = new ArrayList<Entidade>();
+	private void bootGameController(int fase) {
+		Position playerSpawn;
 		
-		//TODO: Instanciar map e Player
-	
+		//TODO: Instanciar map, player e monstros
+		map = MapGenerator.sharedInstance().generateMap();
+		playerSpawn = map.getSpawnPoint(player);
+		player = new Player(playerSpawn.x, playerSpawn.y);
+		entidades = new Monster(fase);
 		
-		//TODO: Instanciar as outras aÃ§Ãµes do player
+		//TODO: Instanciar as outras ações do player
 		playerDown =  new PlayerDownAction();
 		playerDown.setKey(Input.KEY_DOWN);
 		playerDown.connect((IPlayerAction) player);
@@ -98,7 +104,7 @@ public class GameController implements IGameController {
 		playerWait.setKey(Input.KEY_G);
 		playerWait.connect((IPlayerAction) player);
 		
-		//TODO: Conectar as outras aÃ§Ãµes no handler depois de instanciar
+		//TODO: Conectar as outras ações no handler depois de instanciar
 		
 		handler = new ActionHandler();
 		handler.connect(playerDown);
@@ -113,7 +119,7 @@ public class GameController implements IGameController {
 		handler.connect(playerStick);
 		handler.connect(playerWait);
 		
-		//TODO: Conectar mapVisual as outras aÃ§Ãµes
+		//TODO: Conectar mapVisual as outras ações
 		
 		mapVisual = new MapVisual();
 		playerShootDown.connect(mapVisual);
@@ -168,7 +174,7 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public IPlayerMax getPlayer() {
+	public Entidade getPlayer() {
 		// TODO Auto-generated method stub
 		return player;
 	}
@@ -194,5 +200,4 @@ public class GameController implements IGameController {
 	public void setCommand(Input command) {
 		this.command = command;
 	}
-
 }
