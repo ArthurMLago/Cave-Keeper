@@ -130,12 +130,6 @@ public class GameController implements IGameController {
 		return sharedInstance;
 	}
 
-	public static void main(String[] args) {
-		int fase;
-		
-		
-	}
-
 	@Override
 	public int addRef() {
 		// TODO Auto-generated method stub
@@ -193,14 +187,12 @@ public class GameController implements IGameController {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
+		handler.handle(command);
 	}
 
 	@Override
 	public void setCommand(Input command) {
-		// TODO Auto-generated method stub
-
+		this.command = command;
 	}
 
 }
