@@ -24,40 +24,36 @@ import java.util.ArrayList;
 @Component(id="<http://santanvarzea.com/monster.Monster>", provides={"<http://santanvarzea.com/monster.Interfaces.IMonster>"})
 public class Monster extends ComponentBase {
 	
-	private int fase;
 	private ArrayList<AbstractMonster> list;
 	
-	public Monster(int fase) {
-		this.fase = fase;
+	public Monster() {
 		list = new ArrayList<AbstractMonster>();
-		this.list = this.generateMonsters(fase);
 	}
 	
 	/** Gera os monstros de acordo com o nivel do jogo.
 	 * @param f Fase atual do jogo.
 	 * @return ArrayList dos monstros. */
-	public ArrayList<AbstractMonster> generateMonsters(int f) {
+	public void generateMonsters(int f) {
 
-		this.fase = f;
 		AbstractMonster monsterToBeGenerated;
 		AbstractMonsterFactory factoryToBeGenerated;
 
-		if(fase == 1) {
+		if(f == 1) {
 			factoryToBeGenerated = FactoryGenerator.getFactory("guardian");
 			monsterToBeGenerated = factoryToBeGenerated.createGuardian("normal");
 			list.add(monsterToBeGenerated);
 		}
-		else if(fase == 2) {
+		else if(f == 2) {
 			factoryToBeGenerated = FactoryGenerator.getFactory("ghost");
 			monsterToBeGenerated = factoryToBeGenerated.createGhost("normal");
 			list.add(monsterToBeGenerated);
 		}
-		else if(fase == 3) {
+		else if(f == 3) {
 			factoryToBeGenerated = FactoryGenerator.getFactory("ghost");
 			monsterToBeGenerated = factoryToBeGenerated.createGhost("super");
 			list.add(monsterToBeGenerated);
 		}
-		else if(fase == 4) {
+		else if(f == 4) {
 			factoryToBeGenerated = FactoryGenerator.getFactory("guardian");
 			monsterToBeGenerated = factoryToBeGenerated.createGuardian("super");
 			list.add(monsterToBeGenerated);
@@ -70,7 +66,25 @@ public class Monster extends ComponentBase {
 			}
 		}
 		
-		return list;
+	}
+	
+	private void setMonsterPosition(int monsterID, int x, int y) {
+		
+	}
+	
+	private void runMonstersActions(int playerX, int playerY, boolean wasHit, int monsterID) {
+		
+		if(wasHit) {
+			
+		}
+		else {
+			
+		}
+			
+	}
+	
+	public void deleteMonsters() {
+		list.clear();
 	}
 
 	/** Verifica se todos os monstros estao vivos. */

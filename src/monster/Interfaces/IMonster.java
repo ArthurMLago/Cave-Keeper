@@ -11,7 +11,7 @@ import anima.component.ISupports;
 @ComponentInterface("<http://santanvarzea.com/monster.Interfaces.IMonster>")
 public interface IMonster extends ISupports {
 
-	public ArrayList<AbstractMonster> generateMonsters();
+	public void generateMonsters();
 	public boolean isMonstersAlive();
 	public AbstractMonster getMonster();
 	
