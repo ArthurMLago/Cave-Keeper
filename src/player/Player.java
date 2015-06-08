@@ -32,15 +32,18 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 
 	private ItemManagement bag;
 
+	private IMonster monster;
+	
 	/**
 	 * Construtor único que estabelece as condições de início de jogo
 	 */
-	public Player() {
+	public Player(IMonster monster) {
 		facing = Facing.SOUTH;
 		lighter = false;
 		bag = new ItemManagement();
 		this.posX = 0;
 		this.posY = 0;
+		this.monster = monster;
 	}
 
 	/**
@@ -54,7 +57,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	 * @return caminho da imagem do jogador
 	 * @deprecated
 	 */
-	public String getImage() {		
+	public String getImage() {
 		return null;
 	}
 
@@ -87,7 +90,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 
 	/**
 <<<<<<< HEAD
-	 * @return dire��o para a qual o jogador est� olhando
+	 * @return dire��o para a qual o jogador est� olhando
 =======
 	 * @return direção para a qual o jogador está olhando
 >>>>>>> 23fa0c6b39de5d31269b93786e63d4ff7668fc3e
@@ -174,10 +177,11 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 				return false;
 		} catch (OutOfMapBoundsException erro) {
 		}
-		
-		int event = GameController.getSharedInstance().getMap().getTileAt(posX, posY).checkEvents();
+
+		int event = GameController.getSharedInstance().getMap()
+				.getTileAt(posX, posY).checkEventsAt();
 		bag.obtainItem(event);
-		
+
 		return true;
 	}
 
@@ -197,9 +201,6 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 
 		int x = posX, y = posY;
 
-		IMonster monsterReference = GameController.getSharedInstance()
-				.getEntidades();
-
 		int flag = 0;
 		try {
 			if (direction == 'E') {
@@ -208,8 +209,8 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 							.getSharedInstance().getMap().getTileAt(i, y)
 							.getType())))
 						flag = 1;
-					else if ((monsterReference.getX() == i)
-							&& (monsterReference.getY() == posY))
+					else if ((monster.getX() == i)
+							&& (monster.getY() == posY))
 						flag = 2;
 				}
 			}
@@ -220,8 +221,8 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 							.getSharedInstance().getMap().getTileAt(i, y)
 							.getType())))
 						flag = 1;
-					else if ((monsterReference.getX() == i)
-							&& (monsterReference.getY() == posY))
+					else if ((monster.getX() == i)
+							&& (monster.getY() == posY))
 						flag = 2;
 				}
 			}
@@ -232,8 +233,8 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 							.getSharedInstance().getMap().getTileAt(x, i)
 							.getType())))
 						flag = 1;
-					else if ((monsterReference.getX() == posX)
-							&& (monsterReference.getY() == i))
+					else if ((monster.getX() == posX)
+							&& (monster.getY() == i))
 						flag = 2;
 				}
 			}
@@ -244,8 +245,8 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 							.getSharedInstance().getMap().getTileAt(x, i)
 							.getType())))
 						flag = 1;
-					else if ((monsterReference.getX() == posX)
-							&& (monsterReference.getY() == i))
+					else if ((monster.getX() == posX)
+							&& (monster.getY() == i))
 						flag = 2;
 				}
 			}
@@ -268,7 +269,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	 * Método que utiliza o item flare
 	 */
 	public void useFlare() {
-		bag.useItem(0/* FLARE */);
+		bag.useItem(0);
 	}
 
 	/**
@@ -276,5 +277,12 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	 */
 	public void useStick() {
 		bag.useItem(5);
+	}
+
+	/**
+	 * Método que utiliza o item flash
+	 */
+	public void useFlash() {
+		bag.useItem(1);
 	}
 }

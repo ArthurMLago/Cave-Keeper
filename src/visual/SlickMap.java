@@ -38,8 +38,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	private Animation spritePlayer, playerUp, playerDown, playerLeft,
 			playerRight;
 	private Animation shadowPlayer, shadowUp, shadowDown, shadowLeft,
-			shadowRight, shadowNext;
-	private int x = 32, y = 32;
+			shadowRight, shadowNext, shadowAround;
 	private int xFacing, yFacing;
 	private IGameController gameController;
 	private IPlayerPosition player;
@@ -66,13 +65,15 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 
 		if (flare) {
 			drawFlare();
-		} else if(player.getLighter()){
+		} else if (player.getLighter()) {
+			drawAround();
+		} else{
 			drawShadowWithLighter();
 		}
 		if (explosionShoot)
 			drawExplosion();
 
-		spritePlayer.draw(player.getX() * x, player.getY() * y);
+		spritePlayer.draw(player.getX() * MapVisual.SIZEIMAGE, player.getY() * MapVisual.SIZEIMAGE);
 	}
 
 	@Override
@@ -98,11 +99,13 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		Image[] shaDown = { new Image(pathShadow + "down.png") };
 		Image[] shaLeft = { new Image(pathShadow + "left.png") };
 		Image[] shaRight = { new Image(pathShadow + "right.png") };
+		Image[] shaAround = { new Image(pathShadow + "around.png") };
 		shadowPlayer = new Animation(shaPlayer, duration, false);
 		shadowUp = new Animation(shaUp, duration, false);
 		shadowDown = new Animation(shaDown, duration, false);
 		shadowRight = new Animation(shaRight, duration, false);
 		shadowLeft = new Animation(shaLeft, duration, false);
+		shadowAround = new Animation(shaAround, duration, false);
 
 		String pathAudio = "resource/audio/";
 		try {
@@ -134,7 +137,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 
 				Image[] tiles = { tile };
 				Animation tileAnimation = new Animation(tiles, 1000);
-				tileAnimation.draw(x * this.x, y * this.y);
+				tileAnimation.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE);
 			}
 		} catch (SlickException e) {
 			System.out.println(e);
@@ -156,7 +159,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 
 			Image[] tiles = { tile };
 			Animation tileAnimation = new Animation(tiles, 1000);
-			tileAnimation.draw(e.getX() * this.x, e.getY() * this.y);
+			tileAnimation.draw(e.getX() * MapVisual.SIZEIMAGE, e.getY() * MapVisual.SIZEIMAGE);
 		} catch (SlickException ex) {
 			System.out.println(ex);
 		}
@@ -183,21 +186,30 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 			explosionImage = getImage("resource/shoot/explosion.png", imageMap);
 			Image[] explosions = { explosionImage };
 			Animation explosionAnimation = new Animation(explosions, 1000);
-			explosionAnimation.draw(explosionX * this.x, explosionY * this.y);
+			explosionAnimation.draw(explosionX * MapVisual.SIZEIMAGE, explosionY * MapVisual.SIZEIMAGE);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 
 		if (explosionTime > 800)
 			explosionShoot = false;
-
 	}
 	
-	private void drawShadowWithLighter(){
-		shadowNext.draw((player.getX() + xFacing) * this.x,
-				(player.getY() + yFacing) * this.y);
+	private void drawAround(){
+		for(int xA = player.getX() - 1; xA < player.getX()+1; xA++){
+			for(int yA = player.getY()-1; yA < player.getY()+1; yA++){
+				drawTile(xA, yA);
+			}
+		}
+		
+		shadowAround.draw((player.getX()-1)*MapVisual.SIZEIMAGE, (player.getY()-1)*MapVisual.SIZEIMAGE);
+	}
 
-		shadowPlayer.draw(player.getX() * x, player.getY() * y);
+	private void drawShadowWithLighter() {
+		shadowNext.draw((player.getX() + xFacing) * MapVisual.SIZEIMAGE,
+				(player.getY() + yFacing) * MapVisual.SIZEIMAGE);
+
+		shadowPlayer.draw(player.getX() * MapVisual.SIZEIMAGE, player.getY() * MapVisual.SIZEIMAGE);
 
 		for (Entidade e : entidades) {
 			if (e.getX() == player.getX() + xFacing
@@ -222,7 +234,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		int xR = player.getX();
 		int yR = player.getY();
 		boolean wallFind = false;
-		
+
 		switch (direction) {
 		case Facing.NORTH:
 			yExDir = -1;
@@ -242,7 +254,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		default:
 			break;
 		}
-		
+
 		while (!wallFind) {
 			xR += xExDir;
 			yR += yExDir;
@@ -307,8 +319,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		player = (IPlayerPosition) gameController.getPlayer();
 		entidades = gameController.getEntidades();
 	}
-	
-	
+
 	/**
 	 * Verifica qual o lado que o personagem est� olhando e define qual tile
 	 * deve ser mostrado na tela

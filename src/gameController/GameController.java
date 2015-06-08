@@ -8,6 +8,7 @@ import org.newdawn.slick.Input;
 
 import player.*;
 import visual.interfaces.*;
+import visual.interfaces.IMapVisual;
 import visual.*;
 import saveGame.*;
 import monster.*;
