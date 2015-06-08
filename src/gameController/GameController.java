@@ -9,16 +9,18 @@ import visual.interfaces.*;
 import visual.*;
 import saveGame.*;
 import monster.*;
+import monster.Interfaces.*;
 import map.*;
-import visual.interfaces.IActionPlayerMapVisual;
-import visual.interfaces.IMapVisual;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
-import map.GameMap;
-import map.MapGenerator;
-import map.Position;
-import monster.Monster;
+
+/**
+ * Componente que faz a conexao dos outros componentes
+ * @author MiguelHenrique
+ *
+ */
+
 
 public class GameController implements IGameController {
 	private static final GameController sharedInstance = new GameController();
@@ -31,7 +33,7 @@ public class GameController implements IGameController {
 			playerSetLighter, playerShootDown, playerShootLeft,
 			playerShootRight, playerShootUp;
 	private IActionPlayer playerDown, playerLeft, playerRight, playerUp, playerStick, playerWait;
-	private Entidade entidades;
+	private IMonster compMonster;
 	
 	private GameController() { }
 	
@@ -43,7 +45,7 @@ public class GameController implements IGameController {
 		player = new Player();
 		playerSpawn = map.getSpawnPoint(player);
 		player.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
-		entidades = new Monster(fase);
+		compMonster = new Monster();
 		
 		//TODO: Instanciar as outras ações do player
 		playerDown =  new PlayerDownAction();
@@ -52,7 +54,7 @@ public class GameController implements IGameController {
 		
 		playerLeft =  new PlayerLeftAction();
 		playerLeft.setKey(Input.KEY_LEFT);
-		playerLeft.connect((IPlayerAction) player);
+		'	'playerLeft.connect((IPlayerAction) player);
 		
 		playerRight = new PlayerRightAction();
 		playerRight.setKey(Input.KEY_RIGHT);
@@ -172,9 +174,9 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public Entidade getEntidades() {
+	public IMonster getEntidades() {
 		// TODO Auto-generated method stub
-		return entidades;
+		return compMonster;
 	}
 
 	@Override

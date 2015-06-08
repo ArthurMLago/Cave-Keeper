@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * @author Pedro Ono */
 
 @Component(id="<http://santanvarzea.com/monster.Monster>", provides={"<http://santanvarzea.com/monster.Interfaces.IMonster>"})
-public class Monster extends ComponentBase {
+public class Monster extends ComponentBase implements IMonster {
 	
 	IPlayer player;
 	IMap map;
