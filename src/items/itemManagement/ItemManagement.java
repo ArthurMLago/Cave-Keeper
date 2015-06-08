@@ -11,11 +11,15 @@ import items.inventory.powerUp;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
+
 /**
  * @author Vicente
  * Classe responsavel pela comunicacao entre outras classes e o inventario
  */
-public class ItemManagement implements IItemManagement, Serializable{
+@Component(id="<http://santanvarzea.com/items.itemManagement.ItemManagement>", provides={"<http://santanvarzea.com/items.interfaces.IItemManagement>"})
+public class ItemManagement extends ComponentBase implements IItemManagement, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	/**
@@ -52,7 +56,8 @@ public class ItemManagement implements IItemManagement, Serializable{
  * ao obter um novo item, chama-se tal metodo para aumentar sua quantidade
  */
 	public void obtainItem(int place) {
-		inventory.get(place).increase();
+		if(place >= 0 && place <= 5)
+			inventory.get(place).increase();
 	}
 	
 	public int displayNumber(int place) {

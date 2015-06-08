@@ -3,6 +3,7 @@ package player;
 import map.enumerations.TileType;
 import map.exceptions.OutOfMapBoundsException;
 import gameController.*;
+import monster.Interfaces.*;
 import items.itemManagement.ItemManagement;
 import player.IPlayerMax;
 
@@ -48,9 +49,10 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 
 	/**
 	 * @return caminho da imagem do jogador
+	 * @deprecated
 	 */
-	public int getImage() {
-		return 1;
+	public String getImage() {		
+		return null;
 	}
 
 	/**
@@ -165,7 +167,10 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 				return false;
 		} catch (OutOfMapBoundsException erro) {
 		}
-
+		
+		int event = GameController.getSharedInstance().getMap().getTileAt(posX, posY).checkEvents();
+		bag.obtainItem(event);
+		
 		return true;
 	}
 
@@ -185,7 +190,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 
 		int x = posX, y = posY;
 
-		Entidade monsterReference = GameController.getSharedInstance()
+		IMonster monsterReference = GameController.getSharedInstance()
 				.getEntidades();
 
 		int flag = 0;

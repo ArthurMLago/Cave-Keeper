@@ -15,8 +15,9 @@ import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 import monster.Fonte.*;
 
-
 import java.util.ArrayList;
+
+import player.IPlayerMax;
 
 /** Classe de gerenciamento dos monstros. Realiza a interacao com o game controller.
  * @author Mateus Coelho
@@ -25,8 +26,8 @@ import java.util.ArrayList;
 @Component(id="<http://santanvarzea.com/monster.Monster>", provides={"<http://santanvarzea.com/monster.Interfaces.IMonster>"})
 public class Monster extends ComponentBase implements IMonster {
 	
-	IPlayer player;
-	IMap map;
+	IPlayerMax player;
+	IGameMap map;
 	
 	private ArrayList<AbstractMonster> list;
 	
@@ -82,15 +83,19 @@ public class Monster extends ComponentBase implements IMonster {
 	}
 	
 	public void runMonstersActions(int monsterID) {
-		int playerX = this.player.getX;
-		int playerY = this.player.getY;
+		int playerX = this.player.getX();
+		int playerY = this.player.getY();
+		
+		
 		AbstractMonster monster = list.get(monsterID);
+		
 		monster.emitSound(playerX, playerY);
+		
 		if (monster.getFollowing() == true) {
-			monster.followWalk();
+			monster.followWalk(playerX, playerY, map);
 		}
 		else if (monster.getFollowing() == false) {
-			monster.randomWalk();
+			monster.randomWalk(map);
 		}
 	}
 	
@@ -119,5 +124,11 @@ public class Monster extends ComponentBase implements IMonster {
 		}
 		return vivos;
 			
+	}
+	public int getX(int monsterID) {
+		return list.get(monsterID).getX();
+	}
+	public int getY(int monsterID) {
+		return list.get(monsterID).getY();
 	}
 }
