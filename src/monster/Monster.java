@@ -10,6 +10,7 @@
 
 package monster;
 
+import map.interfaces.IGameMap;
 import monster.Interfaces.*;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
@@ -26,16 +27,17 @@ import player.IPlayerMax;
 @Component(id="<http://santanvarzea.com/monster.Monster>", provides={"<http://santanvarzea.com/monster.Interfaces.IMonster>"})
 public class Monster extends ComponentBase implements IMonster {
 	
+
 	IPlayerMax player;
 	IGameMap map;
-	
+
 	private ArrayList<AbstractMonster> list;
 	
 	public Monster() {
 		list = new ArrayList<AbstractMonster>();
 	}
 	
-	public void connect (IPlayer player, IMap map)  {
+	public void connect (IPlayer player, IMapVisual map)  {
 		this.player = player;
 		this.map = map;
 	}

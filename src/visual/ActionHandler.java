@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 
 import visual.interfaces.IAction;
 import visual.interfaces.IHandler;
+import anima.annotation.ComponentInterface;
 import anima.component.IRequires;
 import anima.component.base.ComponentBase;
 
@@ -15,6 +16,8 @@ import anima.component.base.ComponentBase;
  * @author eitiyamamoto
  *
  */
+
+@ComponentInterface("<http://santanvarzea.com/visual.ActionHandler>")
 public class ActionHandler extends ComponentBase implements IHandler, IRequires<IAction>{
 	private ArrayList<IAction> command;
 	
