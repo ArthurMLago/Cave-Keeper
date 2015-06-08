@@ -17,6 +17,6 @@ public interface IAbstractMonster extends Entidade {
 	public void randomWalk();
 	public void followWalk();
 	public abstract void walk();
-	public int getImage();
+	public String getImage();
 	
 }
