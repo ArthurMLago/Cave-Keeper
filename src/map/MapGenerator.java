@@ -4,6 +4,7 @@ package map;
 import map.GameMap;
 import map.Position;
 import map.enumerations.TileType;
+import map.interfaces.IMapGenerator;
 
 import java.util.Random;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * @author Arthur Moraes do Lago
  *
  */
-public class MapGenerator {
+public class MapGenerator implements IMapGenerator{
 	//Instância estatica da classe( singleton):
 	private static MapGenerator sharedInstancee;
 	
@@ -106,7 +107,7 @@ public class MapGenerator {
 	 * Método que gera um mapa aleatório jogavel com as caracteristicas especificadas.
 	 * @return Um objeto da classe Mapa, contendo um mapa jogavel com as caracteristicas especificadas.
 	 */
-	public void generateMap(){
+	public GameMap generateMap(){
 		
 		Matriz = new int[MapWidth][MapHeight];
 		SpawnPointList = new ArrayList<Position>();
@@ -117,8 +118,8 @@ public class MapGenerator {
 		int PosX = MapWidth/2 - 10;
 		int PosY = MapHeight/2;
 		
+		
 		//Geracao do mapa bruto:
-		//Contagem de passos do random blobber:
 		//Contagem de vezes que o o blobber alterou a matriz:
 		int ChangeCount = 0;
 		//Loop de movimentacao do blobber:
@@ -161,6 +162,9 @@ public class MapGenerator {
 		//tirar passsagems muito estreitas:
 		filterNarrowPassage();
 		
+		//Criar paredes:
+		setMapLimits();
+		
 		//criar spawn points:
 		CreateSpawnPoints();
 		
@@ -179,10 +183,11 @@ public class MapGenerator {
 			}
 		}
 		
-		
-		
 		//Imprimir:
 		DEBUGprintMap();
+		
+		return new GameMap(MatrizTiles,SpawnPointList);
+		
 		
 		
 
@@ -293,6 +298,21 @@ public class MapGenerator {
 		}
 	}
 	
+	/**
+	 * Função que faz com que as bordas do mapa sejam sempre paredes:
+	 */
+	private void setMapLimits(){
+		//Criar as paredes do mapa:
+		for (int i = 0; i < MapHeight; i++){
+			Matriz[i][0] = 0;
+			Matriz[i][MapWidth - 1] = 0;
+		}
+		for (int i = 0; i < MapWidth; i++){
+			Matriz[0][i] = 0;
+			Matriz[MapHeight - 1][i] = 0;
+		}
+	}
+	
 	
 	/**
 	 * Função que cria SpawnPoints espalhados pelo mapa, de form a deixa-los sempre suficientemente afastados,
@@ -325,6 +345,7 @@ public class MapGenerator {
 		}
 		
 		for (int i = 0; i < NSpawnPoints; i++){
+			SpawnPointList.add(SpawnPointPosition[i]);
 			Matriz[SpawnPointPosition[i].getX()][SpawnPointPosition[i].getY()] = 8;
 		}
 	}

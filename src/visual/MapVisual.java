@@ -13,7 +13,7 @@ import visual.interfaces.IMapVisual;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
-@Component(id="cavekeeper/visual.mapVisual")
+@Component(id="<http://santanvarzea.com/visual.MapVisual>", provides={"<http://santanvarzea.com/visual.IMapVisual>"})
 public class MapVisual extends ComponentBase implements IMapVisual,
 		IAudioEffect {
 	private SlickMap compositeMap;
@@ -30,8 +30,8 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 		compositeMap.connect(gameController);
 		try {
 			agc = new AppGameContainer(compositeMap);
-			agc.setDisplayMode(gameController.getMap().getLimiteX() * 32,
-					gameController.getMap().getLimiteY() * 32, false);
+			agc.setDisplayMode(gameController.getMap().getLimitX() * 32,
+					gameController.getMap().getLimitY() * 32, false);
 			agc.start();
 		} catch (SlickException e) {
 			Logger.getLogger(MapVisual.class.getName()).log(Level.SEVERE, null,

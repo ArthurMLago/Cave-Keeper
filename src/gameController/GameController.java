@@ -47,7 +47,7 @@ public class GameController implements IGameController {
 		player.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
 		compMonster = new Monster();
 		
-		//TODO: Instanciar as outras ações do player
+		//TODO: Instanciar as outras aÃ§Ãµes do player
 		playerDown =  new PlayerDownAction();
 		playerDown.setKey(Input.KEY_DOWN);
 		playerDown.connect((IPlayerAction) player);
@@ -92,7 +92,7 @@ public class GameController implements IGameController {
 		playerWait.setKey(Input.KEY_G);
 		playerWait.connect((IPlayerAction) player);
 		
-		//TODO: Conectar as outras ações no handler depois de instanciar
+		//TODO: Conectar as outras aÃ§Ãµes no handler depois de instanciar
 		
 		handler = new ActionHandler();
 		handler.connect(playerDown);
@@ -107,7 +107,7 @@ public class GameController implements IGameController {
 		handler.connect(playerStick);
 		handler.connect(playerWait);
 		
-		//TODO: Conectar mapVisual as outras ações
+		//TODO: Conectar mapVisual as outras aÃ§Ãµes
 		
 		mapVisual = new MapVisual();
 		playerShootDown.connect(mapVisual);

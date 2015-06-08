@@ -3,6 +3,10 @@ package items.itemManagement;
 import java.util.ArrayList;
 import saveGame.saveGame;
 
+/**
+ * @author Vicente
+ * @author Felipe Moret
+ */
 public class TestComponent {
 
 	public static void main(String[] args) {

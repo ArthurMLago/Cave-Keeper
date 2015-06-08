@@ -1,9 +1,11 @@
 package map;
 
 import map.exceptions.OutOfMapBoundsException;
+import map.interfaces.IGameMap;
 import gameController.Entidade;
 import map.Position;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.ArrayList;
 
@@ -17,8 +19,11 @@ import java.util.ArrayList;
  * @author ArthurMLago
  *
  */
-public class GameMap {
+public class GameMap implements IGameMap,Serializable {
 	private TileMap[][] Matriz;
+	
+	private int MapWidth, MapHeight;
+	private int NSpawnPoints;
 	
 	private ArrayList<Position> SpawnPointList;
 	private Hashtable<Entidade, Position> AssignedSpawnPoints;

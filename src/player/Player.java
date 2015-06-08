@@ -1,5 +1,7 @@
 package player;
 
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 import map.enumerations.TileType;
 import map.exceptions.OutOfMapBoundsException;
 import gameController.*;
@@ -8,17 +10,18 @@ import items.itemManagement.ItemManagement;
 import player.IPlayerMax;
 
 /**
- * Classe que armazena as informa��es e implemneta todas as a��es do jogador.
+ * Classe que armazena as informações e implemneta todas as ações do jogador.
  * <p>
- * Um objeto da classe Player mant�m a sua posi��o e os seus itens. Seus m�todos
- * implementam as a��es possiveis do jogador registrando todas as mudan�as de
+ * Um objeto da classe Player mantém a sua posição e os seus itens. Seus métodos
+ * implementam as ações possiveis do jogador registrando todas as mudanças de
  * estado e comunicando todos os outros componentes do jogo.
  * 
- * @author Guilherme I. M. de Ara�jo
+ * @author Guilherme I. M. de Araújo
  * @author Diego S. Martines
  *
  */
-public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
+@Component(id="<http://santanvarzea.com/player.Player>", provides={"<http://santanvarzea.com/player.IPlayer>"})
+public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAction, IPlayerMax,
 		Entidade {
 
 	private int posX, posY;
@@ -32,7 +35,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	private IMonster monster;
 	
 	/**
-	 * Construtor �nico que estabelece as condi��es de in�cio de jogo
+	 * Construtor único que estabelece as condições de início de jogo
 	 */
 	public Player(IMonster monster) {
 		facing = Facing.SOUTH;
@@ -44,7 +47,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * M�todo para obter o nome da classe Player de forma simples
+	 * Método para obter o nome da classe Player de forma simples
 	 */
 	public String getTipo() {
 		return "player";
@@ -59,12 +62,12 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * M�todo que estabelece a posi��o inicial do jogador no mapa
+	 * Método que estabelece a posição inicial do jogador no mapa
 	 * 
 	 * @param x
-	 *            posi��o horizontal desejada
+	 *            posição horizontal desejada
 	 * @param y
-	 *            posi��o vertical desejada
+	 *            posição vertical desejada
 	 */
 	public void setSpawnPointPlayer(int x, int y) {
 		this.posX = x;
@@ -72,21 +75,25 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * @return posi��o horizontal do jogador
+	 * @return posição horizontal do jogador
 	 */
 	public int getX() {
 		return posX;
 	}
 
 	/**
-	 * @return posi��o vertical do jogador
+	 * @return posição vertical do jogador
 	 */
 	public int getY() {
 		return posY;
 	}
 
 	/**
-	 * @return dire��o para a qual o jogadore est� olhando
+<<<<<<< HEAD
+	 * @return dire��o para a qual o jogador est� olhando
+=======
+	 * @return direção para a qual o jogador está olhando
+>>>>>>> 23fa0c6b39de5d31269b93786e63d4ff7668fc3e
 	 */
 	public int getFacing() {
 		return facing;
@@ -100,7 +107,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * M�todo que muda o estado da lamparina, se est� ligado, ele desliga e vice
+	 * Método que muda o estado da lamparina, se está ligado, ele desliga e vice
 	 * versa
 	 */
 	public void setLighter() {
@@ -111,7 +118,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * M�todo que muda o estado da lamparina para um desejado
+	 * Método que muda o estado da lamparina para um desejado
 	 * 
 	 * @param state
 	 *            estado desejado para a lamparina
@@ -124,7 +131,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	 * Metodo que move o personagem
 	 * 
 	 * @param direction
-	 *            caractere mai�sculo que indica a dire��o cardeal para a qual
+	 *            caractere maiúsculo que indica a direção cardeal para a qual
 	 *            se deseja andar
 	 * @return verdadeiro se o movimento foi efetuado com sucesso
 	 */
@@ -179,10 +186,10 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * M�todo que dirpara a arma em uma certa dire��o
+	 * Método que dirpara a arma em uma certa direção
 	 * 
 	 * @param direction
-	 *            caractere mai�sculo que indica a dire��o cardeal para a qual
+	 *            caractere maiúsculo que indica a direção cardeal para a qual
 	 *            se deseja atirar
 	 * @return verdadeiro se o tiro acertou o monstro
 	 */
@@ -259,14 +266,14 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * M�todo que utiliza o item flare
+	 * Método que utiliza o item flare
 	 */
 	public void useFlare() {
 		bag.useItem(0);
 	}
 
 	/**
-	 * M�todo que utiliza o item stick
+	 * Método que utiliza o item stick
 	 */
 	public void useStick() {
 		bag.useItem(5);

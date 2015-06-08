@@ -28,8 +28,8 @@ import anima.component.ISupports;
 import anima.component.InterfaceType;
 
 /**
- * Mapa que realiza a interação com a biblioteca utilizado para imprimir as
- * informações na janela
+ * Mapa que realiza a interaï¿½ï¿½o com a biblioteca utilizado para imprimir as
+ * informaï¿½ï¿½es na janela
  * 
  * @author eitiyamamoto
  *
@@ -86,7 +86,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		Image[] movementRight = { new Image("resource/character/" + character
 				+ "_right.png") };
 
-		// Iniciando as animações
+		// Iniciando as animaï¿½ï¿½es
 		playerUp = new Animation(movementUp, duration, false);
 		playerDown = new Animation(movementDown, duration, false);
 		playerLeft = new Animation(movementLeft, duration, false);
@@ -119,12 +119,12 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	}
 
 	/**
-	 * Desenha o tile desejado Só funciona quando chamado no render
+	 * Desenha o tile desejado Sï¿½ funciona quando chamado no render
 	 * 
 	 * @param x
-	 *            - Posição x do tile a ser desenhado
+	 *            - Posiï¿½ï¿½o x do tile a ser desenhado
 	 * @param y
-	 *            - POsição Y do tile a ser desenhado
+	 *            - POsiï¿½ï¿½o Y do tile a ser desenhado
 	 */
 	private void drawTile(int x, int y) {
 		try {
@@ -144,7 +144,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	}
 
 	/**
-	 * Desenha a entidade desejada Só funciona quando chamado no render
+	 * Desenha a entidade desejada Sï¿½ funciona quando chamado no render
 	 * 
 	 * @param e
 	 *            - Entidade a ser desenhada
@@ -163,8 +163,8 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	}
 
 	private void drawFlare() {
-		for (int xR = 0; xR < map.getLimiteX(); xR++) {
-			for (int yR = 0; yR < map.getLimiteY(); yR++) {
+		for (int xR = 0; xR < map.getLimitX(); xR++) {
+			for (int yR = 0; yR < map.getLimitY(); yR++) {
 				drawTile(xR, yR);
 			}
 		}
@@ -207,7 +207,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	}
 
 	/**
-	 * A função mostra que no momento do render deve considerar a ação por um
+	 * A funï¿½ï¿½o mostra que no momento do render deve considerar a aï¿½ï¿½o por um
 	 * tempo determinado
 	 */
 	public void flare() {
@@ -310,7 +310,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	
 	
 	/**
-	 * Verifica qual o lado que o personagem está olhando e define qual tile
+	 * Verifica qual o lado que o personagem estï¿½ olhando e define qual tile
 	 * deve ser mostrado na tela
 	 * 
 	 * @param c
