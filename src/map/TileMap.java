@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import map.enumerations.TileType;
 import map.enumerations.VisibilityMode;
+import map.exceptions.OutOfMapBoundsException;
 
 /**
  * Classe usada para armazenar um Tile do mapa(um quadrado andavel).
@@ -54,5 +55,18 @@ public class TileMap {
 	 */
 	public VisibilityMode getVisibility(){
 		return visibility;
+	}
+	
+	
+	/**
+	 * Método para obter um número que representa qual é o item ou armadilha que está na tile desejada. 
+	 * @param x Posição na horizontal do Tile desejado
+	 * @param y Posição na vertical do Tile desejado
+	 * @return um inteiro que corresponde a armadilha ou o item
+	 */
+	public int checkEvents(){	
+		
+		
+		return 0;
 	}
 }
