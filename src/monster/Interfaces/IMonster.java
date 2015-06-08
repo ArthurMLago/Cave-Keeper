@@ -20,5 +20,6 @@ public interface IMonster extends ISupports {
 	public void deleteMonsters();
 	public int getX(int monsterID);
 	public int getY(int monsterID);
+	public String getImage(int monsterID);
 	
 }
