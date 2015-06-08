@@ -5,6 +5,7 @@ import gameController.Entidade;
 import map.Position;
 
 import java.util.Hashtable;
+import java.util.ArrayList;
 
 /**
  * 
@@ -19,17 +20,21 @@ import java.util.Hashtable;
 public class GameMap {
 	private TileMap[][] Matriz;
 	
+	private ArrayList<Position> SpawnPointList;
 	private Hashtable<Entidade, Position> AssignedSpawnPoints;
+	
 	
 	/**
 	 * Construtor padrão, cria um mapa a partir de uma matriz de TileMaps dada.
 	 * @param Matriz matriz de TileMaps
 	 */
-	public GameMap(TileMap[][] Matriz){
+	public GameMap(TileMap[][] Matriz, ArrayList<Position> SpawnPointList){
 		this.Matriz = Matriz;
 		
-		AssignedSpawnPoints = new Hashtable<Entidade, Position>(); 
+		this.SpawnPointList = SpawnPointList;
+		AssignedSpawnPoints = new Hashtable<Entidade, Position>();
 	}
+	
 	
 	/**
 	 * Método para obter o Tile na posição especificada
@@ -48,6 +53,7 @@ public class GameMap {
 		return Matriz[x][y];
 	}
 	
+	
 	/**
 	 * Método para recuperar os SpawnPoints das entidades no mapa.
 	 * <p>
@@ -62,11 +68,15 @@ public class GameMap {
 	 */
 	public Position getSpawnPoint(Entidade entity){
 		
-		if (AssignedSpawnPoints.containsKey(entity)){
-			return AssignedSpawnPoints.get(entity);
-		}else{
-			AssignedSpawnPoints.put(entity, new Position(5,5));
+		if (!AssignedSpawnPoints.containsKey(entity)){
+			for (Position i : SpawnPointList){
+				if (!AssignedSpawnPoints.containsValue(i)){
+					AssignedSpawnPoints.put(entity, i);
+					break;
+				}
+			}
 		}
-		return new Position(5,5);
+		return AssignedSpawnPoints.get(entity);
+		
 	}
 }

@@ -1,10 +1,14 @@
 package map;
 
 
-
-//import map.Map;
+import map.GameMap;
+import map.Position;
+import map.enumerations.TileType;
 
 import java.util.Random;
+import java.util.ArrayList;
+
+
 
 
 /**
@@ -17,15 +21,21 @@ import java.util.Random;
  *
  */
 public class MapGenerator {
+	//Instância estatica da classe( singleton):
 	private static MapGenerator sharedInstancee;
 	
+	//Gerador de numeros aleatorios:
 	Random randomGenerator;
 	
+	//Propriedades do mapa:
 	private int MapWidth, MapHeight;
 	private int MapWalkablePaths;
+	private int NSpawnPoints;
 	private double lightPercentage;
 	
+	//Variaveis para criação de mapa
 	private int[][] Matriz;
+	private ArrayList<Position> SpawnPointList;
 	
 	
 	/**
@@ -47,6 +57,7 @@ public class MapGenerator {
 		MapWidth = 30;
 		MapHeight = 30;
 		MapWalkablePaths = 450;
+		NSpawnPoints = 4;
 		lightPercentage = 0.1;
 		
 		randomGenerator = new Random();
@@ -78,6 +89,13 @@ public class MapGenerator {
 	
 	
 	/**
+	 * Função para definir o numero de Spawn Points.
+	 * @param Numero de Spawn Points do mapa
+	 */
+	public void setNSpawnPoints(int value){ NSpawnPoints = 2;}
+	
+	
+	/**
 	 * Define a porcentagem do mapa que estará iluminada por luzes permanentes:
 	 * @param value  Porcentagem do mapa iluminado (0.0 -> 1.0)
 	 */
@@ -89,7 +107,11 @@ public class MapGenerator {
 	 * @return Um objeto da classe Mapa, contendo um mapa jogavel com as caracteristicas especificadas.
 	 */
 	public void generateMap(){
+		
 		Matriz = new int[MapWidth][MapHeight];
+		SpawnPointList = new ArrayList<Position>();
+		
+		TileMap[][] MatrizTiles = new TileMap[MapWidth][MapHeight];
 		
 		//Posicao inicial do random blobber:
 		int PosX = MapWidth/2 - 10;
@@ -130,7 +152,7 @@ public class MapGenerator {
 			}
 		}
 		//Imprimir o mapa:
-		DEBUGprintMap();
+//		DEBUGprintMap();
 		
 		//Hora de aplicar filtros:
 		//Nao permitir pontos inpassaveis no meio de pontos passaveis:
@@ -139,6 +161,23 @@ public class MapGenerator {
 		//tirar passsagems muito estreitas:
 		filterNarrowPassage();
 		
+		//criar spawn points:
+		CreateSpawnPoints();
+		
+		for (int i = 0; i < MapHeight; i++){
+			for (int j = 0; j < MapWidth; j++){
+				String tileImage;
+				TileType tileEnum;
+				if (Matriz[i][j] == 0){
+					tileImage = "Resources/tile/Grass.png";
+					tileEnum = TileType.Walkable;
+				}else{
+					tileImage = "Resources/tile/Rock.png";
+					tileEnum = TileType.Wall;
+				}
+				MatrizTiles[i][j] = new TileMap(tileEnum,tileImage,null);
+			}
+		}
 		
 		
 		
@@ -226,7 +265,10 @@ public class MapGenerator {
 	private void filterNarrowPassage(){
 		for (int i = 0; i < MapWidth; i++){
 			for (int j = 0; j < MapHeight; j++){
-				int iActualMin = i - 1, iActualMax = i + 1,jActualMin = j - 1, jActualMax = j + 1;
+				int iActualMin = i - 1;
+				int iActualMax = i + 1;
+				int jActualMin = j - 1;
+				int jActualMax = j + 1;
 				if (i + 1 > MapWidth - 1){
 					iActualMax = MapWidth - 1;
 				}
@@ -251,17 +293,56 @@ public class MapGenerator {
 		}
 	}
 	
+	
+	/**
+	 * Função que cria SpawnPoints espalhados pelo mapa, de form a deixa-los sempre suficientemente afastados,
+	 * e que estejam em posições validas.
+	 */
+	private void CreateSpawnPoints(){
+		Position[] SpawnPointPosition = new Position[NSpawnPoints];
+		
+		//Encontrar uma distancia minima entre os spawns:
+		double MinDistance = Math.sqrt(MapWalkablePaths) / NSpawnPoints;
+		
+		//Ccriar SpawnPoint aleatorios ate que eles obedecam as condicoes necessarias
+		boolean satisfactory = false;
+		while(!satisfactory){
+			satisfactory = true;
+			
+			for (int i = 0; i < NSpawnPoints; i++){
+				do{
+					SpawnPointPosition[i] = new Position(randomGenerator.nextInt(MapWidth),randomGenerator.nextInt(MapHeight));
+				}while(Matriz[SpawnPointPosition[i].getX()][SpawnPointPosition[i].getY()] == 0);
+			}
+			
+			for (int i = 0; (i < NSpawnPoints) && satisfactory; i++){
+				for (int j = i + 1; (j < NSpawnPoints) && satisfactory; j++){
+					if (SpawnPointPosition[i].distanceTo(SpawnPointPosition[j]) < MinDistance){
+						satisfactory = false;
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < NSpawnPoints; i++){
+			Matriz[SpawnPointPosition[i].getX()][SpawnPointPosition[i].getY()] = 8;
+		}
+	}
+	
 	/**
 	 * Metodo apenas para testes, imprime o mapa no console:
 	 */
 	private void DEBUGprintMap(){
+		System.out.print("{");
 		for (int i = 0; i < MapWidth; i++){
-			for (int j = 0; j < MapHeight; j++){
-				System.out.print(Matriz[i][j] + ",");
+			System.out.print("{");
+			for (int j = 0; j < MapHeight - 1; j++){
+				System.out.print(Matriz[i][j]+",");
 			}
-			System.out.print("\n");
+			System.out.print(Matriz[i][MapHeight - 1]);
+			System.out.print("},");
 		}
-		System.out.print("\n");
+		System.out.print("}");
 	}
 	
 }
