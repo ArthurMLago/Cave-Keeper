@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import anima.annotation.Component;
+
 /**
  * 
  * @author Vicente
@@ -13,6 +15,7 @@ import java.io.ObjectOutputStream;
  * @param <T> uso de Generics para poder serializar quarquer objeto
  */
 
+@Component(id="<http://santanvarzea.com/saveGame.saveGame>", provides={"<http://santanvarzea.com/saveGame.IsaveGame>"})
 public class saveGame <T>{
 	
 	
