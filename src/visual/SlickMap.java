@@ -28,8 +28,8 @@ import anima.component.ISupports;
 import anima.component.InterfaceType;
 
 /**
- * Mapa que realiza a interaÃ§Ã£o com a biblioteca utilizado para imprimir as
- * informaÃ§Ãµes na janela
+ * Mapa que realiza a interação com a biblioteca utilizado para imprimir as
+ * informações na janela
  * 
  * @author eitiyamamoto
  *
@@ -86,7 +86,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		Image[] movementRight = { new Image("resource/character/" + character
 				+ "_right.png") };
 
-		// Iniciando as animaÃ§Ãµes
+		// Iniciando as animações
 		playerUp = new Animation(movementUp, duration, false);
 		playerDown = new Animation(movementDown, duration, false);
 		playerLeft = new Animation(movementLeft, duration, false);
@@ -119,12 +119,12 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	}
 
 	/**
-	 * Desenha o tile desejado SÃ³ funciona quando chamado no render
+	 * Desenha o tile desejado Só funciona quando chamado no render
 	 * 
 	 * @param x
-	 *            - PosiÃ§Ã£o x do tile a ser desenhado
+	 *            - Posição x do tile a ser desenhado
 	 * @param y
-	 *            - POsiÃ§Ã£o Y do tile a ser desenhado
+	 *            - POsição Y do tile a ser desenhado
 	 */
 	private void drawTile(int x, int y) {
 		try {
@@ -144,7 +144,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	}
 
 	/**
-	 * Desenha a entidade desejada SÃ³ funciona quando chamado no render
+	 * Desenha a entidade desejada Só funciona quando chamado no render
 	 * 
 	 * @param e
 	 *            - Entidade a ser desenhada
@@ -207,7 +207,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	}
 
 	/**
-	 * A funÃ§Ã£o mostra que no momento do render deve considerar a aÃ§Ã£o por um
+	 * A função mostra que no momento do render deve considerar a ação por um
 	 * tempo determinado
 	 */
 	public void flare() {
@@ -310,7 +310,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	
 	
 	/**
-	 * Verifica qual o lado que o personagem estÃ¡ olhando e define qual tile
+	 * Verifica qual o lado que o personagem está olhando e define qual tile
 	 * deve ser mostrado na tela
 	 * 
 	 * @param c
