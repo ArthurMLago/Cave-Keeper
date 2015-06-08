@@ -19,6 +19,7 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 	private SlickMap compositeMap;
 	private IGameController gameController;
 	private AppGameContainer agc;
+	public static int SIZEIMAGE = 32;
 
 	public MapVisual() {
 		compositeMap = new SlickMap("Cave's Keeper");
@@ -30,8 +31,8 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 		compositeMap.connect(gameController);
 		try {
 			agc = new AppGameContainer(compositeMap);
-			agc.setDisplayMode(gameController.getMap().getLimitX() * 32,
-					gameController.getMap().getLimitY() * 32, false);
+			agc.setDisplayMode(gameController.getMap().getLimitX() * SIZEIMAGE,
+					gameController.getMap().getLimitY() * SIZEIMAGE, false);
 			agc.start();
 		} catch (SlickException e) {
 			Logger.getLogger(MapVisual.class.getName()).log(Level.SEVERE, null,
