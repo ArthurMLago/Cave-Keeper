@@ -156,6 +156,13 @@ public class GameController implements IGameController {
 	public IMonster getEntidades() {
 		return this.compMonster;
 	}
+	
+	public void move(){
+		if(compMonster.isMonstersAlive()){
+			compMonster.runMonstersActions(0);
+			//compItemManagement.useItem();
+		}
+	}
 
 	@Override
 	public int addRef() {
@@ -192,5 +199,10 @@ public class GameController implements IGameController {
 	public int release() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public IItemManagement getItemManagement() {
+		return compItemManagement;
 	}
 }

@@ -18,5 +18,7 @@ public interface IGameController extends ISupports{
 	public IMonster getEntidades();
 	public void update();
 	public void setCommand(Input command);
+	public void move();
+	public IItemManagement getItemManagement();
 	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement);
 }
