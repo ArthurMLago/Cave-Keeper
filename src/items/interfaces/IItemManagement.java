@@ -1,10 +1,13 @@
 package items.interfaces;
 
+import anima.component.ISupports;
+
+
 /**
  * @author Vicente
  *
  */
-public interface IItemManagement {
+public interface IItemManagement extends ISupports {
 	
 	public void useItem(int palace);
 	public void obtainItem(int place);
