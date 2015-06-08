@@ -120,4 +120,10 @@ public class Monster extends ComponentBase implements IMonster {
 		return vivos;
 			
 	}
+	public int getX(int monsterID) {
+		return list.get(monsterID).getX();
+	}
+	public int getY(int monsterID) {
+		return list.get(monsterID).getY();
+	}
 }
