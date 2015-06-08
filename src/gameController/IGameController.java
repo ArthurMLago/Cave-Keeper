@@ -11,7 +11,7 @@ import player.IPlayerMax;
 public interface IGameController extends ISupports{
 	public IPlayerMax getPlayer();
 	public GameMap getMap();
-	public ArrayList<Entidade> getEntidades();
+	public Entidade getEntidades();
 	public void update();
 	public void setCommand(Input command);
 }

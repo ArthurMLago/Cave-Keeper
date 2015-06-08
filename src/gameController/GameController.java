@@ -186,7 +186,7 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public ArrayList<Entidade> getEntidades() {
+	public Entidade getEntidades() {
 		// TODO Auto-generated method stub
 		return entidades;
 	}
