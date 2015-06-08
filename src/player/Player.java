@@ -6,7 +6,19 @@ import gameController.*;
 import items.itemManagement.ItemManagement;
 import player.IPlayerMax;
 
-public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax, Entidade {
+/**
+ * Classe que armazena as informações e implemneta todas as ações do jogador.
+ * <p>
+ * Um objeto da classe Player mantém a sua posição e os seus itens. Seus métodos
+ * implementam as ações possiveis do jogador registrando todas as mudanças de
+ * estado e comunicando todos os outros componentes do jogo.
+ * 
+ * @author Guilherme I. M. de Araújo
+ * @author Diego S. Martines
+ *
+ */
+public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
+		Entidade {
 
 	private int posX, posY;
 
@@ -16,6 +28,9 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax, Entid
 
 	private ItemManagement bag;
 
+	/**
+	 * Construtor único que estabelece as condições de início de jogo
+	 */
 	public Player() {
 		facing = Facing.SOUTH;
 		lighter = false;
@@ -23,36 +38,66 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax, Entid
 		this.posX = 0;
 		this.posY = 0;
 	}
-	
+
+	/**
+	 * Método para obter o nome da classe Player de forma simples
+	 */
 	public String getTipo() {
 		return "player";
 	}
-	
+
+	/**
+	 * @return caminho da imagem do jogador
+	 */
 	public int getImage() {
 		return 1;
 	}
-	
+
+	/**
+	 * Método que estabelece a posição inicial do jogador no mapa
+	 * 
+	 * @param x
+	 *            posição horizontal desejada
+	 * @param y
+	 *            posição vertical desejada
+	 */
 	public void setSpawnPointPlayer(int x, int y) {
 		this.posX = x;
 		this.posY = y;
 	}
 
+	/**
+	 * @return posição horizontal do jogador
+	 */
 	public int getX() {
 		return posX;
 	}
 
+	/**
+	 * @return posição vertical do jogador
+	 */
 	public int getY() {
 		return posY;
 	}
 
+	/**
+	 * @return direção para a qual o jogadore está olhando
+	 */
 	public int getFacing() {
 		return facing;
 	}
 
+	/**
+	 * @return boolean que indica o estado ligado/desligado da lamparina
+	 */
 	public boolean getLighter() {
 		return lighter;
 	}
 
+	/**
+	 * Método que muda o estado da lamparina, se está ligado, ele desliga e vice
+	 * versa
+	 */
 	public void setLighter() {
 		if (lighter)
 			lighter = false;
@@ -60,10 +105,24 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax, Entid
 			lighter = true;
 	}
 
+	/**
+	 * Método que muda o estado da lamparina para um desejado
+	 * 
+	 * @param state
+	 *            estado desejado para a lamparina
+	 */
 	public void setLighter(boolean state) {
 		lighter = state;
 	}
 
+	/**
+	 * Metodo que move o personagem
+	 * 
+	 * @param direction
+	 *            caractere maiúsculo que indica a direção cardeal para a qual
+	 *            se deseja andar
+	 * @return verdadeiro se o movimento foi efetuado com sucesso
+	 */
 	public boolean move(char direction) {
 		facing = direction;
 
@@ -110,6 +169,14 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax, Entid
 		return true;
 	}
 
+	/**
+	 * Método que dirpara a arma em uma certa direção
+	 * 
+	 * @param direction
+	 *            caractere maiúsculo que indica a direção cardeal para a qual
+	 *            se deseja atirar
+	 * @return verdadeiro se o tiro acertou o monstro
+	 */
 	public boolean shoot(char direction) {
 		if (bag.displayNumber(4/* AMMO */) == 0)
 			return false;
@@ -185,10 +252,16 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax, Entid
 
 	}
 
+	/**
+	 * Método que utiliza o item flare
+	 */
 	public void useFlare() {
 		bag.useItem(0/* FLARE */);
 	}
 
+	/**
+	 * Método que utiliza o item stick
+	 */
 	public void useStick() {
 		bag.useItem(5);
 	}
