@@ -133,4 +133,7 @@ public class Monster extends ComponentBase implements IMonster {
 	public int getY(int monsterID) {
 		return list.get(monsterID).getY();
 	}
+	public String getImage(int monsterID) {
+		return list.get(monsterID).getImage();
+	}
 }
