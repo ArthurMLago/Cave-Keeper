@@ -8,12 +8,12 @@ import org.newdawn.slick.Input;
 
 import player.*;
 import visual.interfaces.*;
-import visual.interfaces.IMapVisual;
 import visual.*;
 import saveGame.*;
 import monster.*;
 import monster.Interfaces.*;
 import map.*;
+import map.interfaces.*;
 import anima.annotation.Component;
 import anima.component.IRequires;
 import anima.component.ISupports;
@@ -27,7 +27,7 @@ import anima.component.base.ComponentBase;
  *
  */
 
-public class GameController {
+public class GameController implements IGameController {
 	private static final GameController sharedInstance = new GameController();
 	private Input command;
 	private ActionHandler handler;
@@ -35,15 +35,16 @@ public class GameController {
 			playerShootDown, playerShootLeft, playerShootRight, playerShootUp;
 	private IActionPlayer playerDown, playerLeft, playerRight, playerUp,
 			playerStick, playerWait;
-
+	private IGameMap compMap;
 	private IMonster compMonster;
-	private IPlayer compPlayer;
+	private IPlayerMax compPlayer;
 	private IItemManagement compItemManagement;
+	private IMapVisual compMapVisual;
 	
 	private GameController() {
 	}
 
-	public void conectar(IMonster compMonster, IPlayer compPlayer, IItemManagement compItemManagement) {
+	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement) {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
@@ -53,56 +54,54 @@ public class GameController {
 		Position playerSpawn;
 
 		// TODO: Instanciar map, player e monstros
-		map = MapGenerator.sharedInstance().generateMap();
-		player = new Player();
-		compMonster = new Monster();
+		compMap = MapGenerator.sharedInstance().generateMap();
 		playerSpawn = map.getSpawnPoint(player, compMonster);
 		player.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
 
 		// TODO: Instanciar as outras ações do player
 		playerDown = new PlayerDownAction();
 		playerDown.setKey(Input.KEY_DOWN);
-		playerDown.connect((IPlayerAction) player);
+		playerDown.connect((IPlayerAction) compPlayer);
 
 		playerLeft = new PlayerLeftAction();
 		playerLeft.setKey(Input.KEY_LEFT);
-		playerLeft.connect((IPlayerAction) player);
+		playerLeft.connect((IPlayerAction) compPlayer);
 
 		playerRight = new PlayerRightAction();
 		playerRight.setKey(Input.KEY_RIGHT);
-		playerRight.connect((IPlayerAction) player);
+		playerRight.connect((IPlayerAction) compPlayer);
 
 		playerUp = new PlayerUpAction();
 		playerUp.setKey(Input.KEY_UP);
-		playerUp.connect((IPlayerAction) player);
+		playerUp.connect((IPlayerAction) compPlayer);
 
 		playerShootDown = new PlayerShootDownAction();
 		playerShootDown.setKey(Input.KEY_S);
-		playerShootDown.connect((IPlayerAction) player);
+		playerShootDown.connect((IPlayerAction) compPlayer);
 
 		playerShootLeft = new PlayerShootLeftAction();
 		playerShootLeft.setKey(Input.KEY_A);
-		playerShootLeft.connect((IPlayerAction) player);
+		playerShootLeft.connect((IPlayerAction) compPlayer);
 
 		playerShootRight = new PlayerShootRightAction();
 		playerShootRight.setKey(Input.KEY_D);
-		playerShootRight.connect((IPlayerAction) player);
+		playerShootRight.connect((IPlayerAction) compPlayer);
 
 		playerShootUp = new PlayerShootUpAction();
 		playerShootUp.setKey(Input.KEY_W);
-		playerShootUp.connect((IPlayerAction) player);
+		playerShootUp.connect((IPlayerAction) compPlayer);
 
 		playerFlare = new PlayerFlareAction();
 		playerFlare.setKey(Input.KEY_R);
-		playerFlare.connect((IPlayerAction) player);
+		playerFlare.connect((IPlayerAction) compPlayer);
 
 		playerStick = new PlayerStickAction();
 		playerStick.setKey(Input.KEY_E);
-		playerStick.connect((IPlayerAction) player);
+		playerStick.connect((IPlayerAction) compPlayer);
 
 		playerWait = new PlayerWaitAction();
 		playerWait.setKey(Input.KEY_G);
-		playerWait.connect((IPlayerAction) player);
+		playerWait.connect((IPlayerAction) compPlayer);
 
 		// TODO: Conectar as outras ações no handler depois de instanciar
 
@@ -121,15 +120,15 @@ public class GameController {
 
 		// TODO: Conectar mapVisual as outras ações
 
-		mapVisual = new MapVisual();
-		playerShootDown.connect(mapVisual);
-		playerShootUp.connect(mapVisual);
-		playerShootLeft.connect(mapVisual);
-		playerShootRight.connect(mapVisual);
-		playerFlare.connect(mapVisual);
+		compMapVisual = new MapVisual();
+		playerShootDown.connect(compMapVisual);
+		playerShootUp.connect(compMapVisual);
+		playerShootLeft.connect(compMapVisual);
+		playerShootRight.connect(compMapVisual);
+		playerFlare.connect(compMapVisual);
 
 		// TODO: Conectar o mapVisual ao gameController
-		mapVisual.connect(this);
+		compMapVisual.connect(this);
 	}
 
 	public static GameController getSharedInstance() {
@@ -144,5 +143,17 @@ public class GameController {
 	@Override
 	public void setCommand(Input command) {
 		this.command = command;
+	}
+	
+	public IPlayerMax getPlayer() {
+		return this.compPlayer;
+	}
+	
+	public IGameMap getMap() {
+		return this.compMap;
+	}
+	
+	public IMonster getEntidades() {
+		return this.compMonster;
 	}
 }
