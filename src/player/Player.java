@@ -6,7 +6,7 @@ import gameController.*;
 import items.itemManagement.ItemManagement;
 import player.IPlayerMax;
 
-public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
+public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax, Entidade {
 
 	private int posX, posY;
 
@@ -16,10 +16,23 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
 
 	private ItemManagement bag;
 
-	public Player(int x, int y) {
+	public Player() {
 		facing = Facing.SOUTH;
 		lighter = false;
 		bag = new ItemManagement();
+		this.posX = 0;
+		this.posY = 0;
+	}
+	
+	public String getTipo() {
+		return "player";
+	}
+	
+	public int getImage() {
+		return 1;
+	}
+	
+	public void setSpawnPointPlayer(int x, int y) {
 		this.posX = x;
 		this.posY = y;
 	}

@@ -2,6 +2,7 @@ package player;
 
 public interface IPlayerMax{
 	
+	public void setSpawnPointPlayer(int x, int y);
 	public void setLighter();
 	public boolean move(char direction);
 	public boolean shoot(char direction);
