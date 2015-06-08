@@ -34,7 +34,7 @@ public class AppCavesKeeper {
 		}
 		catch(Exception e) { 
 			e.printStackTrace();
-			System.out.println("Pau");
+			System.out.println("Exception");
 		}
 	}
 }
