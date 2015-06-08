@@ -1,8 +1,9 @@
 package monster.Fonte;
-import map.*;
 
 /** Classe herdeira de AbstractMonster que representa um super ghost. */
 public class SuperGhost extends AbstractMonster {
+
+	private static final long serialVersionUID = 1L;
 
 	/** Inicializa os atributos caracteristicos desse monstro. */
 	public SuperGhost() {
@@ -13,10 +14,6 @@ public class SuperGhost extends AbstractMonster {
 	@Override
 	public String getImage() {
 		return "imgGhostSuper";
-	}
-	
-	@Override
-	public void walk() {
 	}
 
 }

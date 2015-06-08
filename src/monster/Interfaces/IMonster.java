@@ -1,10 +1,7 @@
 package monster.Interfaces;
 
-import java.util.ArrayList;
-
-import monster.IMap;
-import monster.IPlayer;
-import monster.Fonte.AbstractMonster;
+import map.interfaces.IGameMap;
+import player.IPlayerMax;
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
 
@@ -13,9 +10,9 @@ import anima.component.ISupports;
 @ComponentInterface("<http://santanvarzea.com/monster.Interfaces.IMonster>")
 public interface IMonster extends ISupports {
 
-	public void generateMonsters();
+	public void generateMonsters(int f);
 	public boolean isMonstersAlive();
-	public void connect (IPlayer player, IGameMap map);
+	public void connect (IPlayerMax player, IGameMap map);
 	public void setMonsterPosition(int monsterID, int x, int y);
 	public void runMonstersActions(int monsterID);
 	public void setFollow();

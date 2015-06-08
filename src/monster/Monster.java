@@ -11,6 +11,7 @@
 package monster;
 
 import map.interfaces.IGameMap;
+import player.IPlayerMax;
 import monster.Interfaces.*;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
@@ -18,7 +19,7 @@ import monster.Fonte.*;
 
 import java.util.ArrayList;
 
-import player.IPlayerMax;
+
 
 /** Classe de gerenciamento dos monstros. Realiza a interacao com o game controller.
  * @author Mateus Coelho
@@ -36,7 +37,7 @@ public class Monster extends ComponentBase implements IMonster {
 		list = new ArrayList<AbstractMonster>();
 	}
 	
-	public void connect (IPlayer player, IMapVisual map)  {
+	public void connect (IPlayerMax player, IGameMap map)  {
 		this.player = player;
 		this.map = map;
 	}
