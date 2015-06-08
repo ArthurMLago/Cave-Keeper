@@ -4,12 +4,12 @@ import gameController.Entidade;
 import gameController.IGameController;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import map.GameMap;
 import map.enumerations.TileType;
 import map.exceptions.OutOfMapBoundsException;
+import map.interfaces.IGameMap;
+import monster.Interfaces.IMonster;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.BasicGame;
@@ -42,14 +42,14 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	private int xFacing, yFacing;
 	private IGameController gameController;
 	private IPlayerPosition player;
-	private GameMap map;
+	private IGameMap map;
 	private String character = "cat";
 	private int duration = 10;
 	private boolean flare = false;
 	private int flareTime;
 	private HashMap<String, Image> imageMap;
 	private Audio footstepAudio;
-	private ArrayList<Entidade> entidades;
+	private IMonster monsters;
 	private boolean explosionShoot = false;
 	private int explosionX, explosionY, explosionTime;
 
@@ -67,13 +67,14 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 			drawFlare();
 		} else if (player.getLighter()) {
 			drawAround();
-		} else{
+		} else {
 			drawShadowWithLighter();
 		}
 		if (explosionShoot)
 			drawExplosion();
 
-		spritePlayer.draw(player.getX() * MapVisual.SIZEIMAGE, player.getY() * MapVisual.SIZEIMAGE);
+		spritePlayer.draw(player.getX() * MapVisual.SIZEIMAGE, player.getY()
+				* MapVisual.SIZEIMAGE);
 	}
 
 	@Override
@@ -137,7 +138,8 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 
 				Image[] tiles = { tile };
 				Animation tileAnimation = new Animation(tiles, 1000);
-				tileAnimation.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE);
+				tileAnimation.draw(x * MapVisual.SIZEIMAGE, y
+						* MapVisual.SIZEIMAGE);
 			}
 		} catch (SlickException e) {
 			System.out.println(e);
@@ -152,14 +154,15 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	 * @param e
 	 *            - Entidade a ser desenhada
 	 */
-	private void drawEntidade(Entidade e) {
+	private void drawMonster(IMonster monster) {
 		try {
-			Image tile = getImage("resource/monster/" + e.getImage() + ".png",
+			Image tile = getImage("resource/monster/" + monster.getImage(0) + ".png",
 					imageMap);
 
 			Image[] tiles = { tile };
 			Animation tileAnimation = new Animation(tiles, 1000);
-			tileAnimation.draw(e.getX() * MapVisual.SIZEIMAGE, e.getY() * MapVisual.SIZEIMAGE);
+			tileAnimation.draw(monster.getX(0) * MapVisual.SIZEIMAGE, monster.getY(0)
+					* MapVisual.SIZEIMAGE);
 		} catch (SlickException ex) {
 			System.out.println(ex);
 		}
@@ -172,10 +175,8 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 			}
 		}
 
-		for (Entidade e : entidades) {
-			drawEntidade(e);
-		}
-
+		drawMonster(monsters);
+		
 		if (flareTime > 2000)
 			flare = false;
 	}
@@ -186,7 +187,8 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 			explosionImage = getImage("resource/shoot/explosion.png", imageMap);
 			Image[] explosions = { explosionImage };
 			Animation explosionAnimation = new Animation(explosions, 1000);
-			explosionAnimation.draw(explosionX * MapVisual.SIZEIMAGE, explosionY * MapVisual.SIZEIMAGE);
+			explosionAnimation.draw(explosionX * MapVisual.SIZEIMAGE,
+					explosionY * MapVisual.SIZEIMAGE);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -194,28 +196,28 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		if (explosionTime > 800)
 			explosionShoot = false;
 	}
-	
-	private void drawAround(){
-		for(int xA = player.getX() - 1; xA < player.getX()+1; xA++){
-			for(int yA = player.getY()-1; yA < player.getY()+1; yA++){
+
+	private void drawAround() {
+		for (int xA = player.getX() - 1; xA < player.getX() + 1; xA++) {
+			for (int yA = player.getY() - 1; yA < player.getY() + 1; yA++) {
 				drawTile(xA, yA);
 			}
 		}
-		
-		shadowAround.draw((player.getX()-1)*MapVisual.SIZEIMAGE, (player.getY()-1)*MapVisual.SIZEIMAGE);
+
+		shadowAround.draw((player.getX() - 1) * MapVisual.SIZEIMAGE,
+				(player.getY() - 1) * MapVisual.SIZEIMAGE);
 	}
 
 	private void drawShadowWithLighter() {
 		shadowNext.draw((player.getX() + xFacing) * MapVisual.SIZEIMAGE,
 				(player.getY() + yFacing) * MapVisual.SIZEIMAGE);
 
-		shadowPlayer.draw(player.getX() * MapVisual.SIZEIMAGE, player.getY() * MapVisual.SIZEIMAGE);
+		shadowPlayer.draw(player.getX() * MapVisual.SIZEIMAGE, player.getY()
+				* MapVisual.SIZEIMAGE);
 
-		for (Entidade e : entidades) {
-			if (e.getX() == player.getX() + xFacing
-					&& e.getY() == player.getY() + yFacing)
-				drawEntidade(e);
-		}
+			if (monsters.getX(0) == player.getX() + xFacing
+					&& monsters.getY(0) == player.getY() + yFacing)
+				drawMonster(monsters);
 	}
 
 	/**
@@ -258,12 +260,10 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		while (!wallFind) {
 			xR += xExDir;
 			yR += yExDir;
-			for (Entidade e : entidades) {
-				if (e.getX() == xR && e.getY() == yR) {
-					explosionX = xR;
-					explosionY = yR;
-					wallFind = true;
-				}
+			if (monsters.getX(0) == xR && monsters.getY(0) == yR) {
+				explosionX = xR;
+				explosionY = yR;
+				wallFind = true;
 			}
 			try {
 				if (!wallFind
@@ -280,7 +280,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 	}
 
 	/**
-	 * Reproduz o som de passos do monstro
+	 * Reproduz o som de passos do monster
 	 * 
 	 * @param gain
 	 */
@@ -317,7 +317,7 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		this.gameController = gameController;
 		map = gameController.getMap();
 		player = (IPlayerPosition) gameController.getPlayer();
-		entidades = gameController.getEntidades();
+		monsters = gameController.getEntidades();
 	}
 
 	/**
