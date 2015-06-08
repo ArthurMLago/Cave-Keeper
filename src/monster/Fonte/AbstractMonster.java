@@ -7,9 +7,10 @@ import java.util.Random;
 import map.enumerations.TileType;
 import map.exceptions.OutOfMapBoundsException;
 import map.interfaces.IGameMap;
+import monster.Monster;
 import monster.Interfaces.*;
 
-public abstract class AbstractMonster implements IAbstractMonster, Serializable {
+public abstract class AbstractMonster extends Monster implements IAbstractMonster, Serializable {
 	
 	private static final long serialVersionUID = 0xa58fa1b9;
 	protected int hp, posX, posY, spaces;
