@@ -1,5 +1,6 @@
 package player;
 
+import gameController.GameController;
 import visual.interfaces.IActionPlayer;
 import anima.component.IRequires;
 import anima.component.ISupports;
@@ -21,7 +22,9 @@ public class PlayerRightAction implements IActionPlayer {
 
 	@Override
 	public void execute() {
-		player.move(Facing.EAST);
+		if(player.move(Facing.EAST)){
+			GameController.getSharedInstance().move();
+		}
 	}
 
 	@Override
