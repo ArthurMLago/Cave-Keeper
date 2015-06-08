@@ -1,13 +1,10 @@
 package player;
 
-import java.util.ArrayList;
-
 import map.enumerations.TileType;
 import map.exceptions.OutOfMapBoundsException;
 import gameController.*;
 import items.itemManagement.ItemManagement;
 import player.IPlayerMax;
-
 
 public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
 
@@ -112,59 +109,66 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax {
 				.getEntidades();
 
 		int flag = 0;
-
-		if (direction == 'E') {
-			for (int i = x + 1; flag == 0; i++) {
-				if ((TileType.Walkable
-						.equals(GameController.getSharedInstance().getMap()
-								.getTileAt(i, y).getType())))
-					flag = 1;
-				else if ((GameController.getSharedInstance().gameMonster.getX() == i)
-						&& (gameController.sharedInstance.gameMonster.getY() == posY))
-					flag = 2;
+		try {
+			if (direction == 'E') {
+				for (int i = x + 1; flag == 0; i++) {
+					if ((TileType.Walkable.equals(GameController
+							.getSharedInstance().getMap().getTileAt(i, y)
+							.getType())))
+						flag = 1;
+					else if ((monsterReference.getX() == i)
+							&& (monsterReference.getY() == posY))
+						flag = 2;
+				}
 			}
+
+			if (direction == 'W') {
+				for (int i = x - 1; flag == 0; i--) {
+					if ((TileType.Walkable.equals(GameController
+							.getSharedInstance().getMap().getTileAt(i, y)
+							.getType())))
+						flag = 1;
+					else if ((monsterReference.getX() == i)
+							&& (monsterReference.getY() == posY))
+						flag = 2;
+				}
+			}
+
+			if (direction == 'N') {
+				for (int i = y + 1; flag == 0; i++) {
+					if ((TileType.Walkable.equals(GameController
+							.getSharedInstance().getMap().getTileAt(x, i)
+							.getType())))
+						flag = 1;
+					else if ((monsterReference.getX() == posX)
+							&& (monsterReference.getY() == i))
+						flag = 2;
+				}
+			}
+
+			if (direction == 'S') {
+				for (int i = y - 1; flag == 0; i--) {
+					if ((TileType.Walkable.equals(GameController
+							.getSharedInstance().getMap().getTileAt(x, i)
+							.getType())))
+						flag = 1;
+					else if ((monsterReference.getX() == posX)
+							&& (monsterReference.getY() == i))
+						flag = 2;
+				}
+			}
+
 		}
 
-		if (direction == 'W') {
-			for (int i = x - 1; flag == 0; i--) {
-				if ((TileType.Walkable
-						.equals(GameController.getSharedInstance().getMap()
-								.getTileAt(i, y).getType())))
-					flag = 1;
-				else if ((GameController.getSharedInstance().gameMonster.getX() == i)
-						&& (gameController.sharedInstance.gameMonster.getY() == posY))
-					flag = 2;
-			}
-		}
-
-		if (direction == 'N') {
-			for (int i = y + 1; flag == 0; i++) {
-				if ((TileType.Walkable
-						.equals(GameController.getSharedInstance().getMap()
-								.getTileAt(x, i).getType())))
-					flag = 1;
-				else if ((GameController.getSharedInstance().gameMonster.getX() == posX)
-						&& (gameController.sharedInstance.gameMonster.getX() == i))
-					flag = 2;
-			}
-		}
-
-		if (direction == 'S') {
-			for (int i = y - 1; flag == 0; i--) {
-				if ((TileType.Walkable
-						.equals(GameController.getSharedInstance().getMap()
-								.getTileAt(x, i).getType())))
-					flag = 1;
-				else if ((GameController.getSharedInstance().gameMonster.getX() == posX)
-						&& (gameController.sharedInstance.gameMonster.getX() == i))
-					flag = 2;
-			}
+		catch (OutOfMapBoundsException erro) {
 		}
 
 		if (flag == 1)
 			return false;
 		if (flag == 2)
 			return true;
+
+		return false;
 
 	}
 
