@@ -1,5 +1,9 @@
 package items.inventory;
 
+/**
+ * @author Vicente
+ * @author Felipe Moret
+ */
 public class Flare extends GeneralItems {
 	
 	

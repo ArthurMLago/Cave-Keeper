@@ -2,11 +2,13 @@ package items.interfaces;
 
 /**
  * @author Vicente
+ * @author Felipe Moret
  * metodos: [getters]: getName(), getNumber()
  *          [setters]: increase(), decrese()
  *          effect: chamada quando o item for usado
  *          notifica: chama notificacao, normalmente precedida ao uso ou obtencao de item 
  */
+
 public interface IItems {
 	
 	public String getName();

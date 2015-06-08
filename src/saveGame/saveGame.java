@@ -11,6 +11,7 @@ import anima.annotation.Component;
 /**
  * 
  * @author Vicente
+ * @@author Felipe Moret
  *
  * @param <T> uso de Generics para poder serializar quarquer objeto
  */

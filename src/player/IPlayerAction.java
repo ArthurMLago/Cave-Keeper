@@ -7,5 +7,6 @@ public interface IPlayerAction {
 	public boolean shoot(char direction);
 	public void useFlare();
 	public void useStick();
+	public void useFlash();
 	
 }

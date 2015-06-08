@@ -6,7 +6,6 @@ import items.inventory.Flare;
 import items.inventory.Flash;
 import items.inventory.GeneralItems;
 import items.inventory.Stick;
-import items.inventory.powerUp;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ import anima.component.base.ComponentBase;
 
 /**
  * @author Vicente
+ * @author Felipe Moret
  * Classe responsavel pela comunicacao entre outras classes e o inventario
  */
 @Component(id="<http://santanvarzea.com/items.itemManagement.ItemManagement>", provides={"<http://santanvarzea.com/items.interfaces.IItemManagement>"})
@@ -32,7 +32,6 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		inventory.add(new Flare("flare", 0));
 		inventory.add(new Flash("flash", 0));
 		inventory.add(new GeneralItems("fuel", 0));
-		inventory.add(new powerUp("powerUp", 0));
 		inventory.add(new GeneralItems("saltAmmo", 0));
 		inventory.add(new Stick("stick", 0));
 		
@@ -56,7 +55,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  * ao obter um novo item, chama-se tal metodo para aumentar sua quantidade
  */
 	public void obtainItem(int place) {
-		if(place >= 0 && place <= 5)
+		if(place >= 0 && place <= 4)
 			inventory.get(place).increase();
 	}
 	

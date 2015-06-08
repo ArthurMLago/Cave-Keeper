@@ -17,9 +17,8 @@ public interface IGameMap {
 	 */
 	public TileMap getTileAt(int x, int y) throws OutOfMapBoundsException;
 	
-	/**
-	 * Método para obter o Tile na posição especificada
-	 */
-	public int checkEventAt(int x, int y);
+	public int getLimitX();
+	
+	public int getLimitY();
 
 }
