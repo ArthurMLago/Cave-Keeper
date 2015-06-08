@@ -10,6 +10,7 @@
 
 package monster;
 
+import map.interfaces.IGameMap;
 import monster.Interfaces.*;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
