@@ -42,18 +42,15 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 	/** Calcula distancia entre o personagem e o monstro.
 	 * @param playerX Posicao X do player.
 	 * @param playerY Posicao Y do player. */
-	public double getDistance (double playerX, double playerY) {
+	public double getDistance (int playerX, int playerY) {
 		double distance;
 		distance = Math.sqrt(Math.pow((this.getX() - playerX), 2) + Math.pow((this.getY() - playerY), 2));
 		return distance;
 	}
 	
 	/** Emite o som do monstro de acordo com a distancia dele ao player. */
-	public void emitSound () {
-		double playerX = Player.getPlayerX;
-		double playerY = Player.getPlayerY;
+	public void emitSound (int playerX, int playerY) {
 		int distance = (int) getDistance (playerX, playerY);
-		
 		if (distance < 10) {
 			/* ReproduzirSom(10-distance); */
 		}
@@ -217,6 +214,6 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 		return this.following;
 	}
 	public abstract void walk();
-	public abstract int getImage();
+	public abstract String getImage();
 	
 }

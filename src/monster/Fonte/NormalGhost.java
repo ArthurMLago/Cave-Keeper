@@ -10,8 +10,8 @@ public class NormalGhost extends AbstractMonster {
 	}
 	
 	@Override
-	public int getImage() {
-		return 0/*Por enquanto. */;
+	public String getImage() {
+		return "imgGhostNormal";
 	}
 	
 	@Override

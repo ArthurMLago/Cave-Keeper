@@ -15,6 +15,7 @@ import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 import monster.Fonte.*;
 
+
 import java.util.ArrayList;
 
 /** Classe de gerenciamento dos monstros. Realiza a interacao com o game controller.
@@ -24,10 +25,18 @@ import java.util.ArrayList;
 @Component(id="<http://santanvarzea.com/monster.Monster>", provides={"<http://santanvarzea.com/monster.Interfaces.IMonster>"})
 public class Monster extends ComponentBase {
 	
+	IPlayer player;
+	IMap map;
+	
 	private ArrayList<AbstractMonster> list;
 	
 	public Monster() {
 		list = new ArrayList<AbstractMonster>();
+	}
+	
+	public void connect (IPlayer player, IMap map)  {
+		this.player = player;
+		this.map = map;
 	}
 	
 	/** Gera os monstros de acordo com o nivel do jogo.
@@ -68,19 +77,15 @@ public class Monster extends ComponentBase {
 		
 	}
 	
-	private void setMonsterPosition(int monsterID, int x, int y) {
+	public void setMonsterPosition(int monsterID, int x, int y) {
 		
 	}
 	
-	private void runMonstersActions(int playerX, int playerY, boolean wasHit, int monsterID) {
+	public void runMonstersActions(int monsterID) {
+		int playerX = this.player.getX;
+		int playerY = this.player.getY;
 		AbstractMonster monster = list.get(monsterID);
-		monster.emitSound();
-		if(wasHit) {
-			monster.takeShot();
-			if (monster.isAlive()) {
-				monster.setFollowing(true);
-			}
-		}
+		monster.emitSound(playerX, playerY);
 		if (monster.getFollowing() == true) {
 			monster.followWalk();
 		}
@@ -89,6 +94,17 @@ public class Monster extends ComponentBase {
 		}
 	}
 	
+	public void setFollow() {
+		for(int i = 0; i < list.size();i++) {
+			list.get(i).setFollowing(true);
+		}
+	}
+	
+	public void getHit(int monsterID) {
+		list.get(monsterID).takeShot();
+	}
+	
+	/** Remove a lista de monstros */
 	public void deleteMonsters() {
 		list.clear();
 	}
