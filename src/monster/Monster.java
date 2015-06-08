@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class Monster extends ComponentBase implements IMonster {
 	
 	IPlayer player;
-	IMap map;
+	IMapVisual map;
 	
 	private ArrayList<AbstractMonster> list;
 	
@@ -34,7 +34,7 @@ public class Monster extends ComponentBase implements IMonster {
 		list = new ArrayList<AbstractMonster>();
 	}
 	
-	public void connect (IPlayer player, IMap map)  {
+	public void connect (IPlayer player, IMapVisual map)  {
 		this.player = player;
 		this.map = map;
 	}

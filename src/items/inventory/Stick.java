@@ -1,5 +1,9 @@
 package items.inventory;
 
+/**
+ * @author Vicente
+ * @author Felipe Moret
+ */
 public class Stick extends GeneralItems {
 	
 	private static final long serialVersionUID = 1L;

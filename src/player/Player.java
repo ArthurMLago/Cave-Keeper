@@ -1,5 +1,7 @@
 package player;
 
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 import map.enumerations.TileType;
 import map.exceptions.OutOfMapBoundsException;
 import gameController.*;
@@ -17,7 +19,8 @@ import player.IPlayerMax;
  * @author Diego S. Martines
  *
  */
-public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
+@Component(id="<http://santanvarzea.com/player.Player>", provides={"<http://santanvarzea.com/player.IPlayer>"})
+public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAction, IPlayerMax,
 		Entidade {
 
 	private int posX, posY;
@@ -81,7 +84,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * @return direção para a qual o jogadore está olhando
+	 * @return direção para a qual o jogador está olhando
 	 */
 	public int getFacing() {
 		return facing;

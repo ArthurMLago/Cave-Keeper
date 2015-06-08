@@ -13,7 +13,7 @@ import visual.interfaces.IMapVisual;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
-@Component(id="cavekeeper/visual.mapVisual")
+@Component(id="<http://santanvarzea.com/visual.MapVisual>", provides={"<http://santanvarzea.com/visual.IMapVisual>"})
 public class MapVisual extends ComponentBase implements IMapVisual,
 		IAudioEffect {
 	private SlickMap compositeMap;

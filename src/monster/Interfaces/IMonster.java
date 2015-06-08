@@ -16,7 +16,7 @@ public interface IMonster extends ISupports {
 	public void generateMonsters();
 	public boolean isMonstersAlive();
 	public AbstractMonster getMonster();
-	public void connect (IPlayer player, IMap map);
+	public void connect (IPlayer player, IMapVisual map);
 	public void setMonsterPosition(int monsterID, int x, int y);
 	public void runMonstersActions(int monsterID);
 	public void setFollow();

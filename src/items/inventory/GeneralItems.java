@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * @author Vicente
+ * @Felipe Moret
  * classe mae de todos os items, assim contendo os metodos e atributos basicos
  */
 public class GeneralItems implements IItems, Serializable {
@@ -29,10 +30,16 @@ public class GeneralItems implements IItems, Serializable {
 		this.number = number;
 	}
 	
+/**	
+ * @return name nome do item respectivo
+ */
 	public String getName() {
 		return this.name;
 	}
-	
+
+/**	
+ * @return number numero de itens presentes
+ */
 	public int getNumber() {
 		return this.number;
 	}
