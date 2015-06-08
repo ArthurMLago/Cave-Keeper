@@ -30,14 +30,13 @@ import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
 import map.GameMap;
-//import map.*;
 import map.MapGenerator;
 import map.Position;
 import monster.Monster;
 
 public class GameController implements IGameController {
-	private static final GameController sharedInstance = new GameController();;
-	private Entidade player;
+	private static final GameController sharedInstance = new GameController();
+	private IPlayerMax player;
 	private GameMap map;
 	private IMapVisual mapVisual;
 	private Input command;
@@ -55,8 +54,9 @@ public class GameController implements IGameController {
 		
 		//TODO: Instanciar map, player e monstros
 		map = MapGenerator.sharedInstance().generateMap();
+		player = new Player();
 		playerSpawn = map.getSpawnPoint(player);
-		player = new Player(playerSpawn.x, playerSpawn.y);
+		player.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
 		entidades = new Monster(fase);
 		
 		//TODO: Instanciar as outras ações do player
@@ -174,7 +174,7 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public Entidade getPlayer() {
+	public IPlayerMax getPlayer() {
 		// TODO Auto-generated method stub
 		return player;
 	}
@@ -186,7 +186,7 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public ArrayList<Entidade> getEntidades() {
+	public Entidade getEntidades() {
 		// TODO Auto-generated method stub
 		return entidades;
 	}

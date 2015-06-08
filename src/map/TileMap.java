@@ -3,21 +3,56 @@ package map;
 import java.util.ArrayList;
 
 import map.enumerations.TileType;
+import map.enumerations.VisibilityMode;
 
+/**
+ * Classe usada para armazenar um Tile do mapa(um quadrado andavel).
+ * Contém informações do tile(andavel ou não?), a imagem que ele exibe, a visibilidade dele e a lista de eventos em um
+ * determinado tile.
+ * @author ArthurMLago
+ *
+ */
 public class TileMap {
 	private TileType type;
-	private int tileImage;
+	private VisibilityMode visibility;
+	private String tileImage;
 	private ArrayList<Event> EventList;
 	
-	public TileMap(TileType type, int tileImage, ArrayList<Event> EventList){
-		
-		
+	/**
+	 * Construtor padrão para um tile, recebe todas as informações necessarias para a formação de um Tile com
+	 * excessão da visibilidade, que sempre começa como desconhecido.
+	 * @param type Tipo do tile, se ele é andavel ou não. (vide {@link map.enumerations.TileType Enumeration TileType}).
+	 * @param tileImage String com o caminho para o arquivo da imagem.
+	 * @param EventList tipo ArayList com os eventos presentes nesse Tile.
+	 */
+	public TileMap(TileType type, String tileImage, ArrayList<Event> EventList){
+		this.type = type;
+		this.tileImage = tileImage;
+		this.EventList = EventList;
+		this.visibility = VisibilityMode.Unknown;
 	}
 	
+	/**
+	 * Getter simples para o tipo do Tile
+	 * @return Um tipo da{@link map.enumerations.TileType Enumeration TileType} com o tipo do tile.
+	 */
 	public TileType getType(){
 		return type;
 	}
-	public int getImage(){
+	
+	/**
+	 * Getter simples para o caminho da imagem do Tile.
+	 * @return Sting com o caminho para a imagem do Tile.
+	 */
+	public String getImage(){
 		return tileImage;
+	}
+	
+	/**
+	 * Getter simples para a visibilidade do mapa.
+	 * @return Um tipo da {@link map.enumerations.VisibilityMode Enumeration VisibilityMode} com a visiblidade desse Tile.
+	 */
+	public VisibilityMode getVisibility(){
+		return visibility;
 	}
 }

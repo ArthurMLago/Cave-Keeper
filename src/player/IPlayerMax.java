@@ -1,7 +1,10 @@
 package player;
 
-public interface IPlayerMax{
+import gameController.*;
+
+public interface IPlayerMax extends Entidade {
 	
+	public void setSpawnPointPlayer(int x, int y);
 	public void setLighter();
 	public boolean move(char direction);
 	public boolean shoot(char direction);
