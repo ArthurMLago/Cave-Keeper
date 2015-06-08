@@ -55,8 +55,8 @@ public class GameController implements IGameController {
 
 		// TODO: Instanciar map, player e monstros
 		compMap = MapGenerator.sharedInstance().generateMap();
-		playerSpawn = map.getSpawnPoint(player, compMonster);
-		player.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
+		playerSpawn = compMap.getSpawnPoint(compPlayer);
+		compPlayer.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
 
 		// TODO: Instanciar as outras ações do player
 		playerDown = new PlayerDownAction();
