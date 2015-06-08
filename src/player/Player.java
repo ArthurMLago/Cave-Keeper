@@ -8,13 +8,13 @@ import items.itemManagement.ItemManagement;
 import player.IPlayerMax;
 
 /**
- * Classe que armazena as informações e implemneta todas as ações do jogador.
+ * Classe que armazena as informaï¿½ï¿½es e implemneta todas as aï¿½ï¿½es do jogador.
  * <p>
- * Um objeto da classe Player mantém a sua posição e os seus itens. Seus métodos
- * implementam as ações possiveis do jogador registrando todas as mudanças de
+ * Um objeto da classe Player mantï¿½m a sua posiï¿½ï¿½o e os seus itens. Seus mï¿½todos
+ * implementam as aï¿½ï¿½es possiveis do jogador registrando todas as mudanï¿½as de
  * estado e comunicando todos os outros componentes do jogo.
  * 
- * @author Guilherme I. M. de Araújo
+ * @author Guilherme I. M. de Araï¿½jo
  * @author Diego S. Martines
  *
  */
@@ -29,19 +29,22 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 
 	private ItemManagement bag;
 
+	private IMonster monster;
+	
 	/**
-	 * Construtor único que estabelece as condições de início de jogo
+	 * Construtor ï¿½nico que estabelece as condiï¿½ï¿½es de inï¿½cio de jogo
 	 */
-	public Player() {
+	public Player(IMonster monster) {
 		facing = Facing.SOUTH;
 		lighter = false;
 		bag = new ItemManagement();
 		this.posX = 0;
 		this.posY = 0;
+		this.monster = monster;
 	}
 
 	/**
-	 * Método para obter o nome da classe Player de forma simples
+	 * Mï¿½todo para obter o nome da classe Player de forma simples
 	 */
 	public String getTipo() {
 		return "player";
@@ -51,17 +54,17 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	 * @return caminho da imagem do jogador
 	 * @deprecated
 	 */
-	public String getImage() {		
+	public String getImage() {
 		return null;
 	}
 
 	/**
-	 * Método que estabelece a posição inicial do jogador no mapa
+	 * Mï¿½todo que estabelece a posiï¿½ï¿½o inicial do jogador no mapa
 	 * 
 	 * @param x
-	 *            posição horizontal desejada
+	 *            posiï¿½ï¿½o horizontal desejada
 	 * @param y
-	 *            posição vertical desejada
+	 *            posiï¿½ï¿½o vertical desejada
 	 */
 	public void setSpawnPointPlayer(int x, int y) {
 		this.posX = x;
@@ -69,21 +72,21 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * @return posição horizontal do jogador
+	 * @return posiï¿½ï¿½o horizontal do jogador
 	 */
 	public int getX() {
 		return posX;
 	}
 
 	/**
-	 * @return posição vertical do jogador
+	 * @return posiï¿½ï¿½o vertical do jogador
 	 */
 	public int getY() {
 		return posY;
 	}
 
 	/**
-	 * @return direção para a qual o jogadore está olhando
+	 * @return direï¿½ï¿½o para a qual o jogadore estï¿½ olhando
 	 */
 	public int getFacing() {
 		return facing;
@@ -97,7 +100,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * Método que muda o estado da lamparina, se está ligado, ele desliga e vice
+	 * Mï¿½todo que muda o estado da lamparina, se estï¿½ ligado, ele desliga e vice
 	 * versa
 	 */
 	public void setLighter() {
@@ -108,7 +111,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * Método que muda o estado da lamparina para um desejado
+	 * Mï¿½todo que muda o estado da lamparina para um desejado
 	 * 
 	 * @param state
 	 *            estado desejado para a lamparina
@@ -121,7 +124,7 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	 * Metodo que move o personagem
 	 * 
 	 * @param direction
-	 *            caractere maiúsculo que indica a direção cardeal para a qual
+	 *            caractere maiï¿½sculo que indica a direï¿½ï¿½o cardeal para a qual
 	 *            se deseja andar
 	 * @return verdadeiro se o movimento foi efetuado com sucesso
 	 */
@@ -167,18 +170,19 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 				return false;
 		} catch (OutOfMapBoundsException erro) {
 		}
-		
-		int event = GameController.getSharedInstance().getMap().getTileAt(posX, posY).checkEvents();
+
+		int event = GameController.getSharedInstance().getMap()
+				.getTileAt(posX, posY).checkEventsAt();
 		bag.obtainItem(event);
-		
+
 		return true;
 	}
 
 	/**
-	 * Método que dirpara a arma em uma certa direção
+	 * Mï¿½todo que dirpara a arma em uma certa direï¿½ï¿½o
 	 * 
 	 * @param direction
-	 *            caractere maiúsculo que indica a direção cardeal para a qual
+	 *            caractere maiï¿½sculo que indica a direï¿½ï¿½o cardeal para a qual
 	 *            se deseja atirar
 	 * @return verdadeiro se o tiro acertou o monstro
 	 */
@@ -190,9 +194,6 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 
 		int x = posX, y = posY;
 
-		IMonster monsterReference = GameController.getSharedInstance()
-				.getEntidades();
-
 		int flag = 0;
 		try {
 			if (direction == 'E') {
@@ -201,8 +202,8 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 							.getSharedInstance().getMap().getTileAt(i, y)
 							.getType())))
 						flag = 1;
-					else if ((monsterReference.getX() == i)
-							&& (monsterReference.getY() == posY))
+					else if ((monster.getX() == i)
+							&& (monster.getY() == posY))
 						flag = 2;
 				}
 			}
@@ -213,8 +214,8 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 							.getSharedInstance().getMap().getTileAt(i, y)
 							.getType())))
 						flag = 1;
-					else if ((monsterReference.getX() == i)
-							&& (monsterReference.getY() == posY))
+					else if ((monster.getX() == i)
+							&& (monster.getY() == posY))
 						flag = 2;
 				}
 			}
@@ -225,8 +226,8 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 							.getSharedInstance().getMap().getTileAt(x, i)
 							.getType())))
 						flag = 1;
-					else if ((monsterReference.getX() == posX)
-							&& (monsterReference.getY() == i))
+					else if ((monster.getX() == posX)
+							&& (monster.getY() == i))
 						flag = 2;
 				}
 			}
@@ -237,8 +238,8 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 							.getSharedInstance().getMap().getTileAt(x, i)
 							.getType())))
 						flag = 1;
-					else if ((monsterReference.getX() == posX)
-							&& (monsterReference.getY() == i))
+					else if ((monster.getX() == posX)
+							&& (monster.getY() == i))
 						flag = 2;
 				}
 			}
@@ -258,16 +259,23 @@ public class Player implements IPlayerPosition, IPlayerAction, IPlayerMax,
 	}
 
 	/**
-	 * Método que utiliza o item flare
+	 * Mï¿½todo que utiliza o item flare
 	 */
 	public void useFlare() {
-		bag.useItem(0/* FLARE */);
+		bag.useItem(0);
 	}
 
 	/**
-	 * Método que utiliza o item stick
+	 * Mï¿½todo que utiliza o item stick
 	 */
 	public void useStick() {
 		bag.useItem(5);
+	}
+
+	/**
+	 * MÃ©todo que utiliza o item flash
+	 */
+	public void useFlash() {
+		bag.useItem(1);
 	}
 }
