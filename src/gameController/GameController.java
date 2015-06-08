@@ -54,7 +54,7 @@ public class GameController implements IGameController {
 		
 		playerLeft =  new PlayerLeftAction();
 		playerLeft.setKey(Input.KEY_LEFT);
-		'	'playerLeft.connect((IPlayerAction) player);
+		playerLeft.connect((IPlayerAction) player);
 		
 		playerRight = new PlayerRightAction();
 		playerRight.setKey(Input.KEY_RIGHT);
@@ -122,6 +122,11 @@ public class GameController implements IGameController {
 
 	public static GameController getSharedInstance() {
 		return sharedInstance;
+	}
+	
+	public static void main(String argc[]) {
+		GameController gameController = GameController.getSharedInstance();
+		gameController.bootGameController(1);
 	}
 
 	@Override

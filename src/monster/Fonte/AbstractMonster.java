@@ -75,8 +75,7 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 	}
 	
 	/** Realiza um movimento seguindo o player */
-	public void followWalk(int playerX, int playerY) {
-		Map map = getMap();
+	public void followWalk(int playerX, int playerY, IMap map) {
 		Random random = new Random();
 		
 		int monsterX = getX();
@@ -175,15 +174,13 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 	}
 	
 	/** Realiza um movimento aleatorio pelo mapa */
-	public void randomWalk() {
+	public void randomWalk(IMap map) {
 		Random random = new Random();
 		int direcao = random.nextInt(4);
 		
 		int monsterX = getX();
 		int monsterY = getY();
 		
-		
-		Map map = getMap();
 		if (direcao == 0) {
 			if(map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable)
 				this.setPosition(monsterX, monsterY+1);

@@ -1,6 +1,7 @@
 package map;
 
 import map.exceptions.OutOfMapBoundsException;
+import map.interfaces.IGameMap;
 import gameController.Entidade;
 import map.Position;
 
@@ -17,8 +18,11 @@ import java.util.ArrayList;
  * @author ArthurMLago
  *
  */
-public class GameMap {
+public class GameMap implements IGameMap {
 	private TileMap[][] Matriz;
+	
+	private int MapWidth, MapHeight;
+	private int NSpawnPoints;
 	
 	private ArrayList<Position> SpawnPointList;
 	private Hashtable<Entidade, Position> AssignedSpawnPoints;
@@ -51,6 +55,28 @@ public class GameMap {
 			throw(new OutOfMapBoundsException());
 		}
 		return Matriz[x][y];
+	}
+	
+	/**
+	 * Método para obter um número que representa qual é o item ou armadilha que está na tile desejada. 
+	 * @param x Posição na horizontal do Tile desejado
+	 * @param y Posição na vertical do Tile desejado
+	 * @return um inteiro que corresponde a armadilha ou o item
+	 */
+	public int checkEventAt(int x, int y)
+	{	
+		TileMap currentTile;
+		
+		try {
+			currentTile = this.getTileAt(x, y);
+		}catch (OutOfMapBoundsException exception){
+			System.err.println("Tentativa de acessar posição fora do mapa");
+			return -1;
+		}
+		
+
+		
+		return 0;
 	}
 	
 	
