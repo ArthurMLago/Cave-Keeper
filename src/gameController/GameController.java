@@ -36,7 +36,7 @@ import map.Position;
 import monster.Monster;
 
 public class GameController implements IGameController {
-	private static final GameController sharedInstance = new GameController();;
+	private static final GameController sharedInstance = new GameController();
 	private Entidade player;
 	private GameMap map;
 	private IMapVisual mapVisual;
