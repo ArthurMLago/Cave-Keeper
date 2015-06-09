@@ -112,7 +112,7 @@ public class MapGenerator implements IMapGenerator{
 		Matriz = new int[MapHeight][MapWidth];
 		SpawnPointList = new ArrayList<Position>();
 		
-		TileMap[][] MatrizTiles = new TileMap[MapWidth][MapHeight];
+		TileMap[][] MatrizTiles = new TileMap[MapHeight][MapWidth];
 		
 		//Posicao inicial do random blobber:
 		int PosX = MapWidth/2;
@@ -173,10 +173,10 @@ public class MapGenerator implements IMapGenerator{
 				String tileImage;
 				TileType tileEnum;
 				if (Matriz[i][j] == 0){
-					tileImage = "Resources/tile/Grass.png";
+					tileImage = "Grass";
 					tileEnum = TileType.Walkable;
 				}else{
-					tileImage = "Resources/tile/Rock.png";
+					tileImage = "Rock";
 					tileEnum = TileType.Wall;
 				}
 				MatrizTiles[i][j] = new TileMap(tileEnum,tileImage,null);
@@ -355,9 +355,9 @@ public class MapGenerator implements IMapGenerator{
 	 */
 	private void DEBUGprintMap(){
 		System.out.print("{");
-		for (int i = 0; i < MapWidth; i++){
+		for (int i = 0; i < MapHeight; i++){
 			System.out.print("{");
-			for (int j = 0; j < MapHeight - 1; j++){
+			for (int j = 0; j < MapWidth - 1; j++){
 				System.out.print(Matriz[i][j]+",");
 			}
 			System.out.print(Matriz[i][MapHeight - 1]);
