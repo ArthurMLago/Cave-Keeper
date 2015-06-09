@@ -13,5 +13,5 @@ public interface IPlayerMax extends Entidade {
 	public int getX();
 	public int getY();
 	public int getFacing();
-
+	public boolean getLighter();
 }

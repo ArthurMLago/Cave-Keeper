@@ -40,16 +40,17 @@ public class GameController implements IGameController {
 	private IPlayerMax compPlayer;
 	private IItemManagement compItemManagement;
 	private IMapVisual compMapVisual;
-	
+
 	private GameController() {
 	}
 
-	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement) {
+	public void conectar(IMonster compMonster, IPlayerMax compPlayer,
+			IItemManagement compItemManagement) {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
 	}
-	
+
 	private void bootGameController(int fase) {
 		Position playerSpawn;
 
@@ -144,23 +145,25 @@ public class GameController implements IGameController {
 	public void setCommand(Input command) {
 		this.command = command;
 	}
-	
+
 	public IPlayerMax getPlayer() {
 		return this.compPlayer;
 	}
-	
+
 	public IGameMap getMap() {
 		return this.compMap;
 	}
-	
+
 	public IMonster getEntidades() {
 		return this.compMonster;
 	}
-	
-	public void move(){
-		if(compMonster.isMonstersAlive()){
+
+	public void move() {
+		if (compMonster.isMonstersAlive()) {
 			compMonster.runMonstersActions(0);
-			//compItemManagement.useItem();
+			if (compPlayer.getLighter()) {
+				// compItemManagement.useItem();
+			}
 		}
 	}
 
