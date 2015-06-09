@@ -26,7 +26,7 @@ public class PlayerShootLeftAction implements IActionPlayerMapVisual {
 	@Override
 	public void execute() {
 		if (player.shoot(Facing.WEST)) {
-			map.shootDirection(Facing.WEST);
+			//map.shootDirection(Facing.WEST);
 		}
 	}
 

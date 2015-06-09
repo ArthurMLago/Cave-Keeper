@@ -25,7 +25,7 @@ public class AppCavesKeeper {
 			IMonster compMonster = componentFactory.createInstance("<http://cave.com/monster.Monster>");
 			IPlayerMax compPlayer = componentFactory.createInstance("<http://cave.com/player.Player>");
 			IItemManagement compItemManagement = componentFactory.createInstance("<http://cave.com/items.itemManagement.ItemManagement>");
-		
+			
 			GameController.getSharedInstance().conectar(compMonster, compPlayer, compItemManagement);
 			
 		}

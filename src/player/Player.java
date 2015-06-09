@@ -221,51 +221,52 @@ public class Player extends ComponentBase implements IPlayerPosition,
 
 		int flag = 0;
 		try {
-			if (direction == 'E') {
+			if (direction == Facing.EAST) {
 				for (int i = x + 1; flag == 0; i++) {
-					if ((TileType.Walkable.equals(GameController
+					if ((monster.getX(0) == i)
+							&& (monster.getY(0) == posY))
+						flag = 2;
+					else if ((TileType.Walkable.equals(GameController
 							.getSharedInstance().getMap().getTileAt(i, y)
 							.getType())))
 						flag = 1;
-					else if ((monster.getX(0) == i)
-							&& (monster.getY(0) == posY))
-						flag = 2;
+					
 				}
 			}
 
-			if (direction == 'W') {
+			if (direction == Facing.WEST) {
 				for (int i = x - 1; flag == 0; i--) {
-					if ((TileType.Walkable.equals(GameController
+					if ((monster.getX(0) == i)
+							&& (monster.getY(0) == posY))
+						flag = 2;
+					else if ((TileType.Walkable.equals(GameController
 							.getSharedInstance().getMap().getTileAt(i, y)
 							.getType())))
 						flag = 1;
-					else if ((monster.getX(0) == i)
-							&& (monster.getY(0) == posY))
-						flag = 2;
 				}
 			}
 
-			if (direction == 'N') {
+			if (direction == Facing.NORTH) {
 				for (int i = y + 1; flag == 0; i++) {
-					if ((TileType.Walkable.equals(GameController
+					if ((monster.getX(0) == posX)
+							&& (monster.getY(0) == i))
+						flag = 2;
+					else if ((TileType.Walkable.equals(GameController
 							.getSharedInstance().getMap().getTileAt(x, i)
 							.getType())))
 						flag = 1;
-					else if ((monster.getX(0) == posX)
-							&& (monster.getY(0) == i))
-						flag = 2;
 				}
 			}
 
-			if (direction == 'S') {
+			if (direction == Facing.SOUTH) {
 				for (int i = y - 1; flag == 0; i--) {
-					if ((TileType.Walkable.equals(GameController
+					if ((monster.getX(0) == posX)
+							&& (monster.getY(0) == i))
+						flag = 2;
+					else if ((TileType.Walkable.equals(GameController
 							.getSharedInstance().getMap().getTileAt(x, i)
 							.getType())))
 						flag = 1;
-					else if ((monster.getX(0) == posX)
-							&& (monster.getY(0) == i))
-						flag = 2;
 				}
 			}
 

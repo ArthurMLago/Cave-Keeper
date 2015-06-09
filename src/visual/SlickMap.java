@@ -51,7 +51,7 @@ public class SlickMap extends BasicGame {
 	private IGameMap map;
 	private String character = "cat";
 	private int duration = 10;
-	private boolean flare = false;
+	private boolean flare = true;
 	private int flareTime;
 	private HashMap<String, Image> imageMap;
 	private Audio footstepAudio;
@@ -160,10 +160,12 @@ public class SlickMap extends BasicGame {
 							imageMap);
 				}
 			}
+			if(monsters.isMonstersAlive()){
+				drawMonster(monsters);
+			}
 		} catch (SlickException e) {
 			System.out.println(e);
 		} catch (OutOfMapBoundsException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -174,17 +176,18 @@ public class SlickMap extends BasicGame {
 	 *            - Entidade a ser desenhada
 	 */
 	private void drawMonster(IMonster monster) {
-		try {
-			Image tile = getImage("resources/monster/" + monster.getImage(0)
-					+ ".png", imageMap);
+			try {
+				Image tile = getImage(
+						"resources/monster/" + monster.getImage(0) + ".png",
+						imageMap);
 
-			Image[] tiles = { tile };
-			Animation tileAnimation = new Animation(tiles, 1000);
-			tileAnimation.draw(monster.getX(0) * MapVisual.SIZEIMAGE,
-					monster.getY(0) * MapVisual.SIZEIMAGE);
-		} catch (SlickException ex) {
-			System.out.println(ex);
-		}
+				Image[] tiles = { tile };
+				Animation tileAnimation = new Animation(tiles, 1000);
+				tileAnimation.draw(monster.getX(0) * MapVisual.SIZEIMAGE,
+						monster.getY(0) * MapVisual.SIZEIMAGE);
+			} catch (SlickException ex) {
+				System.out.println(ex);
+			}
 	}
 
 	private void drawFlare() {

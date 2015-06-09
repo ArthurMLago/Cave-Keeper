@@ -26,4 +26,6 @@ public interface IMapVisual extends ISupports{
 	 * @param facing - Lado que o player está olhando
 	 */
 	public void changePlayerFacing(char facing);
+	
+	public void playEffect(float gain, String type);
 }
