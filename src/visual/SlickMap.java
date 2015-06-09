@@ -3,6 +3,7 @@ package visual;
 import gameController.Entidade;
 import gameController.GameController;
 import gameController.IGameController;
+import items.itemManagement.ItemsList;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -282,6 +283,31 @@ public class SlickMap extends BasicGame{
 				wallFind = true;
 			}
 		}
+	}
+	
+	private String nameItem(ItemsList item){
+		String name = null;
+		switch (item) {
+		case Flare:
+			name = "flare";
+			break;
+		case Flash:
+			name = "flash";
+			break;
+		case Fuel:
+			name = "fuel";
+			break;
+		case SaltAmmo:
+			name = "salt";
+			break;
+		case Stick:
+			name = "stick";
+			break;
+		default:
+			break;
+		}
+		
+		return name;
 	}
 
 	/**

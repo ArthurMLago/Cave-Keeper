@@ -172,6 +172,13 @@ public class GameController implements IGameController {
 					compPlayer.setLighter();
 				}
 			}
+
+			if (compMapVisual instanceof IAudioEffect) {
+				double maxDistance = Math.sqrt(compMap.getLimitX() ^ 2
+						+ compMap.getLimitY() ^ 2);
+				float gain = (maxDistance-compMonster.getDistance(0))/maxDistance;
+				((IAudioEffect) compMapVisual).playEffect(gain, "footstep");
+			}
 		}
 	}
 
