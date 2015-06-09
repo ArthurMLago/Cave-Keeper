@@ -25,15 +25,16 @@ public class PlayerShootRightAction implements IActionPlayerMapVisual {
 
 	@Override
 	public void execute() {
-		player.shoot(Facing.EAST);
-		map.shootDirection(Facing.EAST);
+		if (player.shoot(Facing.EAST)) {
+			map.shootDirection(Facing.EAST);
+		}
 	}
 
 	@Override
 	public void connect(IPlayerAction player) {
 		this.player = player;
 	}
-	
+
 	@Override
 	public void connect(IMapVisual map) {
 		this.map = map;

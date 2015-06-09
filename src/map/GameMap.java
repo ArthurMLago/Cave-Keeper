@@ -20,10 +20,11 @@ import java.util.ArrayList;
  *
  */
 public class GameMap implements IGameMap,Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private TileMap[][] Matriz;
 	
 	private int MapWidth, MapHeight;
-	private int NSpawnPoints;
 	
 	private ArrayList<Position> SpawnPointList;
 	private Hashtable<Entidade, Position> AssignedSpawnPoints;
@@ -35,9 +36,25 @@ public class GameMap implements IGameMap,Serializable {
 	 */
 	public GameMap(TileMap[][] Matriz, ArrayList<Position> SpawnPointList){
 		this.Matriz = Matriz;
+		this.MapHeight = Matriz.length;
+		this.MapWidth = Matriz[0].length;
 		
 		this.SpawnPointList = SpawnPointList;
 		AssignedSpawnPoints = new Hashtable<Entidade, Position>();
+	}
+	
+	/**
+	 * Método para retornar o limite horizontal do mapa( a largura).
+	 */
+	public int getLimitX(){
+		return MapWidth;
+	}
+	
+	/**
+	 * Método para retornar o limite vertical do mapa( a altura).
+	 */
+	public int getLimitY(){
+		return MapHeight;
 	}
 	
 	
@@ -72,16 +89,23 @@ public class GameMap implements IGameMap,Serializable {
 	 * @return Objeto da classe {@link map.Position Position} contendo a posição do SpawnPoint
 	 */
 	public Position getSpawnPoint(Entidade entity){
-		
+		boolean AvailableSpawnPoint = true;
 		if (!AssignedSpawnPoints.containsKey(entity)){
+			AvailableSpawnPoint = false;
 			for (Position i : SpawnPointList){
 				if (!AssignedSpawnPoints.containsValue(i)){
 					AssignedSpawnPoints.put(entity, i);
+					AvailableSpawnPoint = true;
 					break;
 				}
 			}
 		}
-		return AssignedSpawnPoints.get(entity);
+		
+		if (AvailableSpawnPoint == true){
+			return AssignedSpawnPoints.get(entity);
+		}else{
+			return null;
+		}
 		
 	}
 }

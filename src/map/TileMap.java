@@ -2,9 +2,11 @@ package map;
 
 import java.util.ArrayList;
 
+import map.Event;
 import map.enumerations.TileType;
 import map.enumerations.VisibilityMode;
-import map.exceptions.OutOfMapBoundsException;
+
+import map.enumerations.EventType;
 
 /**
  * Classe usada para armazenar um Tile do mapa(um quadrado andavel).
@@ -57,16 +59,30 @@ public class TileMap {
 		return visibility;
 	}
 	
+	/**
+	 * Método para descobrir se existe um determinado tipo de evento neste Tile.
+	 * @param type Tipo do evento.
+	 * @return true, se existe um evento do tipo especificado, false, caso contrario.
+	 */
+	public Event checkForEvents(EventType type){
+		for (Event i : EventList){
+			if (i.getType() == type){
+				return i;
+			}
+		}
+		return null;
+	}
 	
 	/**
-	 * Método para obter um número que representa qual é o item ou armadilha que está na tile desejada. 
-	 * @param x Posição na horizontal do Tile desejado
-	 * @param y Posição na vertical do Tile desejado
-	 * @return um inteiro que corresponde a armadilha ou o item
+	 * Método para descartar eventos de determinado tipo.
+	 * @param type Tipo do evento.
 	 */
-	public int checkEvents(){	
-		
-		
-		return 0;
+	public void discardEventOfType(EventType type){
+		for (Event i: EventList){
+			if (i.getType() == type){
+				EventList.remove(i);
+			}
+		}
 	}
+	
 }

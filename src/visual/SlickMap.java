@@ -8,7 +8,10 @@ import items.itemManagement.ItemsList;
 import java.io.IOException;
 import java.util.HashMap;
 
+import map.Event;
+import map.enumerations.EventType;
 import map.enumerations.TileType;
+import map.events.EventItem;
 import map.exceptions.OutOfMapBoundsException;
 import map.interfaces.IGameMap;
 import monster.Interfaces.IMonster;
@@ -36,7 +39,7 @@ import anima.component.InterfaceType;
  * @author eitiyamamoto
  *
  */
-public class SlickMap extends BasicGame{
+public class SlickMap extends BasicGame {
 	private Animation spritePlayer, playerUp, playerDown, playerLeft,
 			playerRight;
 	private Animation shadowPlayer, shadowUp, shadowDown, shadowLeft,
@@ -85,13 +88,13 @@ public class SlickMap extends BasicGame{
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
-		Image[] movementUp = { new Image("resource/character/" + character
+		Image[] movementUp = { new Image("resources/character/" + character
 				+ "_up.png") };
-		Image[] movementDown = { new Image("resource/character/" + character
+		Image[] movementDown = { new Image("resources/character/" + character
 				+ "_down.png") };
-		Image[] movementLeft = { new Image("resource/character/" + character
+		Image[] movementLeft = { new Image("resources/character/" + character
 				+ "_left.png") };
-		Image[] movementRight = { new Image("resource/character/" + character
+		Image[] movementRight = { new Image("resources/character/" + character
 				+ "_right.png") };
 
 		// Iniciando as anima��es
@@ -100,7 +103,7 @@ public class SlickMap extends BasicGame{
 		playerLeft = new Animation(movementLeft, duration, false);
 		playerRight = new Animation(movementRight, duration, false);
 
-		String pathShadow = "resource/tile/shadow/";
+		String pathShadow = "resources/tile/shadow/";
 		Image[] shaPlayer = { new Image(pathShadow + "on_character.png") };
 		Image[] shaUp = { new Image(pathShadow + "up.png") };
 		Image[] shaDown = { new Image(pathShadow + "down.png") };
@@ -114,7 +117,7 @@ public class SlickMap extends BasicGame{
 		shadowLeft = new Animation(shaLeft, duration, false);
 		shadowAround = new Animation(shaAround, duration, false);
 
-		String pathAudio = "resource/audio/";
+		String pathAudio = "resources/audio/";
 		try {
 			footstepAudio = AudioLoader.getAudio(
 					"OGG",
@@ -139,18 +142,29 @@ public class SlickMap extends BasicGame{
 	private void drawTile(int x, int y) {
 		try {
 			if (map.getTileAt(x, y).getType() != TileType.Void) {
-				Image tile = getImage("resource/tile/"
+				Image tile = getImage("resources/tile/"
 						+ map.getTileAt(x, y).getImage() + ".png", imageMap);
 
 				Image[] tiles = { tile };
 				Animation tileAnimation = new Animation(tiles, 1000);
 				tileAnimation.draw(x * MapVisual.SIZEIMAGE, y
 						* MapVisual.SIZEIMAGE);
+
+				Event event = map.getTileAt(x, y)
+						.checkForEvents(EventType.ITEM);
+				String nome = null;
+				if (event != null) {
+					if (event instanceof EventItem) {
+						nome = nameItem(((EventItem) event).getItemType());
+
+						Image item = getImage("resources/item/" + nome + ".png",
+								imageMap);
+					}
+				}
 			}
 		} catch (SlickException e) {
 			System.out.println(e);
 		} catch (OutOfMapBoundsException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -162,13 +176,13 @@ public class SlickMap extends BasicGame{
 	 */
 	private void drawMonster(IMonster monster) {
 		try {
-			Image tile = getImage("resource/monster/" + monster.getImage(0) + ".png",
-					imageMap);
+			Image tile = getImage("resources/monster/" + monster.getImage(0)
+					+ ".png", imageMap);
 
 			Image[] tiles = { tile };
 			Animation tileAnimation = new Animation(tiles, 1000);
-			tileAnimation.draw(monster.getX(0) * MapVisual.SIZEIMAGE, monster.getY(0)
-					* MapVisual.SIZEIMAGE);
+			tileAnimation.draw(monster.getX(0) * MapVisual.SIZEIMAGE,
+					monster.getY(0) * MapVisual.SIZEIMAGE);
 		} catch (SlickException ex) {
 			System.out.println(ex);
 		}
@@ -182,7 +196,7 @@ public class SlickMap extends BasicGame{
 		}
 
 		drawMonster(monsters);
-		
+
 		if (flareTime > 2000)
 			flare = false;
 	}
@@ -190,7 +204,7 @@ public class SlickMap extends BasicGame{
 	private void drawExplosion() {
 		Image explosionImage;
 		try {
-			explosionImage = getImage("resource/shoot/explosion.png", imageMap);
+			explosionImage = getImage("resources/shoot/explosion.png", imageMap);
 			Image[] explosions = { explosionImage };
 			Animation explosionAnimation = new Animation(explosions, 1000);
 			explosionAnimation.draw(explosionX * MapVisual.SIZEIMAGE,
@@ -221,9 +235,9 @@ public class SlickMap extends BasicGame{
 		shadowPlayer.draw(player.getX() * MapVisual.SIZEIMAGE, player.getY()
 				* MapVisual.SIZEIMAGE);
 
-			if (monsters.getX(0) == player.getX() + xFacing
-					&& monsters.getY(0) == player.getY() + yFacing)
-				drawMonster(monsters);
+		if (monsters.getX(0) == player.getX() + xFacing
+				&& monsters.getY(0) == player.getY() + yFacing)
+			drawMonster(monsters);
 	}
 
 	/**
@@ -284,8 +298,8 @@ public class SlickMap extends BasicGame{
 			}
 		}
 	}
-	
-	private String nameItem(ItemsList item){
+
+	private String nameItem(ItemsList item) {
 		String name = null;
 		switch (item) {
 		case Flare:
@@ -306,7 +320,7 @@ public class SlickMap extends BasicGame{
 		default:
 			break;
 		}
-		
+
 		return name;
 	}
 
@@ -349,7 +363,7 @@ public class SlickMap extends BasicGame{
 	 * 
 	 * @param c
 	 */
-	public void faceSprite(int facing) {
+	public void faceSprite(char facing) {
 		switch (facing) {
 		case Facing.NORTH:
 			spritePlayer = playerUp;

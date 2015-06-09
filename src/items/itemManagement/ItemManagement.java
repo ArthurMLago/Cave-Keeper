@@ -15,6 +15,7 @@ import anima.component.base.ComponentBase;
 /**
  * @author Vicente
  * @author Felipe Moret
+ *
  * Classe responsavel pela comunicacao entre outras classes e o inventario
  * Classe respons�vel por gerenciar os itens dispon�ves, seu incremento, decremento e quantidade, al�m
  * de sua inicializa��o

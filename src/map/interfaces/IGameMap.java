@@ -17,8 +17,16 @@ public interface IGameMap {
 	 */
 	public TileMap getTileAt(int x, int y) throws OutOfMapBoundsException;
 	
+	/**
+	 * Retorna largura do mapa
+	 * @return A largura do mapa
+	 */
 	public int getLimitX();
 	
+	/**
+	 * Retorna a altura do mapa
+	 * @return A altura do mapa
+	 */
 	public int getLimitY();
 
 }

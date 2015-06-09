@@ -195,8 +195,6 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 					this.setPosition(monsterX-1, monsterY);
 			}
 		} catch (OutOfMapBoundsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	/** Define se o monstro deve começar a seguir o jogador */
