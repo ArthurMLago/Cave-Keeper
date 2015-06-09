@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import map.Event;
 import map.enumerations.TileType;
 import map.enumerations.VisibilityMode;
-import map.exceptions.OutOfMapBoundsException;
 
 import map.enumerations.EventType;
 

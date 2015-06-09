@@ -1,8 +1,12 @@
 package player;
 
 import anima.annotation.Component;
+import anima.component.IRequires;
 import anima.component.base.ComponentBase;
+import map.Event;
+import map.enumerations.EventType;
 import map.enumerations.TileType;
+import map.events.EventItem;
 import map.exceptions.OutOfMapBoundsException;
 import map.interfaces.IGameMap;
 import gameController.*;
@@ -23,9 +27,9 @@ import player.IPlayerMax;
  * @author Diego S. Martines
  *
  */
-@Component(id="<http://santanvarzea.com/player.Player>", provides={"<http://santanvarzea.com/player.IPlayer>"})
-public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAction, IPlayerMax,
-		Entidade {
+@Component(id = "<http://santanvarzea.com/player.Player>", provides = { "<http://santanvarzea.com/player.IPlayer>" })
+public class Player extends ComponentBase implements IPlayerPosition,
+		IPlayerAction, IPlayerMax, Entidade, IRequires<IMonster> {
 
 	private int posX, posY;
 
@@ -36,19 +40,18 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	private ItemManagement bag;
 
 	private IMonster monster;
-	
+
 	private IGameMap map;
-	
+
 	/**
 	 * Construtor �nico estabelece as condi��es de in�cio de jogo
 	 */
-	public Player(IMonster monster) {
+	public Player() {
 		facing = Facing.SOUTH;
 		lighter = false;
 		bag = new ItemManagement();
 		this.posX = 0;
 		this.posY = 0;
-		this.monster = monster;
 	}
 
 	/**
@@ -96,7 +99,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	/**
 	 * @return direção para a qual o jogador está olhando
 	 */
-	public int getFacing() {
+	public char getFacing() {
 		return facing;
 	}
 
@@ -142,18 +145,18 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 		try {
 			if (direction == Facing.NORTH) {
 				if ((TileType.Walkable.equals(GameController
-						.getSharedInstance().getMap().getTileAt(posX, posY + 1)
+						.getSharedInstance().getMap().getTileAt(posX, posY - 1)
 						.getType())))
-					posY++;
+					posY--;
 				else
 					return false;
 			}
 
 			else if (direction == Facing.SOUTH) {
 				if ((TileType.Walkable.equals(GameController
-						.getSharedInstance().getMap().getTileAt(posX, posY - 1)
+						.getSharedInstance().getMap().getTileAt(posX, posY + 1)
 						.getType())))
-					posY--;
+					posY++;
 				else
 					return false;
 			}
@@ -179,9 +182,15 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 		} catch (OutOfMapBoundsException erro) {
 		}
 
-		int event = GameController.getSharedInstance().getMap()
-				.getTileAt(posX, posY).checkEventsAt();
-		bag.obtainItem(event);
+		Event event;
+		try {
+			event = GameController.getSharedInstance().getMap()
+					.getTileAt(posX, posY).checkForEvents(EventType.ITEM);
+			if (event != null && event instanceof EventItem) {
+				bag.obtainItem(((EventItem) event).getItemType());
+			}
+		} catch (OutOfMapBoundsException e) {
+		}
 
 		return true;
 	}
@@ -262,10 +271,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 		if (flag == 2) {
 			monster.getHit(0);
 		}
-			return true;
-
-		return false;
-
+		return true;
 	}
 
 	/**
@@ -291,7 +297,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 		} catch (OutofItemsException e) {
 			usado = false;
 		}
-		
+
 		return usado;
 	}
 
@@ -306,5 +312,10 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 			usado = false;
 		}
 		return usado;
+	}
+
+	@Override
+	public void connect(IMonster arg0) {
+		this.monster = arg0;
 	}
 }

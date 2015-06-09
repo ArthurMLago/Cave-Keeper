@@ -93,7 +93,7 @@ public class MapGenerator implements IMapGenerator{
 	 * Função para definir o numero de Spawn Points.
 	 * @param Numero de Spawn Points do mapa
 	 */
-	public void setNSpawnPoints(int value){ NSpawnPoints = 2;}
+	public void setNSpawnPoints(int value){ NSpawnPoints = value;}
 	
 	
 	/**
@@ -109,13 +109,13 @@ public class MapGenerator implements IMapGenerator{
 	 */
 	public GameMap generateMap(){
 		
-		Matriz = new int[MapWidth][MapHeight];
+		Matriz = new int[MapHeight][MapWidth];
 		SpawnPointList = new ArrayList<Position>();
 		
 		TileMap[][] MatrizTiles = new TileMap[MapWidth][MapHeight];
 		
 		//Posicao inicial do random blobber:
-		int PosX = MapWidth/2 - 10;
+		int PosX = MapWidth/2;
 		int PosY = MapHeight/2;
 		
 		
@@ -147,8 +147,8 @@ public class MapGenerator implements IMapGenerator{
 			PosY = clampToMapHeight(PosY);
 			
 			//Se nao for passavel, agora eh:
-			if (Matriz[PosX][PosY] == 0){
-				Matriz[PosX][PosY] = 1;
+			if (Matriz[PosY][PosX] == 0){
+				Matriz[PosY][PosX] = 1;
 				ChangeCount++;
 			}
 		}
@@ -228,16 +228,16 @@ public class MapGenerator implements IMapGenerator{
 	 * Método para aplicar filtro de remoção de Tiles isolados dso mapa.
 	 */
 	private void filterIsolatedTiles(){
-		for (int i = 0; i < MapWidth; i++){
-			for (int j = 0; j < MapHeight; j++){
+		for (int i = 0; i < MapHeight; i++){
+			for (int j = 0; j < MapWidth; j++){
 				if (Matriz[i][j] == 0){
-					if (i + 1 > MapWidth - 1){
+					if (i + 1 > MapHeight - 1){
 						continue;
 					}
 					if (i - 1 < 0){
 						continue;
 					}
-					if (j + 1 > MapHeight - 1){
+					if (j + 1 > MapWidth - 1){
 						continue;
 					}
 					if (j - 1 < 0){
@@ -268,20 +268,20 @@ public class MapGenerator implements IMapGenerator{
 	 * Método para aplicar filtro de remoção de passagems estreitas.
 	 */
 	private void filterNarrowPassage(){
-		for (int i = 0; i < MapWidth; i++){
-			for (int j = 0; j < MapHeight; j++){
+		for (int i = 0; i < MapHeight; i++){
+			for (int j = 0; j < MapWidth; j++){
 				int iActualMin = i - 1;
 				int iActualMax = i + 1;
 				int jActualMin = j - 1;
 				int jActualMax = j + 1;
-				if (i + 1 > MapWidth - 1){
-					iActualMax = MapWidth - 1;
+				if (i + 1 > MapHeight - 1){
+					iActualMax = MapHeight - 1;
 				}
 				if (i - 1 < 0){
 					iActualMin = 0;
 				}
-				if (j + 1 > MapHeight - 1){
-					jActualMax = MapHeight - 1;
+				if (j + 1 > MapWidth - 1){
+					jActualMax = MapWidth - 1;
 				}
 				if (j - 1 < 0){
 					jActualMin = 0;
@@ -331,7 +331,7 @@ public class MapGenerator implements IMapGenerator{
 			
 			for (int i = 0; i < NSpawnPoints; i++){
 				do{
-					SpawnPointPosition[i] = new Position(randomGenerator.nextInt(MapWidth),randomGenerator.nextInt(MapHeight));
+					SpawnPointPosition[i] = new Position(randomGenerator.nextInt(MapHeight),randomGenerator.nextInt(MapWidth));
 				}while(Matriz[SpawnPointPosition[i].getX()][SpawnPointPosition[i].getY()] == 0);
 			}
 			
