@@ -2,9 +2,12 @@ package map;
 
 import java.util.ArrayList;
 
+import map.Event;
 import map.enumerations.TileType;
 import map.enumerations.VisibilityMode;
 import map.exceptions.OutOfMapBoundsException;
+
+import map.enumerations.EventType;
 
 /**
  * Classe usada para armazenar um Tile do mapa(um quadrado andavel).
@@ -58,15 +61,11 @@ public class TileMap {
 	}
 	
 	
-	/**
-	 * Método para obter um número que representa qual é o item ou armadilha que está na tile desejada. 
-	 * @param x Posição na horizontal do Tile desejado
-	 * @param y Posição na vertical do Tile desejado
-	 * @return um inteiro que corresponde a armadilha ou o item
-	 */
-	public int checkEvents(){	
-		
-		
-		return 0;
-	}
+//	/**
+//	 * Método para recuperar a lista de eventos em certo Tile.
+//	 * @return A lista de eventos deste Tile
+//	 */
+//	public ArrayList<Event> getEvents(EventType wantedType){	
+//		return EventList;
+//	}
 }
