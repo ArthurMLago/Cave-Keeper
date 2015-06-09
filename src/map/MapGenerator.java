@@ -331,7 +331,7 @@ public class MapGenerator implements IMapGenerator{
 			
 			for (int i = 0; i < NSpawnPoints; i++){
 				do{
-					SpawnPointPosition[i] = new Position(randomGenerator.nextInt(MapWidth),randomGenerator.nextInt(MapHeight));
+					SpawnPointPosition[i] = new Position(randomGenerator.nextInt(MapHeight),randomGenerator.nextInt(MapWidth));
 				}while(Matriz[SpawnPointPosition[i].getX()][SpawnPointPosition[i].getY()] == 0);
 			}
 			
