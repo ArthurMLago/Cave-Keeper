@@ -52,15 +52,24 @@ public class GameController implements IGameController {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
+		bootGameController(1);
 	}
 
 	private void bootGameController(int fase) {
 		Position playerSpawn;
 
 		// TODO: Instanciar map, player e monstros
+		MapGenerator.sharedInstance().setMapHeight(20);
+		MapGenerator.sharedInstance().setMapWidth(30);
+		MapGenerator.sharedInstance().setWalkablePath(400);
 		compMap = MapGenerator.sharedInstance().generateMap();
 		playerSpawn = compMap.getSpawnPoint(compPlayer);
 		compPlayer.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
+		
+		compMonster.connect(compPlayer, compMap);
+		compMonster.generateMonsters(1);
+		
+		compPlayer.connect(compMonster);
 
 		// TODO: Instanciar as outras ações do player
 		playerDown = new PlayerDownAction();
@@ -160,6 +169,10 @@ public class GameController implements IGameController {
 
 	public IMonster getEntidades() {
 		return this.compMonster;
+	}
+	
+	public IMapVisual getMapVisual(){
+		return this.compMapVisual;
 	}
 
 	public void move() {

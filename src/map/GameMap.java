@@ -66,18 +66,13 @@ public class GameMap implements IGameMap,Serializable {
 	 * @throws OutOfMapBoundsException
 	 */
 	public TileMap getTileAt(int x, int y) throws OutOfMapBoundsException{
-		if (y > Matriz.length){
+		if (y >= Matriz[0].length || y < 0){
 			throw(new OutOfMapBoundsException());
 		}
-		if (x > Matriz[0].length){
+		if (x >= Matriz.length || x < 0){
 			throw(new OutOfMapBoundsException());
 		}
-		if( x < 0){
-			throw(new OutOfMapBoundsException());
-		}
-		if( y < 0){
-			throw(new OutOfMapBoundsException());
-		}
+		
 		return Matriz[x][y];
 	}
 	

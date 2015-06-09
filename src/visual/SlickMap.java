@@ -144,7 +144,6 @@ public class SlickMap extends BasicGame {
 		try {
 			Image tile = getImage("resources/tile/"
 					+ map.getTileAt(x, y).getImage() + ".png", imageMap);
-			System.out.println("Tile Name: " + map.getTileAt(x, y).getImage());
 
 			Image[] tiles = { tile };
 			Animation tileAnimation = new Animation(tiles, 1000);
