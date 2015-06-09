@@ -1,6 +1,7 @@
 package player;
 
 import anima.annotation.Component;
+import anima.component.IRequires;
 import anima.component.base.ComponentBase;
 import map.Event;
 import map.enumerations.EventType;
@@ -28,7 +29,7 @@ import player.IPlayerMax;
  */
 @Component(id = "<http://santanvarzea.com/player.Player>", provides = { "<http://santanvarzea.com/player.IPlayer>" })
 public class Player extends ComponentBase implements IPlayerPosition,
-		IPlayerAction, IPlayerMax, Entidade {
+		IPlayerAction, IPlayerMax, Entidade, IRequires<IMonster> {
 
 	private int posX, posY;
 
@@ -45,13 +46,12 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	/**
 	 * Construtor �nico estabelece as condi��es de in�cio de jogo
 	 */
-	public Player(IMonster monster) {
+	public Player() {
 		facing = Facing.SOUTH;
 		lighter = false;
 		bag = new ItemManagement();
 		this.posX = 0;
 		this.posY = 0;
-		this.monster = monster;
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	/**
 	 * @return direção para a qual o jogador está olhando
 	 */
-	public int getFacing() {
+	public char getFacing() {
 		return facing;
 	}
 
@@ -145,18 +145,18 @@ public class Player extends ComponentBase implements IPlayerPosition,
 		try {
 			if (direction == Facing.NORTH) {
 				if ((TileType.Walkable.equals(GameController
-						.getSharedInstance().getMap().getTileAt(posX, posY + 1)
+						.getSharedInstance().getMap().getTileAt(posX, posY - 1)
 						.getType())))
-					posY++;
+					posY--;
 				else
 					return false;
 			}
 
 			else if (direction == Facing.SOUTH) {
 				if ((TileType.Walkable.equals(GameController
-						.getSharedInstance().getMap().getTileAt(posX, posY - 1)
+						.getSharedInstance().getMap().getTileAt(posX, posY + 1)
 						.getType())))
-					posY--;
+					posY++;
 				else
 					return false;
 			}
@@ -186,12 +186,11 @@ public class Player extends ComponentBase implements IPlayerPosition,
 		try {
 			event = GameController.getSharedInstance().getMap()
 					.getTileAt(posX, posY).checkForEvents(EventType.ITEM);
-			if(event != null && event instanceof EventItem){
+			if (event != null && event instanceof EventItem) {
 				bag.obtainItem(((EventItem) event).getItemType());
 			}
 		} catch (OutOfMapBoundsException e) {
 		}
-		
 
 		return true;
 	}
@@ -313,5 +312,10 @@ public class Player extends ComponentBase implements IPlayerPosition,
 			usado = false;
 		}
 		return usado;
+	}
+
+	@Override
+	public void connect(IMonster arg0) {
+		this.monster = arg0;
 	}
 }
