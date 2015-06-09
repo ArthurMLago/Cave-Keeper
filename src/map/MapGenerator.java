@@ -228,16 +228,16 @@ public class MapGenerator implements IMapGenerator{
 	 * Método para aplicar filtro de remoção de Tiles isolados dso mapa.
 	 */
 	private void filterIsolatedTiles(){
-		for (int i = 0; i < MapWidth; i++){
-			for (int j = 0; j < MapHeight; j++){
+		for (int i = 0; i < MapHeight; i++){
+			for (int j = 0; j < MapWidth; j++){
 				if (Matriz[i][j] == 0){
-					if (i + 1 > MapWidth - 1){
+					if (i + 1 > MapHeight - 1){
 						continue;
 					}
 					if (i - 1 < 0){
 						continue;
 					}
-					if (j + 1 > MapHeight - 1){
+					if (j + 1 > MapWidth - 1){
 						continue;
 					}
 					if (j - 1 < 0){
