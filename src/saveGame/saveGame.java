@@ -22,8 +22,6 @@ import anima.component.base.ComponentBase;
 public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
 	
 	
-//	   saveGame<Employee> salvador = new saveGame<Employee>();
-
 /**
  * metodo que faz a serializacao do objeto e
  * @param e: um tipo generico T
@@ -76,3 +74,5 @@ public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
 		}
 	}
 }
+
+//saveGame<Employee> salvador = new saveGame<Employee>();
