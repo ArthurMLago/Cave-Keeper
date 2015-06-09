@@ -2,7 +2,6 @@ package items.inventory;
 
 import items.excecoes.OutofItemsException;
 import items.interfaces.IItems;
-import items.excecoes.OutofItemsException;
 
 import java.io.Serializable;
 
@@ -46,12 +45,23 @@ public class GeneralItems implements IItems, Serializable {
 		return this.number;
 	}
 	
+	
+/**	
+ * @param number obtem valor do numero de itens disponiveis
+ */
 	public void setNumber(int number) {
 		this.number = number;
 	}
 	
+/**	
+ * Aumenta o a quantidade de itens disponíveis
+ */
 	public void increase() {
 		this.number = this.number + 1;
+	}
+	
+	public void increase(int quantidade) {
+		this.number = this.number + quantidade;
 	}
 	
 	public void decrease() {
@@ -72,7 +82,10 @@ public class GeneralItems implements IItems, Serializable {
 			this.notifica();
 		}
 	}
-		
+	
+/**	
+ * Notifica se o efeito do item foi executado corretamente
+ */
 	public void notifica() {
 		System.out.println("modificacao feita com sucesso");
 	}
