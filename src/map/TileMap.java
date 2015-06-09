@@ -60,12 +60,30 @@ public class TileMap {
 		return visibility;
 	}
 	
+	/**
+	 * Método para descobrir se existe um determinado tipo de evento neste Tile.
+	 * @param type Tipo do evento.
+	 * @return true, se existe um evento do tipo especificado, false, caso contrario.
+	 */
+	public Event checkForEvents(EventType type){
+		for (Event i : EventList){
+			if (i.getType() == type){
+				return i;
+			}
+		}
+		return null;
+	}
 	
-//	/**
-//	 * Método para recuperar a lista de eventos em certo Tile.
-//	 * @return A lista de eventos deste Tile
-//	 */
-//	public ArrayList<Event> getEvents(EventType wantedType){	
-//		return EventList;
-//	}
+	/**
+	 * Método para descartar eventos de determinado tipo.
+	 * @param type Tipo do evento.
+	 */
+	public void discardEventOfType(EventType type){
+		for (Event i: EventList){
+			if (i.getType() == type){
+				EventList.remove(i);
+			}
+		}
+	}
+	
 }
