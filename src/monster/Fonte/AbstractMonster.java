@@ -56,7 +56,7 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 	/** Reduz a vida do monstro e verifica se o mesmo morrera. */
 	public void takeShot() {
 		hp--;
-		if(hp == 0)
+		if(hp <= 0)
 			live = false;
 	}
 	

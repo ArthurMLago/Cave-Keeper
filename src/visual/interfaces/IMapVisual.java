@@ -1,6 +1,7 @@
 package visual.interfaces;
 
 import anima.component.ISupports;
+import gameController.GameController;
 import gameController.IGameController;
 /**
  * Interface do Mapa Visual e suas ações
@@ -26,4 +27,8 @@ public interface IMapVisual extends ISupports{
 	 * @param facing - Lado que o player está olhando
 	 */
 	public void changePlayerFacing(char facing);
+	
+	public void playEffect(float gain, String type);
+	
+	public void connect(GameController gameController);
 }

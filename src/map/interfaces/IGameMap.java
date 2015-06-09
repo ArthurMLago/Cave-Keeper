@@ -1,11 +1,14 @@
 package map.interfaces;
 
+import anima.annotation.ComponentInterface;
+import anima.component.ISupports;
 import gameController.Entidade;
 import map.Position;
 import map.TileMap;
 import map.exceptions.OutOfMapBoundsException;
 
-public interface IGameMap {
+@ComponentInterface("<http://cave.com/map.interfaces.IGameMap>")
+public interface IGameMap extends ISupports{
 	
 	/**
 	 * Método para recuperar os SpawnPoints das entidades no mapa.

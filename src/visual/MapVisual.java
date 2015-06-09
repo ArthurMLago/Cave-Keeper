@@ -14,7 +14,7 @@ import visual.interfaces.IMapVisual;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
-@Component(id="<http://cave.com/visual.MapVisual>", provides={"<http://cave.com/visual.IMapVisual>"})
+@Component(id = "<http://cave.com/visual.MapVisual>", provides = { "<http://cave.com/visual.IMapVisual>" })
 public class MapVisual extends ComponentBase implements IMapVisual,
 		IAudioEffect {
 	private SlickMap compositeMap;
@@ -22,13 +22,8 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 	private GameController gameController;
 	public static int SIZEIMAGE = 32;
 
-	public MapVisual() throws SlickException {
+	public MapVisual() {
 		compositeMap = new SlickMap("Cave's Keeper");
-		gameController = GameController.getSharedInstance();
-		agc = new AppGameContainer(compositeMap);
-		agc.setDisplayMode(gameController.getMap().getLimitX() * SIZEIMAGE,
-				gameController.getMap().getLimitY() * SIZEIMAGE, false);
-		agc.start();
 	}
 
 	@Override
@@ -50,5 +45,19 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 	@Override
 	public void changePlayerFacing(char facing) {
 		compositeMap.faceSprite(facing);
+	}
+
+	@Override
+	public void connect(GameController gameController) {
+		this.gameController = gameController;
+		try {
+			agc = new AppGameContainer(compositeMap);
+			agc.setDisplayMode(gameController.getMap().getLimitX() * SIZEIMAGE,
+					gameController.getMap().getLimitY() * SIZEIMAGE, false);
+			agc.start();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

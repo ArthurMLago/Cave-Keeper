@@ -1,5 +1,6 @@
 package player;
 
+import gameController.GameController;
 import items.excecoes.OutofItemsException;
 import anima.component.IRequires;
 import anima.component.ISupports;
@@ -27,7 +28,7 @@ public class PlayerFlareAction implements IActionPlayerMapVisual {
 	@Override
 	public void execute() {
 		if(player.useFlare()){
-			map.flareVisual();
+			GameController.getSharedInstance().getMapVisual().flareVisual();
 		}
 		
 	}

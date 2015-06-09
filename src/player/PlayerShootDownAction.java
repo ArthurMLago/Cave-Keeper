@@ -1,5 +1,6 @@
 package player;
 
+import gameController.GameController;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
@@ -25,9 +26,8 @@ public class PlayerShootDownAction implements IActionPlayerMapVisual {
 
 	@Override
 	public void execute() {
-		if (player.shoot(Facing.SOUTH)) {
-			map.shootDirection(Facing.SOUTH);
-		}
+		player.shoot(Facing.SOUTH);
+		GameController.getSharedInstance().getMapVisual().shootDirection(Facing.SOUTH);
 	}
 
 	@Override

@@ -1,7 +1,10 @@
 package map.interfaces;
 
+import anima.annotation.ComponentInterface;
 import map.GameMap;
+import map.MapGenerator;
 
+@ComponentInterface("<http://cave.com/map.interfaces.IMapGenerator>")
 public interface IMapGenerator {
 	
 	/**
@@ -39,5 +42,6 @@ public interface IMapGenerator {
 	 */
 	public GameMap generateMap();
 	
-
+	
+	
 }

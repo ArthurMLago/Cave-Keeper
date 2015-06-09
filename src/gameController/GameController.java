@@ -3,25 +3,36 @@ package gameController;
 import items.excecoes.OutofItemsException;
 import items.interfaces.IItemManagement;
 import items.itemManagement.ItemsList;
-
-import java.util.ArrayList;
+import map.MapGenerator;
+import map.Position;
+import map.interfaces.IGameMap;
+import monster.Interfaces.IMonster;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import player.*;
-import visual.interfaces.*;
-import visual.*;
-import saveGame.*;
-import monster.*;
-import monster.Interfaces.*;
-import map.*;
-import map.interfaces.*;
-import anima.annotation.Component;
+import player.IPlayerAction;
+import player.IPlayerMax;
+import player.PlayerDownAction;
+import player.PlayerFlareAction;
+import player.PlayerLeftAction;
+import player.PlayerRightAction;
+import player.PlayerShootDownAction;
+import player.PlayerShootLeftAction;
+import player.PlayerShootRightAction;
+import player.PlayerShootUpAction;
+import player.PlayerStickAction;
+import player.PlayerUpAction;
+import player.PlayerWaitAction;
+import visual.ActionHandler;
+import visual.MapVisual;
+import visual.interfaces.IActionPlayer;
+import visual.interfaces.IActionPlayerMapVisual;
+import visual.interfaces.IAudioEffect;
+import visual.interfaces.IMapVisual;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
-import anima.component.base.ComponentBase;
 
 /**
  * Componente que faz a conexao dos outros componentes
@@ -52,15 +63,25 @@ public class GameController implements IGameController {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
+		bootGameController(1);
 	}
 
 	private void bootGameController(int fase) {
 		Position playerSpawn;
 
 		// TODO: Instanciar map, player e monstros
+		MapGenerator.sharedInstance().setMapHeight(20);
+		MapGenerator.sharedInstance().setMapWidth(20);
+		MapGenerator.sharedInstance().setWalkablePath(175);
 		compMap = MapGenerator.sharedInstance().generateMap();
 		playerSpawn = compMap.getSpawnPoint(compPlayer);
 		compPlayer.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
+
+		compMonster.connect(compPlayer, compMap);
+		compMonster.generateMonsters(1);
+		compMonster.setMonsterPosition(0);
+
+		compPlayer.connect(compMonster);
 
 		// TODO: Instanciar as outras ações do player
 		playerDown = new PlayerDownAction();
@@ -123,12 +144,9 @@ public class GameController implements IGameController {
 		handler.connect(playerWait);
 
 		// TODO: Conectar mapVisual as outras ações
+		compMapVisual = new MapVisual();
+		compMapVisual.connect(this);
 
-		try {
-			compMapVisual = new MapVisual();
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
 		playerShootDown.connect(compMapVisual);
 		playerShootUp.connect(compMapVisual);
 		playerShootLeft.connect(compMapVisual);
@@ -142,7 +160,8 @@ public class GameController implements IGameController {
 
 	@Override
 	public void update() {
-		handler.handle(command);
+		if (handler != null)
+			handler.handle(command);
 	}
 
 	@Override
@@ -162,6 +181,10 @@ public class GameController implements IGameController {
 		return this.compMonster;
 	}
 
+	public IMapVisual getMapVisual() {
+		return compMapVisual;
+	}
+
 	public void move() {
 		if (compMonster.isMonstersAlive()) {
 			compMonster.runMonstersActions(0);
@@ -174,7 +197,9 @@ public class GameController implements IGameController {
 			}
 
 			if (compMapVisual instanceof IAudioEffect) {
-				((IAudioEffect) compMapVisual).playEffect((float) (compMonster.getDistance(0)/10), "footstep");
+
+				((IAudioEffect) compMapVisual).playEffect(
+						(float) (1-(compMonster.getDistance(0) / 10)), "footstep");
 			}
 		}
 	}
