@@ -10,6 +10,7 @@
 
 package monster;
 
+import map.Position;
 import map.interfaces.IGameMap;
 import player.IPlayerMax;
 import monster.Interfaces.*;
@@ -76,12 +77,14 @@ public class Monster extends ComponentBase implements IMonster {
 				monsterToBeGenerated = factoryToBeGenerated.createGhost("normal");
 				list.add(monsterToBeGenerated);
 			}
-		}
+		}	
 		
 	}
 	
-	public void setMonsterPosition(int monsterID, int x, int y) {
-		
+	public void setMonsterPosition(int monsterID) {
+		Position pos;
+		pos = map.getSpawnPoint(list.get(monsterID));
+		list.get(monsterID).setPosition(pos.getX(), pos.getY());
 	}
 	
 	public void runMonstersActions(int monsterID) {
@@ -125,7 +128,11 @@ public class Monster extends ComponentBase implements IMonster {
 				vivos = false;
 		}
 		return vivos;
-			
+	}
+	public double getDistance (int monsterID) {
+		double distance;
+		distance = list.get(monsterID).getDistance(player.getX(), player.getY());
+		return distance;
 	}
 	public int getX(int monsterID) {
 		return list.get(monsterID).getX();

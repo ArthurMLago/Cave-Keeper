@@ -13,7 +13,7 @@ public interface IMonster extends ISupports {
 	public void generateMonsters(int f);
 	public boolean isMonstersAlive();
 	public void connect (IPlayerMax player, IGameMap map);
-	public void setMonsterPosition(int monsterID, int x, int y);
+	public void setMonsterPosition(int monsterID);
 	public void runMonstersActions(int monsterID);
 	public void setFollow();
 	public void getHit(int monsterID);
