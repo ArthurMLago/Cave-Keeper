@@ -19,6 +19,10 @@ import anima.component.base.ComponentBase;
  * @author Felipe Moret
  * Classe responsavel pela comunicacao entre outras classes e o inventario
  */
+
+/**Classe responsável por gerenciar os itens disponíves, seu incremento, decremento e quantidade, além
+ * de sua inicialização
+ */
 @Component(id="<http://santanvarzea.com/items.itemManagement.ItemManagement>", provides={"<http://santanvarzea.com/items.interfaces.IItemManagement>"})
 public class ItemManagement extends ComponentBase implements IItemManagement, Serializable {
 	
@@ -27,7 +31,6 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 	 * ArrayList em que cada posicao armazena um objeto correspondente a um TIPO de item
 	 */
 	private ArrayList <IItems> inventory = new ArrayList <IItems>();
-
 
 	public ItemManagement() {
 		inventory.add(new Flare("flare", 0));
@@ -98,6 +101,30 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 			/*exception*/
 		}
 		inventory.get(position).increase();
+	}
+	
+	public void obtainItem(ItemsList place, int quantidade) {
+		int position = 0;
+		switch(place) {
+		case Flare:
+			position = 0;
+			break;
+		case Flash:
+			position = 1;
+			break;
+		case Fuel:
+			position = 2;
+			break;
+		case SaltAmmo:
+			position = 3;
+			break;
+		case Stick:
+			position = 4;
+			break;
+		default:
+			/*exception*/
+		}
+		inventory.get(position).increase(quantidade);
 	}
 	
 	public int displayNumber(ItemsList place) {
