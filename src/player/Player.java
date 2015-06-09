@@ -28,7 +28,7 @@ import anima.component.base.ComponentBase;
  *
  */
 
-@Component(id="<http://cave.com/player.Player>", provides={"<http://cave.com/player.IPlayer>"})
+@Component(id = "<http://cave.com/player.Player>", provides = { "<http://cave.com/player.IPlayer>" })
 public class Player extends ComponentBase implements IPlayerPosition,
 		IPlayerAction, IPlayerMax, Entidade, IRequires<IMonster> {
 
@@ -98,12 +98,11 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	}
 
 	/**
-<<<<<<< HEAD
-<<<<<<< HEAD
-	 * @return dire��o para a qual o jogador est� olhando
-=======
-=======
->>>>>>> branch 'master' of https://github.com/ArthurMLago/Cave-Keeper.git
+	 * <<<<<<< HEAD <<<<<<< HEAD
+	 * 
+	 * @return dire��o para a qual o jogador est� olhando ======= =======
+	 *         >>>>>>> branch 'master' of
+	 *         https://github.com/ArthurMLago/Cave-Keeper.git
 	 * @return direção para a qual o jogador está olhando
 	 */
 	public char getFacing() {
@@ -152,9 +151,8 @@ public class Player extends ComponentBase implements IPlayerPosition,
 
 		try {
 			if (direction == Facing.NORTH) {
-				if ((TileType.Walkable == GameController
-						.getSharedInstance().getMap().getTileAt(posX, posY - 1)
-						.getType()))
+				if ((TileType.Walkable == GameController.getSharedInstance()
+						.getMap().getTileAt(posX, posY - 1).getType()))
 					posY--;
 				else
 					return false;
@@ -170,18 +168,16 @@ public class Player extends ComponentBase implements IPlayerPosition,
 			}
 
 			else if (direction == Facing.EAST) {
-				if ((TileType.Walkable == GameController
-						.getSharedInstance().getMap().getTileAt(posX + 1, posY)
-						.getType()))
+				if ((TileType.Walkable == GameController.getSharedInstance()
+						.getMap().getTileAt(posX + 1, posY).getType()))
 					posX++;
 				else
 					return false;
 			}
 
 			else if (direction == Facing.WEST) {
-				if ((TileType.Walkable == GameController
-						.getSharedInstance().getMap().getTileAt(posX - 1, posY)
-						.getType()))
+				if ((TileType.Walkable == GameController.getSharedInstance()
+						.getMap().getTileAt(posX - 1, posY).getType()))
 					posX--;
 				else
 					return false;
@@ -223,49 +219,49 @@ public class Player extends ComponentBase implements IPlayerPosition,
 		try {
 			if (direction == Facing.EAST) {
 				for (int i = x + 1; flag == 0; i++) {
-					if ((monster.getX(0) == i)
-							&& (monster.getY(0) == posY))
+					System.out.println("X:" +x + "Y:" + y);
+					if ((monster.getX(0) == i) && (monster.getY(0) == posY))
 						flag = 2;
-					else if ((TileType.Walkable.equals(GameController
+					else if ((TileType.Walkable != GameController
 							.getSharedInstance().getMap().getTileAt(i, y)
-							.getType())))
+							.getType()))
 						flag = 1;
-					
+
 				}
 			}
 
 			if (direction == Facing.WEST) {
 				for (int i = x - 1; flag == 0; i--) {
-					if ((monster.getX(0) == i)
-							&& (monster.getY(0) == posY))
+					System.out.println("X:" +x + "Y:" + y);
+					if ((monster.getX(0) == i) && (monster.getY(0) == posY))
 						flag = 2;
-					else if ((TileType.Walkable.equals(GameController
+					else if ((TileType.Walkable != GameController
 							.getSharedInstance().getMap().getTileAt(i, y)
-							.getType())))
+							.getType()))
 						flag = 1;
 				}
 			}
 
 			if (direction == Facing.NORTH) {
-				for (int i = y + 1; flag == 0; i++) {
-					if ((monster.getX(0) == posX)
-							&& (monster.getY(0) == i))
+				System.out.println("X:" +x + "Y:" + y);
+				for (int i = y - 1; flag == 0; i--) {
+					if ((monster.getX(0) == posX) && (monster.getY(0) == i))
 						flag = 2;
-					else if ((TileType.Walkable.equals(GameController
+					else if ((TileType.Walkable != GameController
 							.getSharedInstance().getMap().getTileAt(x, i)
-							.getType())))
+							.getType()))
 						flag = 1;
 				}
 			}
 
 			if (direction == Facing.SOUTH) {
-				for (int i = y - 1; flag == 0; i--) {
-					if ((monster.getX(0) == posX)
-							&& (monster.getY(0) == i))
+				System.out.println("X:" +x + "Y:" + y);
+				for (int i = y + 1; flag == 0; i++) {
+					if ((monster.getX(0) == posX) && (monster.getY(0) == i))
 						flag = 2;
-					else if ((TileType.Walkable.equals(GameController
+					else if ((TileType.Walkable != GameController
 							.getSharedInstance().getMap().getTileAt(x, i)
-							.getType())))
+							.getType()))
 						flag = 1;
 				}
 			}
@@ -274,6 +270,8 @@ public class Player extends ComponentBase implements IPlayerPosition,
 
 		catch (OutOfMapBoundsException erro) {
 		}
+		
+		System.out.println("Flag: "+ flag);
 
 		if (flag == 1)
 			return false;
