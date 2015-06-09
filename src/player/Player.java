@@ -94,11 +94,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	}
 
 	/**
-<<<<<<< HEAD
-	 * @return dire��o para a qual o jogador est� olhando
-=======
 	 * @return direção para a qual o jogador está olhando
->>>>>>> 23fa0c6b39de5d31269b93786e63d4ff7668fc3e
 	 */
 	public int getFacing() {
 		return facing;
