@@ -172,6 +172,10 @@ public class GameController implements IGameController {
 					compPlayer.setLighter();
 				}
 			}
+
+			if (compMapVisual instanceof IAudioEffect) {
+				((IAudioEffect) compMapVisual).playEffect(compMonster.getDistance(0)/10, "footstep");
+			}
 		}
 	}
 
