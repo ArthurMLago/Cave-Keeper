@@ -13,7 +13,7 @@ import anima.component.ISupports;
  * @author Felipe Moret
  */
 
-@ComponentInterface("<http://santanvarzea.com/items.interfaces.IItemManagement>")
+@ComponentInterface("<http://cave.com/items.interfaces.IItemManagement>")
 public interface IItemManagement extends ISupports {
 	
 	public void startInventoryNumbers(ArrayList<Integer> quantities);

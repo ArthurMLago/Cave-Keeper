@@ -10,7 +10,7 @@ import anima.component.ISupports;
  * @param <T> parametro generico para que a serializacao seja feita para qualquer objeto
  */
 
-@ComponentInterface("<http://santanvarzea.com/saveGame.IsaveGame>")
+@ComponentInterface("<http://cave.com/saveGame.IsaveGame>")
 public interface IsaveGame<T> extends ISupports {
 
 	public void saveState(T e, String Folder);

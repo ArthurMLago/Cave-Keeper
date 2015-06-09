@@ -11,7 +11,6 @@ public interface IAbstractMonster extends Entidade {
 	public int getX();
 	public int getY();
 	public double getDistance(int playerX, int playerY);
-	public void emitSound(int playerX, int playerY);
 	public int getHp();
 	public void takeShot();
 	public boolean isAlive();

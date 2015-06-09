@@ -16,10 +16,10 @@ import anima.component.base.ComponentBase;
  * @author Vicente
  * @author Felipe Moret
  * Classe responsavel pela comunicacao entre outras classes e o inventario
- * Classe responsável por gerenciar os itens disponíves, seu incremento, decremento e quantidade, além
- * de sua inicialização
+ * Classe responsï¿½vel por gerenciar os itens disponï¿½ves, seu incremento, decremento e quantidade, alï¿½m
+ * de sua inicializaï¿½ï¿½o
  */
-@Component(id="<http://santanvarzea.com/items.itemManagement.ItemManagement>", provides={"<http://santanvarzea.com/items.interfaces.IItemManagement>"})
+@Component(id="<http://cave.com/items.itemManagement.ItemManagement>", provides={"<http://cave.com/items.interfaces.IItemManagement>"})
 public class ItemManagement extends ComponentBase implements IItemManagement, Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 	private ArrayList <IItems> inventory = new ArrayList <IItems>();
 
 /**
- * Inicializando o ArrayList dos itens como vazio para todas as posições
+ * Inicializando o ArrayList dos itens como vazio para todas as posiï¿½ï¿½es
  */
 	public ItemManagement() {
 		inventory.add(new Flare("flare", 0));
@@ -41,7 +41,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 	}
 
 /**
- * Inicializando o ArrayList dos itens com uma quantidade determinada para todas as posições
+ * Inicializando o ArrayList dos itens com uma quantidade determinada para todas as posiï¿½ï¿½es
  */
 	public void startInventoryNumbers(ArrayList<Integer> quantities) {
 		for(int i = 0; i < quantities.size(); i++) {
@@ -133,7 +133,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 	
 
 /**
- * metodo usado para obter a quantidade de itens disponíveis
+ * metodo usado para obter a quantidade de itens disponï¿½veis
  * @param tipo enumerado identificando o item
  */	
 	public int displayNumber(ItemsList place) {
@@ -160,7 +160,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 	
 
 /**
- *metodo usado para atribuir a quantidade de itens disponíveis
+ *metodo usado para atribuir a quantidade de itens disponï¿½veis
  * @param tipo enumerado identificando o item
  * @param number identifica o numero a ser atribuido
  */	

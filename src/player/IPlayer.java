@@ -3,7 +3,7 @@ package player;
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
 
-@ComponentInterface("<http://santanvarzea.com/player.IPlayer>")
+@ComponentInterface("<http://cave.com/player.IPlayer>")
 public interface IPlayer extends ISupports {
 
 	public String getTipo();
