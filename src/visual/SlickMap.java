@@ -164,6 +164,7 @@ public class SlickMap extends BasicGame {
 		} catch (SlickException e) {
 			System.out.println(e);
 		} catch (OutOfMapBoundsException e) {
+			e.printStackTrace();
 		}
 	}
 
