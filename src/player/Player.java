@@ -23,9 +23,9 @@ import player.IPlayerMax;
  * @author Diego S. Martines
  *
  */
-@Component(id="<http://santanvarzea.com/player.Player>", provides={"<http://santanvarzea.com/player.IPlayer>"})
-public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAction, IPlayerMax,
-		Entidade {
+@Component(id = "<http://santanvarzea.com/player.Player>", provides = { "<http://santanvarzea.com/player.IPlayer>" })
+public class Player extends ComponentBase implements IPlayerPosition,
+		IPlayerAction, IPlayerMax, Entidade {
 
 	private int posX, posY;
 
@@ -36,11 +36,11 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	private ItemManagement bag;
 
 	private IMonster monster;
-	
+
 	private IGameMap map;
-	
+
 	/**
-	 * Construtor único estabelece as condições de início de jogo
+	 * Construtor ï¿½nico estabelece as condiï¿½ï¿½es de inï¿½cio de jogo
 	 */
 	public Player(IMonster monster) {
 		facing = Facing.SOUTH;
@@ -52,7 +52,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	}
 
 	/**
-	 * Método para obter o nome da classe Player de forma simples
+	 * Mï¿½todo para obter o nome da classe Player de forma simples
 	 */
 	public String getTipo() {
 		return "player";
@@ -94,11 +94,11 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	}
 
 	/**
-<<<<<<< HEAD
-	 * @return direção para a qual o jogador estï¿½ olhando
-=======
-	 * @return direÃ§Ã£o para a qual o jogador estÃ¡ olhando
->>>>>>> 23fa0c6b39de5d31269b93786e63d4ff7668fc3e
+	 * <<<<<<< HEAD
+	 * 
+	 * @return direï¿½ï¿½o para a qual o jogador estï¿½ olhando =======
+	 * @return direÃ§Ã£o para a qual o jogador estÃ¡ olhando >>>>>>>
+	 *         23fa0c6b39de5d31269b93786e63d4ff7668fc3e
 	 */
 	public int getFacing() {
 		return facing;
@@ -208,7 +208,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 
 		int flag = 0;
 		try {
-			if (direction == 'E') {
+			if (direction == Facing.EAST) {
 				for (int i = x + 1; flag == 0; i++) {
 					if ((TileType.Walkable.equals(GameController
 							.getSharedInstance().getMap().getTileAt(i, y)
@@ -220,7 +220,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 				}
 			}
 
-			if (direction == 'W') {
+			if (direction == Facing.WEST) {
 				for (int i = x - 1; flag == 0; i--) {
 					if ((TileType.Walkable.equals(GameController
 							.getSharedInstance().getMap().getTileAt(i, y)
@@ -232,7 +232,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 				}
 			}
 
-			if (direction == 'N') {
+			if (direction == Facing.NORTH) {
 				for (int i = y + 1; flag == 0; i++) {
 					if ((TileType.Walkable.equals(GameController
 							.getSharedInstance().getMap().getTileAt(x, i)
@@ -244,7 +244,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 				}
 			}
 
-			if (direction == 'S') {
+			if (direction == Facing.SOUTH) {
 				for (int i = y - 1; flag == 0; i--) {
 					if ((TileType.Walkable.equals(GameController
 							.getSharedInstance().getMap().getTileAt(x, i)
@@ -266,10 +266,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 		if (flag == 2) {
 			monster.getHit(0);
 		}
-			return true;
-
-		return false;
-
+		return true;
 	}
 
 	/**
@@ -286,7 +283,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	}
 
 	/**
-	 * Método que utiliza o item stick
+	 * Mï¿½todo que utiliza o item stick
 	 */
 	public boolean useStick() {
 		boolean usado = true;
@@ -295,12 +292,12 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 		} catch (OutofItemsException e) {
 			usado = false;
 		}
-		
+
 		return usado;
 	}
 
 	/**
-	 * Método que utiliza o item flash
+	 * Mï¿½todo que utiliza o item flash
 	 */
 	public boolean useFlash() {
 		boolean usado = true;
