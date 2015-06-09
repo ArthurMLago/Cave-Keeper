@@ -27,6 +27,7 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 import player.Facing;
+import player.IPlayerMax;
 import player.IPlayerPosition;
 import anima.component.IRequires;
 import anima.component.ISupports;
@@ -46,7 +47,7 @@ public class SlickMap extends BasicGame {
 			shadowRight, shadowNext, shadowAround;
 	private int xFacing, yFacing;
 	private IGameController gameController;
-	private IPlayerPosition player;
+	private IPlayerMax player;
 	private IGameMap map;
 	private String character = "cat";
 	private int duration = 10;
@@ -62,7 +63,7 @@ public class SlickMap extends BasicGame {
 		super(title);
 		gameController = GameController.getSharedInstance();
 		map = gameController.getMap();
-		player = (IPlayerPosition) gameController.getPlayer();
+		player = gameController.getPlayer();
 		monsters = gameController.getEntidades();
 	}
 
@@ -141,25 +142,23 @@ public class SlickMap extends BasicGame {
 	 */
 	private void drawTile(int x, int y) {
 		try {
-			if (map.getTileAt(x, y).getType() != TileType.Void) {
-				Image tile = getImage("resources/tile/"
-						+ map.getTileAt(x, y).getImage() + ".png", imageMap);
+			Image tile = getImage("resources/tile/"
+					+ map.getTileAt(x, y).getImage() + ".png", imageMap);
+			System.out.println("Tile Name: " + map.getTileAt(x, y).getImage());
 
-				Image[] tiles = { tile };
-				Animation tileAnimation = new Animation(tiles, 1000);
-				tileAnimation.draw(x * MapVisual.SIZEIMAGE, y
-						* MapVisual.SIZEIMAGE);
+			Image[] tiles = { tile };
+			Animation tileAnimation = new Animation(tiles, 1000);
+			tileAnimation
+					.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE);
 
-				Event event = map.getTileAt(x, y)
-						.checkForEvents(EventType.ITEM);
-				String nome = null;
-				if (event != null) {
-					if (event instanceof EventItem) {
-						nome = nameItem(((EventItem) event).getItemType());
+			Event event = map.getTileAt(x, y).checkForEvents(EventType.ITEM);
+			String nome = null;
+			if (event != null) {
+				if (event instanceof EventItem) {
+					nome = nameItem(((EventItem) event).getItemType());
 
-						Image item = getImage("resources/item/" + nome + ".png",
-								imageMap);
-					}
+					Image item = getImage("resources/item/" + nome + ".png",
+							imageMap);
 				}
 			}
 		} catch (SlickException e) {
@@ -376,16 +375,19 @@ public class SlickMap extends BasicGame {
 			shadowNext = shadowDown;
 			yFacing = 1;
 			xFacing = 0;
+			break;
 		case Facing.WEST:
 			spritePlayer = playerLeft;
 			shadowNext = shadowLeft;
 			xFacing = -1;
 			yFacing = 0;
+			break;
 		case Facing.EAST:
 			spritePlayer = playerRight;
 			shadowNext = shadowRight;
 			xFacing = 1;
 			yFacing = 0;
+			break;
 		default:
 			break;
 		}
