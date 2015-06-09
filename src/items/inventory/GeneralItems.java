@@ -61,8 +61,9 @@ public class GeneralItems implements IItems, Serializable {
 /**
  * ao usar o item, sua quantidade no inventario eh decrementada
  * e chama-se uma notificacao
+ * @throws OutofItemsException 
  */
-	public void effect()  {
+	public void effect() throws OutofItemsException  {
 		if(this.number <= 0) {
 			throw new OutofItemsException("Out of items!");
 		}

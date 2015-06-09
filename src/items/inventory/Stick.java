@@ -1,5 +1,7 @@
 package items.inventory;
 
+import items.excecoes.OutofItemsException;
+
 /**
  * @author Vicente
  * @author Felipe Moret

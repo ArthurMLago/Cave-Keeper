@@ -1,5 +1,6 @@
 package items.itemManagement;
 
+import items.excecoes.OutofItemsException;
 import items.interfaces.IItemManagement;
 import items.interfaces.IItems;
 import items.inventory.Flare;
@@ -46,8 +47,9 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 /**
  * @param posicao do ArrayList em que se encontra o tipo do item
  * chama o metodo que faz o efeito do item
+ * @throws OutofItemsException 
  */
-	public void useItem(ItemsList place) {
+	public void useItem(ItemsList place) throws OutofItemsException {
 		int position = 0;
 		switch(place) {
 		case Flare:

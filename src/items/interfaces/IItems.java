@@ -1,5 +1,7 @@
 package items.interfaces;
 
+import items.excecoes.OutofItemsException;
+
 /**
  * @author Vicente
  * @author Felipe Moret
@@ -16,7 +18,7 @@ public interface IItems {
 	public void setNumber(int number);
 	public void increase();
 	public void decrease();
-	public void effect();
+	public void effect()throws OutofItemsException;
 	public void notifica();
 	
 }
