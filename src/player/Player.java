@@ -4,6 +4,7 @@ import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 import map.enumerations.TileType;
 import map.exceptions.OutOfMapBoundsException;
+import map.interfaces.IGameMap;
 import gameController.*;
 import monster.Interfaces.*;
 import items.excecoes.OutofItemsException;
@@ -35,6 +36,8 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	private ItemManagement bag;
 
 	private IMonster monster;
+	
+	private IGameMap map;
 	
 	/**
 	 * Construtor único que estabelece as condições de início de jogo
@@ -260,7 +263,9 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 
 		if (flag == 1)
 			return false;
-		if (flag == 2)
+		if (flag == 2) {
+			monster.getHit(0);
+		}
 			return true;
 
 		return false;
