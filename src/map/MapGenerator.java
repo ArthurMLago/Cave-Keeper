@@ -93,7 +93,7 @@ public class MapGenerator implements IMapGenerator{
 	 * Função para definir o numero de Spawn Points.
 	 * @param Numero de Spawn Points do mapa
 	 */
-	public void setNSpawnPoints(int value){ NSpawnPoints = 2;}
+	public void setNSpawnPoints(int value){ NSpawnPoints = value;}
 	
 	
 	/**
@@ -109,13 +109,13 @@ public class MapGenerator implements IMapGenerator{
 	 */
 	public GameMap generateMap(){
 		
-		Matriz = new int[MapWidth][MapHeight];
+		Matriz = new int[MapHeight][MapWidth];
 		SpawnPointList = new ArrayList<Position>();
 		
 		TileMap[][] MatrizTiles = new TileMap[MapWidth][MapHeight];
 		
 		//Posicao inicial do random blobber:
-		int PosX = MapWidth/2 - 10;
+		int PosX = MapWidth/2;
 		int PosY = MapHeight/2;
 		
 		
@@ -147,8 +147,8 @@ public class MapGenerator implements IMapGenerator{
 			PosY = clampToMapHeight(PosY);
 			
 			//Se nao for passavel, agora eh:
-			if (Matriz[PosX][PosY] == 0){
-				Matriz[PosX][PosY] = 1;
+			if (Matriz[PosY][PosX] == 0){
+				Matriz[PosY][PosX] = 1;
 				ChangeCount++;
 			}
 		}
