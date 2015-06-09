@@ -1,15 +1,10 @@
 package gameController;
-import player.*;
-import visual.interfaces.*;
-import visual.*;
-import saveGame.*;
-import monster.*;
-import monster.Interfaces.*;
-import map.*;
-import items.*;
-import items.itemManagement.*;
-import items.interfaces.*;
-
+import items.interfaces.IItemManagement;
+import items.itemManagement.ItemManagement;
+import monster.Monster;
+import monster.Interfaces.IMonster;
+import player.IPlayerMax;
+import player.Player;
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 

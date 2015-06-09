@@ -1,5 +1,6 @@
 package player;
 
+import monster.Interfaces.IMonster;
 import gameController.*;
 
 public interface IPlayerMax extends Entidade {
@@ -12,6 +13,7 @@ public interface IPlayerMax extends Entidade {
 	public boolean useStick();
 	public int getX();
 	public int getY();
-	public int getFacing();
+	public char getFacing();
 	public boolean getLighter();
+	public void connect(IMonster arg0);
 }

@@ -48,7 +48,7 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 	}
 
 	@Override
-	public void changePlayerFacing(int facing) {
+	public void changePlayerFacing(char facing) {
 		compositeMap.faceSprite(facing);
 	}
 }
