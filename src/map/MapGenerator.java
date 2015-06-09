@@ -172,7 +172,7 @@ public class MapGenerator implements IMapGenerator{
 			for (int j = 0; j < MapWidth; j++){
 				String tileImage;
 				TileType tileEnum;
-				if (Matriz[i][j] == 0){
+				if (!(Matriz[i][j] == 0)){
 					tileImage = "Grass";
 					tileEnum = TileType.Walkable;
 				}else{
