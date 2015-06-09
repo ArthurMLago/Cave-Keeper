@@ -268,20 +268,20 @@ public class MapGenerator implements IMapGenerator{
 	 * Método para aplicar filtro de remoção de passagems estreitas.
 	 */
 	private void filterNarrowPassage(){
-		for (int i = 0; i < MapWidth; i++){
-			for (int j = 0; j < MapHeight; j++){
+		for (int i = 0; i < MapHeight; i++){
+			for (int j = 0; j < MapWidth; j++){
 				int iActualMin = i - 1;
 				int iActualMax = i + 1;
 				int jActualMin = j - 1;
 				int jActualMax = j + 1;
-				if (i + 1 > MapWidth - 1){
-					iActualMax = MapWidth - 1;
+				if (i + 1 > MapHeight - 1){
+					iActualMax = MapHeight - 1;
 				}
 				if (i - 1 < 0){
 					iActualMin = 0;
 				}
-				if (j + 1 > MapHeight - 1){
-					jActualMax = MapHeight - 1;
+				if (j + 1 > MapWidth - 1){
+					jActualMax = MapWidth - 1;
 				}
 				if (j - 1 < 0){
 					jActualMin = 0;
