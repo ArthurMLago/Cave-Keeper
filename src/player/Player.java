@@ -1,20 +1,20 @@
 package player;
 
-import anima.annotation.Component;
-import anima.component.IRequires;
-import anima.component.base.ComponentBase;
+import gameController.Entidade;
+import gameController.GameController;
+import items.excecoes.OutofItemsException;
+import items.itemManagement.ItemManagement;
+import items.itemManagement.ItemsList;
 import map.Event;
 import map.enumerations.EventType;
 import map.enumerations.TileType;
 import map.events.EventItem;
 import map.exceptions.OutOfMapBoundsException;
 import map.interfaces.IGameMap;
-import gameController.*;
-import monster.Interfaces.*;
-import items.excecoes.OutofItemsException;
-import items.itemManagement.ItemManagement;
-import items.itemManagement.ItemsList;
-import player.IPlayerMax;
+import monster.Interfaces.IMonster;
+import anima.annotation.Component;
+import anima.component.IRequires;
+import anima.component.base.ComponentBase;
 
 /**
  * Classe que armazena as informações e implemneta todas as ações do jogador.
@@ -27,7 +27,8 @@ import player.IPlayerMax;
  * @author Diego S. Martines
  *
  */
-@Component(id = "<http://santanvarzea.com/player.Player>", provides = { "<http://santanvarzea.com/player.IPlayer>" })
+
+@Component(id="<http://cave.com/player.Player>", provides={"<http://cave.com/player.IPlayer>"})
 public class Player extends ComponentBase implements IPlayerPosition,
 		IPlayerAction, IPlayerMax, Entidade, IRequires<IMonster> {
 
@@ -97,6 +98,12 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	}
 
 	/**
+<<<<<<< HEAD
+<<<<<<< HEAD
+	 * @return dire��o para a qual o jogador est� olhando
+=======
+=======
+>>>>>>> branch 'master' of https://github.com/ArthurMLago/Cave-Keeper.git
 	 * @return direção para a qual o jogador está olhando
 	 */
 	public char getFacing() {
@@ -141,12 +148,13 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	 */
 	public boolean move(char direction) {
 		facing = direction;
+		System.out.println(direction);
 
 		try {
 			if (direction == Facing.NORTH) {
-				if ((TileType.Walkable.equals(GameController
+				if ((TileType.Walkable == GameController
 						.getSharedInstance().getMap().getTileAt(posX, posY - 1)
-						.getType())))
+						.getType()))
 					posY--;
 				else
 					return false;
@@ -162,18 +170,18 @@ public class Player extends ComponentBase implements IPlayerPosition,
 			}
 
 			else if (direction == Facing.EAST) {
-				if ((TileType.Walkable.equals(GameController
+				if ((TileType.Walkable == GameController
 						.getSharedInstance().getMap().getTileAt(posX + 1, posY)
-						.getType())))
+						.getType()))
 					posX++;
 				else
 					return false;
 			}
 
 			else if (direction == Facing.WEST) {
-				if ((TileType.Walkable.equals(GameController
+				if ((TileType.Walkable == GameController
 						.getSharedInstance().getMap().getTileAt(posX - 1, posY)
-						.getType())))
+						.getType()))
 					posX--;
 				else
 					return false;
