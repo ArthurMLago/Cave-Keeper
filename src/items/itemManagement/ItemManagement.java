@@ -7,10 +7,8 @@ import items.inventory.Flare;
 import items.inventory.Flash;
 import items.inventory.GeneralItems;
 import items.inventory.Stick;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
@@ -20,7 +18,8 @@ import anima.component.base.ComponentBase;
  * Classe responsavel pela comunicacao entre outras classes e o inventario
  */
 
-/**Classe responsável por gerenciar os itens disponíves, seu incremento, decremento e quantidade, além
+/**
+ * Classe responsável por gerenciar os itens disponíves, seu incremento, decremento e quantidade, além
  * de sua inicialização
  */
 @Component(id="<http://santanvarzea.com/items.itemManagement.ItemManagement>", provides={"<http://santanvarzea.com/items.interfaces.IItemManagement>"})
@@ -32,6 +31,9 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 	 */
 	private ArrayList <IItems> inventory = new ArrayList <IItems>();
 
+/**
+ * Inicializando o ArrayList dos itens como vazio para todas as posições
+ */
 	public ItemManagement() {
 		inventory.add(new Flare("flare", 0));
 		inventory.add(new Flash("flash", 0));
@@ -40,7 +42,10 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		inventory.add(new Stick("stick", 0));
 		
 	}
-	
+
+/**
+ * Inicializando o ArrayList dos itens com uma quantidade determinada para todas as posições
+ */
 	public void startInventoryNumbers(ArrayList<Integer> quantities) {
 		for(int i = 0; i < quantities.size(); i++) {
 			inventory.get(i).setNumber(quantities.get(i));
@@ -48,7 +53,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 	}
 	
 /**
- * @param posicao do ArrayList em que se encontra o tipo do item
+ * @param tipo enumerado identificando o item
  * chama o metodo que faz o efeito do item
  * @throws OutofItemsException 
  */
@@ -70,14 +75,13 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		case Stick:
 			position = 4;
 			break;
-		default:
-			/*exception*/
 		}
 		inventory.get(position).effect();		
 	}
 
 /**
  * ao obter um novo item, chama-se tal metodo para aumentar sua quantidade
+ * @param tipo enumerado identificando o item
  */
 	public void obtainItem(ItemsList place) {
 		int position = 0;
@@ -97,12 +101,17 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		case Stick:
 			position = 4;
 			break;
-		default:
-			/*exception*/
 		}
 		inventory.get(position).increase();
 	}
 	
+
+/**
+ * ao obter um novo item, chama-se tal metodo para aumentar sua quantidade
+ * Sobrecarca de metodo
+ * @param tipo enumerado identificando o item
+ * @param quantidade identifica a quantidade que foi obtida do item
+ */
 	public void obtainItem(ItemsList place, int quantidade) {
 		int position = 0;
 		switch(place) {
@@ -121,12 +130,15 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		case Stick:
 			position = 4;
 			break;
-		default:
-			/*exception*/
 		}
 		inventory.get(position).increase(quantidade);
 	}
 	
+
+/**
+ * metodo usado para obter a quantidade de itens disponíveis
+ * @param tipo enumerado identificando o item
+ */	
 	public int displayNumber(ItemsList place) {
 		int position = 0;
 		switch(place) {
@@ -145,12 +157,16 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		case Stick:
 			position = 4;
 			break;
-		default:
-			/*exception*/
 		}
 		return inventory.get(position).getNumber();
 	}
 	
+
+/**
+ *metodo usado para atribuir a quantidade de itens disponíveis
+ * @param tipo enumerado identificando o item
+ * @param number identifica o numero a ser atribuido
+ */	
 	public void setNumber(ItemsList place, int number) {
 		int position = 0;
 		switch(place) {
@@ -169,12 +185,15 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		case Stick:
 			position = 4;
 			break;
-		default:
-			/*exception*/
 		}
 		inventory.get(position).setNumber(number);
 	}
 	
+
+/**
+ *metodo usado para obter o nome do item em determinada posicao do arraylist
+ * @param tipo enumerado identificando o item
+ */	
 	public String displayName(ItemsList place) {
 		int position = 0;
 		switch(place) {
@@ -193,8 +212,6 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		case Stick:
 			position = 4;
 			break;
-		default:
-			/*exception*/
 		}
 		return inventory.get(position).getName();
 	}
