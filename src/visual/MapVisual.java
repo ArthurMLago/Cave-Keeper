@@ -1,5 +1,6 @@
 package visual;
 
+import gameController.GameController;
 import gameController.IGameController;
 
 import java.util.logging.Level;
@@ -17,27 +18,17 @@ import anima.component.base.ComponentBase;
 public class MapVisual extends ComponentBase implements IMapVisual,
 		IAudioEffect {
 	private SlickMap compositeMap;
-	private IGameController gameController;
 	private AppGameContainer agc;
+	private GameController gameController;
 	public static int SIZEIMAGE = 32;
 
-	public MapVisual() {
+	public MapVisual() throws SlickException {
 		compositeMap = new SlickMap("Cave's Keeper");
-	}
-
-	@Override
-	public void connect(IGameController gameController) {
-		this.gameController = gameController;
-		compositeMap.connect(gameController);
-		try {
-			agc = new AppGameContainer(compositeMap);
-			agc.setDisplayMode(gameController.getMap().getLimitX() * SIZEIMAGE,
-					gameController.getMap().getLimitY() * SIZEIMAGE, false);
-			agc.start();
-		} catch (SlickException e) {
-			Logger.getLogger(MapVisual.class.getName()).log(Level.SEVERE, null,
-					e);
-		}
+		gameController = GameController.getSharedInstance();
+		agc = new AppGameContainer(compositeMap);
+		agc.setDisplayMode(gameController.getMap().getLimitX() * SIZEIMAGE,
+				gameController.getMap().getLimitY() * SIZEIMAGE, false);
+		agc.start();
 	}
 
 	@Override

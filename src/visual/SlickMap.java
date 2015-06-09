@@ -1,6 +1,7 @@
 package visual;
 
 import gameController.Entidade;
+import gameController.GameController;
 import gameController.IGameController;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ import anima.component.InterfaceType;
  * @author eitiyamamoto
  *
  */
-public class SlickMap extends BasicGame implements IRequires<IGameController> {
+public class SlickMap extends BasicGame{
 	private Animation spritePlayer, playerUp, playerDown, playerLeft,
 			playerRight;
 	private Animation shadowPlayer, shadowUp, shadowDown, shadowLeft,
@@ -55,6 +56,10 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 
 	public SlickMap(String title) {
 		super(title);
+		gameController = GameController.getSharedInstance();
+		map = gameController.getMap();
+		player = (IPlayerPosition) gameController.getPlayer();
+		monsters = gameController.getEntidades();
 	}
 
 	@Override
@@ -312,14 +317,6 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 		explosionTime += delta;
 	}
 
-	@Override
-	public void connect(IGameController gameController) {
-		this.gameController = gameController;
-		map = gameController.getMap();
-		player = (IPlayerPosition) gameController.getPlayer();
-		monsters = gameController.getEntidades();
-	}
-
 	/**
 	 * Verifica qual o lado que o personagem est� olhando e define qual tile
 	 * deve ser mostrado na tela
@@ -353,42 +350,4 @@ public class SlickMap extends BasicGame implements IRequires<IGameController> {
 			break;
 		}
 	}
-
-	@Override
-	public int addRef() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getInstanceId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T extends ISupports> T queryInterface(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T extends ISupports> T queryInterface(String arg0,
-			InterfaceType arg1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T extends ISupports> IRequires<T> queryReceptacle(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int release() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

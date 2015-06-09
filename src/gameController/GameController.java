@@ -5,6 +5,7 @@ import items.interfaces.IItemManagement;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 
 import player.*;
 import visual.interfaces.*;
@@ -121,15 +122,16 @@ public class GameController implements IGameController {
 
 		// TODO: Conectar mapVisual as outras ações
 
-		compMapVisual = new MapVisual();
+		try {
+			compMapVisual = new MapVisual();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 		playerShootDown.connect(compMapVisual);
 		playerShootUp.connect(compMapVisual);
 		playerShootLeft.connect(compMapVisual);
 		playerShootRight.connect(compMapVisual);
 		playerFlare.connect(compMapVisual);
-
-		// TODO: Conectar o mapVisual ao gameController
-		compMapVisual.connect(this);
 	}
 
 	public static GameController getSharedInstance() {
