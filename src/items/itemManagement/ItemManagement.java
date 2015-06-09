@@ -16,9 +16,6 @@ import anima.component.base.ComponentBase;
  * @author Vicente
  * @author Felipe Moret
  * Classe responsavel pela comunicacao entre outras classes e o inventario
- */
-
-/**
  * Classe respons�vel por gerenciar os itens dispon�ves, seu incremento, decremento e quantidade, al�m
  * de sua inicializa��o
  */
@@ -215,14 +212,4 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		}
 		return inventory.get(position).getName();
 	}
-	
-//	public void printEverything() {
-//		int value;
-//		String name;
-//		for(int i = 0;i < inventory.size();i ++) {
-//			value = displayNumber(i);
-//			name = displayName(i);
-//			System.out.println("Nome: " + name + "  Quantidade: " + value);
-//		}
-//	}
 }

@@ -7,29 +7,30 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 
 /**
  * 
  * @author Vicente
- * @@author Felipe Moret
- *
+ * @author Felipe Moret
  * @param <T> uso de Generics para poder serializar quarquer objeto
+ * 
+ * classe responsavel pela serializacao e deserializacao dos objetos do jogo
  */
 
 @Component(id="<http://santanvarzea.com/saveGame.saveGame>", provides={"<http://santanvarzea.com/saveGame.IsaveGame>"})
-public class saveGame <T>{
+public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
 	
 	
-//	   saveGame<Employee> salvador = new saveGame<Employee>();
-
 /**
- * 	
- * @param e recebe parametro de um tipo generico T e faz sua serializacao, levando o arquivo a
- * src/saveGame/tmp/alou.ser
+ * metodo que faz a serializacao do objeto e
+ * @param e: um tipo generico T
+ * @param Folder: guarda a serializacao do objeto em uma pasta tmp com o arquivo .ser
  */
-	public void saveState(T e) {
+	
+	public void saveState(T e, String Folder) {
 		try {
-			FileOutputStream fileOut = new FileOutputStream("src/saveGame/tmp/teste.ser");
+			FileOutputStream fileOut = new FileOutputStream("src/saveGame/tmp/"	+ Folder + ".ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(e);
 			
@@ -43,17 +44,17 @@ public class saveGame <T>{
 	}
 	
 /**
- * classe que le o arquivo src/saveGame/tmp/alou.ser e deserializa o objeto	
+ * classe que le o arquivo de nome Folder na pasta tmp e deserializa os objetos
+ * @param Folder: nome da pasta em que se encontra o arquivo .ser
  * @return o objeto serializado
  */
 	
-	
 	@SuppressWarnings("unchecked")
-	public T obtainState() {
+	public T obtainState(String Folder) {
 		
 		try {
 			T e1 = null;
-			FileInputStream fileIn = new FileInputStream("src/saveGame/tmp/teste.ser");
+			FileInputStream fileIn = new FileInputStream("src/saveGame/tmp/" + Folder + ".ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			e1 = (T) in.readObject();
 			
@@ -73,3 +74,5 @@ public class saveGame <T>{
 		}
 	}
 }
+
+//saveGame<Employee> salvador = new saveGame<Employee>();

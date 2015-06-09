@@ -1,8 +1,7 @@
 package items.inventory;
 
 import items.excecoes.OutofItemsException;
-import anima.component.IRequires;
-import visual.interfaces.IMapVisual;
+
 
 /**
  * @author Vicente

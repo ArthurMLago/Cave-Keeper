@@ -54,16 +54,24 @@ public class GeneralItems implements IItems, Serializable {
 	}
 	
 /**	
- * Aumenta o a quantidade de itens disponíveis
+ * Aumenta o a quantidade de itens disponíveis em uma unidade
  */
 	public void increase() {
 		this.number = this.number + 1;
 	}
 	
+/**	
+ * Aumenta o a quantidade de itens disponíveis em uma quantidade recebida
+ * @param quantidade quantidade de itens a ser adicionada
+ * faz a sobrecarga do método acima
+ */	
 	public void increase(int quantidade) {
 		this.number = this.number + quantidade;
 	}
-	
+
+/**	
+ * Diminui o a quantidade de itens disponíveis em uma unidade
+ */
 	public void decrease() {
 		this.number = this.number - 1;
 	}
