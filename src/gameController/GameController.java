@@ -1,6 +1,8 @@
 package gameController;
 
+import items.excecoes.OutofItemsException;
 import items.interfaces.IItemManagement;
+import items.itemManagement.ItemsList;
 
 import java.util.ArrayList;
 
@@ -164,7 +166,11 @@ public class GameController implements IGameController {
 		if (compMonster.isMonstersAlive()) {
 			compMonster.runMonstersActions(0);
 			if (compPlayer.getLighter()) {
-				// compItemManagement.useItem();
+				try {
+					compItemManagement.useItem(ItemsList.Fuel);
+				} catch (OutofItemsException e) {
+					compPlayer.setLighter();
+				}
 			}
 		}
 	}
