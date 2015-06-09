@@ -6,7 +6,9 @@ import map.enumerations.TileType;
 import map.exceptions.OutOfMapBoundsException;
 import gameController.*;
 import monster.Interfaces.*;
+import items.excecoes.OutofItemsException;
 import items.itemManagement.ItemManagement;
+import items.itemManagement.ItemsList;
 import player.IPlayerMax;
 
 /**
@@ -194,7 +196,7 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	 * @return verdadeiro se o tiro acertou o monstro
 	 */
 	public boolean shoot(char direction) {
-		if (bag.displayNumber(4/* AMMO */) == 0)
+		if (bag.displayNumber(ItemsList.SaltAmmo/* AMMO */) == 0)
 			return false;
 
 		facing = direction;
@@ -209,8 +211,8 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 							.getSharedInstance().getMap().getTileAt(i, y)
 							.getType())))
 						flag = 1;
-					else if ((monster.getX() == i)
-							&& (monster.getY() == posY))
+					else if ((monster.getX(0) == i)
+							&& (monster.getY(0) == posY))
 						flag = 2;
 				}
 			}
@@ -221,8 +223,8 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 							.getSharedInstance().getMap().getTileAt(i, y)
 							.getType())))
 						flag = 1;
-					else if ((monster.getX() == i)
-							&& (monster.getY() == posY))
+					else if ((monster.getX(0) == i)
+							&& (monster.getY(0) == posY))
 						flag = 2;
 				}
 			}
@@ -233,8 +235,8 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 							.getSharedInstance().getMap().getTileAt(x, i)
 							.getType())))
 						flag = 1;
-					else if ((monster.getX() == posX)
-							&& (monster.getY() == i))
+					else if ((monster.getX(0) == posX)
+							&& (monster.getY(0) == i))
 						flag = 2;
 				}
 			}
@@ -245,8 +247,8 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 							.getSharedInstance().getMap().getTileAt(x, i)
 							.getType())))
 						flag = 1;
-					else if ((monster.getX() == posX)
-							&& (monster.getY() == i))
+					else if ((monster.getX(0) == posX)
+							&& (monster.getY(0) == i))
 						flag = 2;
 				}
 			}
@@ -268,21 +270,40 @@ public class Player extends ComponentBase  implements IPlayerPosition, IPlayerAc
 	/**
 	 * Método que utiliza o item flare
 	 */
-	public void useFlare() {
-		bag.useItem(0);
+	public boolean useFlare() {
+		boolean usado = true;
+		try {
+			bag.useItem(ItemsList.Flare);
+		} catch (OutofItemsException e) {
+			usado = false;
+		}
+		return usado;
 	}
 
 	/**
 	 * Método que utiliza o item stick
 	 */
-	public void useStick() {
-		bag.useItem(5);
+	public boolean useStick() {
+		boolean usado = true;
+		try {
+			bag.useItem(ItemsList.Stick);
+		} catch (OutofItemsException e) {
+			usado = false;
+		}
+		
+		return usado;
 	}
 
 	/**
 	 * Método que utiliza o item flash
 	 */
-	public void useFlash() {
-		bag.useItem(1);
+	public boolean useFlash() {
+		boolean usado = true;
+		try {
+			bag.useItem(ItemsList.Flash);
+		} catch (OutofItemsException e) {
+			usado = false;
+		}
+		return usado;
 	}
 }

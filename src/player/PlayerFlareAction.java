@@ -1,5 +1,6 @@
 package player;
 
+import items.excecoes.OutofItemsException;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
@@ -25,8 +26,10 @@ public class PlayerFlareAction implements IActionPlayerMapVisual {
 
 	@Override
 	public void execute() {
-		player.useFlare();
-		map.flareVisual();
+		if(player.useFlare()){
+			map.flareVisual();
+		}
+		
 	}
 
 	@Override
