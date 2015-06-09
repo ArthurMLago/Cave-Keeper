@@ -9,6 +9,8 @@ import map.interfaces.IMapGenerator;
 import java.util.Random;
 import java.util.ArrayList;
 
+import anima.annotation.Component;
+
 
 
 
@@ -21,6 +23,8 @@ import java.util.ArrayList;
  * @author Arthur Moraes do Lago
  *
  */
+
+@Component(id="<http://cave.com/map.MapGenerator>", provides={"<http://cave.com/map.interfaces.IMapGenerator>"})
 public class MapGenerator implements IMapGenerator{
 	//Instância estatica da classe( singleton):
 	private static MapGenerator sharedInstancee;
@@ -172,7 +176,7 @@ public class MapGenerator implements IMapGenerator{
 			for (int j = 0; j < MapWidth; j++){
 				String tileImage;
 				TileType tileEnum;
-				if (Matriz[i][j] == 0){
+				if (!(Matriz[i][j] == 0)){
 					tileImage = "Grass";
 					tileEnum = TileType.Walkable;
 				}else{

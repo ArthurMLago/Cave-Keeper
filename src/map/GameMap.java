@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.ArrayList;
 
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
+
 /**
  * 
  * Classe que armazena e gerencia o mapa do jogo
@@ -19,7 +22,8 @@ import java.util.ArrayList;
  * @author ArthurMLago
  *
  */
-public class GameMap implements IGameMap,Serializable {
+@Component(id="<http://cave.com/map.GameMap>", provides={"<http://cave.com/map.interfaces.IGameMap>"})
+public class GameMap extends ComponentBase implements IGameMap,Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private TileMap[][] Matriz;
