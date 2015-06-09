@@ -21,6 +21,8 @@ import anima.component.base.ComponentBase;
 @Component(id="<http://santanvarzea.com/saveGame.saveGame>", provides={"<http://santanvarzea.com/saveGame.IsaveGame>"})
 public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
 	
+	public static final String DIRETORIO_RELATIVO = "src/saveGame/tmp";
+	private String diretorio = saveGame.class.getResource(DIRETORIO_RELATIVO).getPath();
 	
 /**
  * metodo que faz a serializacao do objeto e
@@ -29,8 +31,9 @@ public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
  */
 	
 	public void saveState(T e, String Folder) {
+
 		try {
-			FileOutputStream fileOut = new FileOutputStream("src/saveGame/tmp/"	+ Folder + ".ser");
+			FileOutputStream fileOut = new FileOutputStream(diretorio + "/"	+ Folder + ".ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(e);
 			
@@ -53,16 +56,16 @@ public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
 	public T obtainState(String Folder) {
 		
 		try {
-			T e1 = null;
-			FileInputStream fileIn = new FileInputStream("src/saveGame/tmp/" + Folder + ".ser");
+			T e = null;
+			FileInputStream fileIn = new FileInputStream(diretorio + "/" + Folder + ".ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
-			e1 = (T) in.readObject();
+			e = (T) in.readObject();
 			
 			in.close();
 	        fileIn.close();
 	        System.out.println("Deserialization complete");
 	        
-	        return e1;
+	        return e;
 		}
 		catch(IOException i) {
 			i.printStackTrace();
@@ -76,3 +79,4 @@ public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
 }
 
 //saveGame<Employee> salvador = new saveGame<Employee>();
+//src/saveGame/tmp/"	+ Folder + ".ser"
