@@ -17,7 +17,7 @@ import anima.component.base.ComponentBase;
  *
  */
 
-@ComponentInterface("<http://santanvarzea.com/visual.ActionHandler>")
+@ComponentInterface("<http://cave.com/visual.ActionHandler>")
 public class ActionHandler extends ComponentBase implements IHandler, IRequires<IAction>{
 	private ArrayList<IAction> command;
 	

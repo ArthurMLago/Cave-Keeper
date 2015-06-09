@@ -48,14 +48,6 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 		return distance;
 	}
 	
-	/** Emite o som do monstro de acordo com a distancia dele ao player. */
-	public void emitSound (int playerX, int playerY) {
-		int distance = (int) getDistance (playerX, playerY);
-		if (distance < 10) {
-			/* ReproduzirSom(10-distance); */
-		}
-	}
-	
 	/** Getter da vida do monstro. */
 	public int getHp() {
 		return hp;

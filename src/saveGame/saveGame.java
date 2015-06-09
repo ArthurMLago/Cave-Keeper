@@ -18,7 +18,7 @@ import anima.component.base.ComponentBase;
  * classe responsavel pela serializacao e deserializacao dos objetos do jogo
  */
 
-@Component(id="<http://santanvarzea.com/saveGame.saveGame>", provides={"<http://santanvarzea.com/saveGame.IsaveGame>"})
+@Component(id="<http://cave.com/saveGame.saveGame>", provides={"<http://cave.com/saveGame.IsaveGame>"})
 public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
 	
 	public static final String DIRETORIO_RELATIVO = "src/saveGame/tmp";

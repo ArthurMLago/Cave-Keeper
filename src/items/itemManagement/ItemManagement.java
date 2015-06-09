@@ -15,11 +15,12 @@ import anima.component.base.ComponentBase;
 /**
  * @author Vicente
  * @author Felipe Moret
+ *
  * Classe responsavel pela comunicacao entre outras classes e o inventario
  * Classe respons�vel por gerenciar os itens dispon�ves, seu incremento, decremento e quantidade, al�m
  * de sua inicializa��o
  */
-@Component(id="<http://santanvarzea.com/items.itemManagement.ItemManagement>", provides={"<http://santanvarzea.com/items.interfaces.IItemManagement>"})
+@Component(id="<http://cave.com/items.itemManagement.ItemManagement>", provides={"<http://cave.com/items.interfaces.IItemManagement>"})
 public class ItemManagement extends ComponentBase implements IItemManagement, Serializable {
 	
 	private static final long serialVersionUID = 1L;

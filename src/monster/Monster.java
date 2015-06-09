@@ -1,13 +1,3 @@
-/* O que deve ser feito:
- *   - saber as coordenadas do player para implementar o metodo walk.
- *   - setar a posicao inicial dos monstros de acordo com o gerador do mapa.
- *   - completar o metodo walk nos outros monstros e implementar a caminhada aleatoria.
- *   - adicionar funcoes extras de manipulacao de monstros.
- * OK  - deixar o algoritmos de seguir o player um pouco mais aleatorio.
- *   - escolher imagem dos monstros
- *   - verificar qual funcao utilizar para reproduzir sons
- *  OK - criar documentacao javadocs */
-
 package monster;
 
 import map.Position;
@@ -20,13 +10,11 @@ import monster.Fonte.*;
 
 import java.util.ArrayList;
 
-
-
 /** Classe de gerenciamento dos monstros. Realiza a interacao com o game controller.
  * @author Mateus Coelho
  * @author Pedro Ono */
 
-@Component(id="<http://santanvarzea.com/monster.Monster>", provides={"<http://santanvarzea.com/monster.Interfaces.IMonster>"})
+@Component(id="<http://cave.com/monster.Monster>", provides={"<http://cave.com/monster.Interfaces.IMonster>"})
 public class Monster extends ComponentBase implements IMonster {	
 
 	IPlayerMax player;
@@ -44,8 +32,7 @@ public class Monster extends ComponentBase implements IMonster {
 	}
 	
 	/** Gera os monstros de acordo com o nivel do jogo.
-	 * @param f Fase atual do jogo.
-	 * @return ArrayList dos monstros. */
+	 * @param f Fase atual do jogo. */
 	public void generateMonsters(int f) {
 
 		AbstractMonster monsterToBeGenerated;
@@ -81,21 +68,23 @@ public class Monster extends ComponentBase implements IMonster {
 		
 	}
 	
+	/** Seta a posicao inicial dos monstros de acordo com as coordenadas geradas pelo mapa.
+	 * @param monsterID Identificacao do monstro cuja posicao incial sera setada. */
 	public void setMonsterPosition(int monsterID) {
 		Position pos;
 		pos = map.getSpawnPoint(list.get(monsterID));
 		list.get(monsterID).setPosition(pos.getX(), pos.getY());
 	}
 	
+	/** Chama o metodo de movimentacao do monstro para seguir o player ou andar randomicamente,
+	 * @param monsterID Identificacao do monstro que sera movido. */
 	public void runMonstersActions(int monsterID) {
 		int playerX = this.player.getX();
 		int playerY = this.player.getY();
 		
 		
 		AbstractMonster monster = list.get(monsterID);
-		
-		monster.emitSound(playerX, playerY);
-		
+
 		if (monster.getFollowing() == true) {
 			monster.followWalk(playerX, playerY, map);
 		}
@@ -104,12 +93,15 @@ public class Monster extends ComponentBase implements IMonster {
 		}
 	}
 	
+	/** Seta os monstros para seguir o player. */
 	public void setFollow() {
 		for(int i = 0; i < list.size();i++) {
 			list.get(i).setFollowing(true);
 		}
 	}
 	
+	/** Chamado quando o monstro recebe um tiro. Atualiza a vida do monstro.
+	 * @param monsterID Identificacao do monstro cuja coordenada X sera retornada. */
 	public void getHit(int monsterID) {
 		list.get(monsterID).takeShot();
 	}
@@ -129,17 +121,30 @@ public class Monster extends ComponentBase implements IMonster {
 		}
 		return vivos;
 	}
+	
+	/** Calcula a distancia entre o player e o monstro.
+	 * @param monsterID Identificacao do monstro cuja distancia deve ser calculada. */
 	public double getDistance (int monsterID) {
 		double distance;
 		distance = list.get(monsterID).getDistance(player.getX(), player.getY());
 		return distance;
 	}
+	
+	/** Pega a coordenada X do monstro.
+	 * @param monsterID Identificacao do monstro cuja coordenada X sera retornada. */
 	public int getX(int monsterID) {
 		return list.get(monsterID).getX();
 	}
+	
+
+	/** Pega a coordenada Y do monstro.
+	 * @param monsterID Identificacao do monstro cuja coordenada Y sera retornada. */
 	public int getY(int monsterID) {
 		return list.get(monsterID).getY();
 	}
+	
+	/** Retorna o nome da imagem do monstro.
+	 * @param monsterID Identificacao do montro cujo nome da imagem sera retornado. */
 	public String getImage(int monsterID) {
 		return list.get(monsterID).getImage();
 	}

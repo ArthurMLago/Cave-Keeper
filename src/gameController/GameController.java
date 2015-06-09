@@ -52,25 +52,15 @@ public class GameController implements IGameController {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
-		this.bootGameController(1);
 	}
 
 	private void bootGameController(int fase) {
 		Position playerSpawn;
-		
-		compMonster.generateMonsters(1);
-		
-		compPlayer.connect(compMonster);
 
 		// TODO: Instanciar map, player e monstros
-		MapGenerator.sharedInstance().setMapWidth(30);
-		MapGenerator.sharedInstance().setMapHeight(20);
-		MapGenerator.sharedInstance().setWalkablePath(400);
 		compMap = MapGenerator.sharedInstance().generateMap();
 		playerSpawn = compMap.getSpawnPoint(compPlayer);
 		compPlayer.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
-		
-		compMonster.connect(compPlayer, compMap);
 
 		// TODO: Instanciar as outras ações do player
 		playerDown = new PlayerDownAction();
@@ -184,7 +174,7 @@ public class GameController implements IGameController {
 			}
 
 			if (compMapVisual instanceof IAudioEffect) {
-				((IAudioEffect) compMapVisual).playEffect((float) (compMonster.getDistance(0)/10), "footstep");
+				((IAudioEffect) compMapVisual).playEffect(compMonster.getDistance(0)/10, "footstep");
 			}
 		}
 	}

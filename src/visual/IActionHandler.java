@@ -6,7 +6,7 @@ import anima.component.ISupports;
 
 import com.sun.corba.se.spi.orbutil.fsm.Input;
 
-@ComponentInterface("<http://santanvarzea.com/visual.IActionHandler>")
+@ComponentInterface("<http://cave.com/visual.IActionHandler>")
 public interface IActionHandler extends ISupports {
 	public void handle(Input input);
 	public void connect(IAction execute);
