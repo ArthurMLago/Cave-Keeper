@@ -12,7 +12,8 @@ public class Stick extends GeneralItems {
 		super(name,number);
 	}
 	
-	public void effect() {
+	
+	public void effect() throws OutofItemsException {
 		super.effect();
 		
 /**

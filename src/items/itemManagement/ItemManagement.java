@@ -47,37 +47,136 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  * @param posicao do ArrayList em que se encontra o tipo do item
  * chama o metodo que faz o efeito do item
  */
-	public void useItem(int place) {
-		inventory.get(place).effect();		
+	public void useItem(ItemsList place) {
+		int position = 0;
+		switch(place) {
+		case Flare:
+			position = 0;
+			break;
+		case Flash:
+			position = 1;
+			break;
+		case Fuel:
+			position = 2;
+			break;
+		case SaltAmmo:
+			position = 3;
+			break;
+		case Stick:
+			position = 4;
+			break;
+		default:
+			/*exception*/
+		}
+		inventory.get(position).effect();		
 	}
 
 /**
  * ao obter um novo item, chama-se tal metodo para aumentar sua quantidade
  */
-	public void obtainItem(int place) {
-		if(place >= 0 && place <= 4)
-			inventory.get(place).increase();
-	}
-	
-	public int displayNumber(int place) {
-		return inventory.get(place).getNumber();
-	}
-	
-	public void setNumber(int place, int number) {
-		inventory.get(place).setNumber(number);
-	}
-	
-	public String displayName(int place) {
-		return inventory.get(place).getName();
-	}
-	
-	public void printEverything() {
-		int value;
-		String name;
-		for(int i = 0;i < inventory.size();i ++) {
-			value = displayNumber(i);
-			name = displayName(i);
-			System.out.println("Nome: " + name + "  Quantidade: " + value);
+	public void obtainItem(ItemsList place) {
+		int position = 0;
+		switch(place) {
+		case Flare:
+			position = 0;
+			break;
+		case Flash:
+			position = 1;
+			break;
+		case Fuel:
+			position = 2;
+			break;
+		case SaltAmmo:
+			position = 3;
+			break;
+		case Stick:
+			position = 4;
+			break;
+		default:
+			/*exception*/
 		}
+		inventory.get(position).increase();
 	}
+	
+	public int displayNumber(ItemsList place) {
+		int position = 0;
+		switch(place) {
+		case Flare:
+			position = 0;
+			break;
+		case Flash:
+			position = 1;
+			break;
+		case Fuel:
+			position = 2;
+			break;
+		case SaltAmmo:
+			position = 3;
+			break;
+		case Stick:
+			position = 4;
+			break;
+		default:
+			/*exception*/
+		}
+		return inventory.get(position).getNumber();
+	}
+	
+	public void setNumber(ItemsList place, int number) {
+		int position = 0;
+		switch(place) {
+		case Flare:
+			position = 0;
+			break;
+		case Flash:
+			position = 1;
+			break;
+		case Fuel:
+			position = 2;
+			break;
+		case SaltAmmo:
+			position = 3;
+			break;
+		case Stick:
+			position = 4;
+			break;
+		default:
+			/*exception*/
+		}
+		inventory.get(position).setNumber(number);
+	}
+	
+	public String displayName(ItemsList place) {
+		int position = 0;
+		switch(place) {
+		case Flare:
+			position = 0;
+			break;
+		case Flash:
+			position = 1;
+			break;
+		case Fuel:
+			position = 2;
+			break;
+		case SaltAmmo:
+			position = 3;
+			break;
+		case Stick:
+			position = 4;
+			break;
+		default:
+			/*exception*/
+		}
+		return inventory.get(position).getName();
+	}
+	
+//	public void printEverything() {
+//		int value;
+//		String name;
+//		for(int i = 0;i < inventory.size();i ++) {
+//			value = displayNumber(i);
+//			name = displayName(i);
+//			System.out.println("Nome: " + name + "  Quantidade: " + value);
+//		}
+//	}
 }

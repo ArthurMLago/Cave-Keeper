@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_M4g0sA44EeWH8KLkvZz_Mg" name="Model">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_M4g0sQ44EeWH8KLkvZz_Mg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_SBL-sA44EeWH8KLkvZz_Mg" name="saveGame">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ym_OAA44EeWH8KLkvZz_Mg" name="saveState">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_wFm0kA44EeWH8KLkvZz_Mg" name="e" type="_tl0YYA44EeWH8KLkvZz_Mg"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_ygNOwA44EeWH8KLkvZz_Mg" name="obtainState">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_1WdDIA44EeWH8KLkvZz_Mg" type="_tl0YYA44EeWH8KLkvZz_Mg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_tl0YYA44EeWH8KLkvZz_Mg" name="T"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_eGK-EA45EeWH8KLkvZz_Mg" name="IsaveGame">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_iP5zkA45EeWH8KLkvZz_Mg" name="obtainState">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_iP5zkQ45EeWH8KLkvZz_Mg" type="_tl0YYA44EeWH8KLkvZz_Mg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_iP5zkg45EeWH8KLkvZz_Mg" name="saveState">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_iP5zkw45EeWH8KLkvZz_Mg" name="e" type="_tl0YYA44EeWH8KLkvZz_Mg"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_lXQmEA45EeWH8KLkvZz_Mg" client="_SBL-sA44EeWH8KLkvZz_Mg" supplier="_eGK-EA45EeWH8KLkvZz_Mg"/>
+</uml:Model>

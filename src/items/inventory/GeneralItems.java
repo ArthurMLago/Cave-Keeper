@@ -1,6 +1,8 @@
 package items.inventory;
 
+import items.excecoes.OutofItemsException;
 import items.interfaces.IItems;
+import items.excecoes.OutofItemsException;
 
 import java.io.Serializable;
 
@@ -60,9 +62,14 @@ public class GeneralItems implements IItems, Serializable {
  * ao usar o item, sua quantidade no inventario eh decrementada
  * e chama-se uma notificacao
  */
-	public void effect() {
-		this.decrease();
-		this.notifica();
+	public void effect()  {
+		if(this.number <= 0) {
+			throw new OutofItemsException("Out of items!");
+		}
+		else {
+			this.decrease();
+			this.notifica();
+		}
 	}
 		
 	public void notifica() {
