@@ -28,9 +28,6 @@ public class AppCavesKeeper {
 		
 			GameController.getSharedInstance().conectar(compMonster, compPlayer, compItemManagement);
 			
-			while() {
-				
-			}
 		}
 		catch(Exception e) { 
 			e.printStackTrace();
