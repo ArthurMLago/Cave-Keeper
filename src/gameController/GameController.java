@@ -174,7 +174,7 @@ public class GameController implements IGameController {
 			}
 
 			if (compMapVisual instanceof IAudioEffect) {
-				((IAudioEffect) compMapVisual).playEffect(compMonster.getDistance(0)/10, "footstep");
+				((IAudioEffect) compMapVisual).playEffect((float) (compMonster.getDistance(0)/10), "footstep");
 			}
 		}
 	}

@@ -27,10 +27,6 @@ public class AppCavesKeeper {
 			IItemManagement compItemManagement = componentFactory.createInstance("<http://santanvarzea.com/items.itemManagement.ItemManagement>");
 		
 			GameController.getSharedInstance().conectar(compMonster, compPlayer, compItemManagement);
-			
-			while() {
-				
-			}
 		}
 		catch(Exception e) { 
 			e.printStackTrace();

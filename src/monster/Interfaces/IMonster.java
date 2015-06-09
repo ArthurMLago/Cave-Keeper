@@ -16,6 +16,7 @@ public interface IMonster extends ISupports {
 	public void setMonsterPosition(int monsterID);
 	public void runMonstersActions(int monsterID);
 	public void setFollow();
+	public double getDistance (int monsterID);
 	public void getHit(int monsterID);
 	public void deleteMonsters();
 	public int getX(int monsterID);
