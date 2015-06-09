@@ -162,6 +162,9 @@ public class SlickMap extends BasicGame {
 			}
 			if(monsters.isMonstersAlive() && monsters.getX(0) == x && monsters.getY(0) == y){
 				drawMonster(monsters);
+				System.out.println("Monstro vivo!");
+			} else {
+				System.out.println("Monstro morto!");
 			}
 		} catch (SlickException e) {
 			System.out.println(e);
