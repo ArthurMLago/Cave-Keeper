@@ -1,5 +1,6 @@
 package player;
 
+import gameController.GameController;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
@@ -25,9 +26,9 @@ public class PlayerShootLeftAction implements IActionPlayerMapVisual {
 
 	@Override
 	public void execute() {
-		if (player.shoot(Facing.WEST)) {
-			//map.shootDirection(Facing.WEST);
-		}
+		player.shoot(Facing.WEST);
+		GameController.getSharedInstance().getMapVisual().shootDirection(Facing.WEST);
+
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class SlickMap extends BasicGame {
 	private IGameMap map;
 	private String character = "cat";
 	private int duration = 10;
-	private boolean flare = true;
+	private boolean flare = false;
 	private int flareTime;
 	private HashMap<String, Image> imageMap;
 	private Audio footstepAudio;
@@ -160,7 +160,7 @@ public class SlickMap extends BasicGame {
 							imageMap);
 				}
 			}
-			if(monsters.isMonstersAlive()){
+			if(monsters.isMonstersAlive() && monsters.getX(0) == x && monsters.getY(0) == y){
 				drawMonster(monsters);
 			}
 		} catch (SlickException e) {
@@ -199,7 +199,7 @@ public class SlickMap extends BasicGame {
 
 		drawMonster(monsters);
 
-		if (flareTime > 2000)
+		if (flareTime > 99999)
 			flare = false;
 	}
 

@@ -63,14 +63,10 @@ public class GameController implements IGameController {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
-		try {
-			bootGameController(1);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+		bootGameController(1);
 	}
 
-	private void bootGameController(int fase) throws SlickException {
+	private void bootGameController(int fase) {
 		Position playerSpawn;
 
 		// TODO: Instanciar map, player e monstros
@@ -84,7 +80,7 @@ public class GameController implements IGameController {
 		compMonster.connect(compPlayer, compMap);
 		compMonster.generateMonsters(1);
 		compMonster.setMonsterPosition(0);
-		
+
 		compPlayer.connect(compMonster);
 
 		// TODO: Instanciar as outras ações do player
@@ -149,6 +145,7 @@ public class GameController implements IGameController {
 
 		// TODO: Conectar mapVisual as outras ações
 		compMapVisual = new MapVisual();
+		compMapVisual.connect(this);
 
 		playerShootDown.connect(compMapVisual);
 		playerShootUp.connect(compMapVisual);
@@ -163,7 +160,7 @@ public class GameController implements IGameController {
 
 	@Override
 	public void update() {
-		if(handler != null)
+		if (handler != null)
 			handler.handle(command);
 	}
 
@@ -198,11 +195,11 @@ public class GameController implements IGameController {
 					compPlayer.setLighter();
 				}
 			}
-			System.out.println(compMonster.getDistance(0) / 10);
+
 			if (compMapVisual instanceof IAudioEffect) {
 
 				((IAudioEffect) compMapVisual).playEffect(
-						(float) (compMonster.getDistance(0) / 10), "footstep");
+						(float) (1-(compMonster.getDistance(0) / 10)), "footstep");
 			}
 		}
 	}
