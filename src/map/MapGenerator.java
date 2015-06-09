@@ -179,7 +179,10 @@ public class MapGenerator implements IMapGenerator{
 					tileImage = "Rock";
 					tileEnum = TileType.Wall;
 				}
-				MatrizTiles[i][j] = new TileMap(tileEnum,tileImage,null);
+				
+				ArrayList<Event> eventArray = new ArrayList<Event>();
+				
+				MatrizTiles[i][j] = new TileMap(tileEnum,tileImage,eventArray);
 			}
 		}
 		
