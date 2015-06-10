@@ -29,6 +29,7 @@ public class PlayerShootRightAction implements IActionPlayerMapVisual {
 		if (player.shoot(Facing.EAST))
 			GameController.getSharedInstance().getMapVisual()
 					.shootDirection(Facing.EAST);
+		player.checkLighter();
 
 	}
 

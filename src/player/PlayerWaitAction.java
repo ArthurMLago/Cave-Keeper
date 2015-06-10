@@ -22,7 +22,7 @@ public class PlayerWaitAction implements IActionPlayer {
 
 	@Override
 	public void execute() {
-
+		player.checkLighter();
 	}
 
 	@Override

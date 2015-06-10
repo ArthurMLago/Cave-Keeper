@@ -18,11 +18,12 @@ import anima.component.IRequires;
 import anima.component.base.ComponentBase;
 
 /**
- * Classe que armazena as informações e implemneta todas as ações do jogador.
+ * Classe que armazena as informações e implemneta todas as ações do
+ * jogador.
  * <p>
- * Um objeto da classe Player mantém a sua posição e os seus itens. Seus métodos
- * implementam as ações possiveis do jogador registrando todas as mudanças de
- * estado e comunicando todos os outros componentes do jogo.
+ * Um objeto da classe Player mantém a sua posição e os seus itens. Seus
+ * métodos implementam as ações possiveis do jogador registrando todas as
+ * mudanças de estado e comunicando todos os outros componentes do jogo.
  * 
  * @author Guilherme I. M. de Araújo
  * @author Diego S. Martines
@@ -42,6 +43,7 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	private IMonster monster;
 	private IItemManagement bag;
 	private IGameMap map;
+
 
 	/**
 	 * Construtor �nico estabelece as condi��es de in�cio de jogo
@@ -116,8 +118,8 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	}
 
 	/**
-	 * Método que muda o estado da lamparina, se está ligado, ele desliga e vice
-	 * versa
+	 * Método que muda o estado da lamparina, se está ligado, ele desliga e
+	 * vice versa
 	 */
 	public void setLighter() {
 		if (lighter)
@@ -136,12 +138,22 @@ public class Player extends ComponentBase implements IPlayerPosition,
 		lighter = state;
 	}
 
+	public void checkLighter() {
+		if (getLighter()) {
+			try {
+				bag.useItem(ItemsList.Fuel);
+			} catch (OutofItemsException e) {
+				setLighter(false);
+			}
+		}
+	}
+
 	/**
 	 * Metodo que move o personagem
 	 * 
 	 * @param direction
-	 *            caractere maiúsculo que indica a direção cardeal para a qual
-	 *            se deseja andar
+	 *            caractere maiúsculo que indica a direção cardeal para a
+	 *            qual se deseja andar
 	 * @return verdadeiro se o movimento foi efetuado com sucesso
 	 */
 	public boolean move(char direction) {
@@ -202,8 +214,8 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	 * Método que dirpara a arma em uma certa direção
 	 * 
 	 * @param direction
-	 *            caractere maiúsculo que indica a direção cardeal para a qual
-	 *            se deseja atirar
+	 *            caractere maiúsculo que indica a direção cardeal para a
+	 *            qual se deseja atirar
 	 * @return verdadeiro se o tiro acertou o monstro
 	 */
 	public boolean shoot(char direction) {

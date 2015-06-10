@@ -27,6 +27,7 @@ public class PlayerUpAction implements IActionPlayer {
 	public void execute() {
 		if (player.move(Facing.NORTH)) {
 			GameController.getSharedInstance().move();
+			player.checkLighter();
 		}
 	}
 
