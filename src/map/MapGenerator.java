@@ -163,10 +163,10 @@ public class MapGenerator implements IMapGenerator{
 		//Nao permitir pontos inpassaveis no meio de pontos passaveis:
 		filterIsolatedTiles();
 		
-		filterIsolatedTiles2();
+//		filterIsolatedTiles2();
 		
 		//tirar passsagems muito estreitas:
-		filterNarrowPassage();
+//		filterNarrowPassage();
 		
 		//Criar paredes:
 		setMapLimits();
