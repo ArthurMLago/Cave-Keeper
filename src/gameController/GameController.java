@@ -84,7 +84,7 @@ public class GameController implements IGameController {
 
 		compPlayer.connect(compMonster, compItemManagement);
 
-		// TODO: Instanciar as outras aÃ§Ãµes do player
+		// TODO: Instanciar as outras ações do player
 		playerDown = new PlayerDownAction();
 		playerDown.setKey(Input.KEY_DOWN);
 		playerDown.connect((IPlayerAction) compPlayer);
@@ -133,7 +133,7 @@ public class GameController implements IGameController {
 		playerLighter.setKey(Input.KEY_L);
 		playerLighter.connect((IPlayerAction) compPlayer);
 
-		// TODO: Conectar as outras aÃ§Ãµes no handler depois de instanciar
+		// TODO: Conectar as outras ações no handler depois de instanciar
 
 		handler = new ActionHandler();
 		handler.connect(playerDown);
@@ -149,7 +149,7 @@ public class GameController implements IGameController {
 		handler.connect(playerWait);
 		handler.connect(playerLighter);
 
-		// TODO: Conectar mapVisual as outras aÃ§Ãµes
+		// TODO: Conectar mapVisual as outras ações
 		compMapVisual = new MapVisual();
 		compMapVisual.connect(this);
 
@@ -196,13 +196,7 @@ public class GameController implements IGameController {
 	public void move() {
 		if (compMonster.isMonstersAlive()) {
 			compMonster.runMonstersActions(0);
-			if (compPlayer.getLighter()) {
-				try {
-					compItemManagement.useItem(ItemsList.Fuel);
-				} catch (OutofItemsException e) {
-					compPlayer.setLighter();
-				}
-			}
+			compPlayer.checkLighter();
 
 			if (compMapVisual instanceof IAudioEffect) {
 
