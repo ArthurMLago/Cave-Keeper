@@ -34,5 +34,7 @@ public interface IMapVisual extends ISupports{
 	
 	public void start();
 	
+	public void end();
+	
 	public void message(String messageTxt);
 }
