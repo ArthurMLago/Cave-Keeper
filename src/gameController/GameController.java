@@ -209,6 +209,10 @@ public class GameController implements IGameController {
 				((IAudioEffect) compMapVisual).playEffect(
 						(float) (1-(compMonster.getDistance(0) / 10)), "footstep");
 			}
+			
+			if(compPlayer.getX() == compMonster.getX(0) && compPlayer.getY() == compMonster.getY(0)){
+				compMapVisual.end();
+			}
 		}
 	}
 

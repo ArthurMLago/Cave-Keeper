@@ -68,6 +68,11 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 	public void message(String messageTxt) {
 		compositeMap.setMessage(messageTxt);
 	}
+
+	@Override
+	public void end() {
+		agc.exit();
+	}
 	
 	
 }
