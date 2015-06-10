@@ -210,6 +210,8 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	public boolean shoot(char direction) {
 		if (bag.displayNumber(ItemsList.SaltAmmo) == 0)
 			return false;
+		
+		monster.setFollow();
 
 		facing = direction;
 
