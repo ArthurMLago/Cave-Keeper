@@ -50,6 +50,10 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 	@Override
 	public void connect(GameController gameController) {
 		this.gameController = gameController;
+	}
+
+	@Override
+	public void start() {
 		try {
 			agc = new AppGameContainer(compositeMap);
 			agc.setDisplayMode(gameController.getMap().getLimitX() * SIZEIMAGE,
@@ -57,7 +61,13 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 			agc.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
-		}
-
+		}		
 	}
+
+	@Override
+	public void message(String messageTxt) {
+		compositeMap.setMessage(messageTxt);
+	}
+	
+	
 }

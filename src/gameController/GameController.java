@@ -158,6 +158,8 @@ public class GameController implements IGameController {
 		playerShootLeft.connect(compMapVisual);
 		playerShootRight.connect(compMapVisual);
 		playerFlare.connect(compMapVisual);
+		
+		compMapVisual.start();
 	}
 
 	public static GameController getSharedInstance() {
