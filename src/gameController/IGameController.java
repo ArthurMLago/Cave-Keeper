@@ -21,4 +21,6 @@ public interface IGameController extends ISupports{
 	public void move();
 	public IItemManagement getItemManagement();
 	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement);
+	public boolean playerTestWin();
+	public boolean playerGameOver();
 }

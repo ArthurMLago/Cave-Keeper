@@ -55,6 +55,7 @@ public class GameController implements IGameController {
 	private IPlayerMax compPlayer;
 	private IItemManagement compItemManagement;
 	private IMapVisual compMapVisual;
+	private int fase = 1;
 
 	private GameController() {
 	}
@@ -64,10 +65,10 @@ public class GameController implements IGameController {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
-		bootGameController(1);
+		bootGameController();
 	}
 
-	private void bootGameController(int fase) {
+	private void bootGameController() {
 		Position playerSpawn;
 
 		// TODO: Instanciar map, player e monstros
@@ -196,7 +197,6 @@ public class GameController implements IGameController {
 	public void move() {
 		if (compMonster.isMonstersAlive()) {
 			compMonster.runMonstersActions(0);
-			compPlayer.checkLighter();
 
 			if (compMapVisual instanceof IAudioEffect) {
 
@@ -204,10 +204,23 @@ public class GameController implements IGameController {
 						(float) (1-(compMonster.getDistance(0) / 10)), "footstep");
 			}
 			
-			if(compPlayer.getX() == compMonster.getX(0) && compPlayer.getY() == compMonster.getY(0)){
+			if(playerGameOver())
 				compMapVisual.end();
-			}
 		}
+	}
+	
+	public boolean playerTestWin() {
+		if(compPlayer.getX() != compMonster.getX(0) && compPlayer.getY() != compMonster.getY(0) && (compMonster.isMonstersAlive() == false))
+			return true;
+		else 
+			return false;
+	}
+	
+	public boolean playerGameOver() {
+		if(compPlayer.getX() == compMonster.getX(0) && compPlayer.getY() == compMonster.getY(0))
+			return true;
+		else
+			return false;
 	}
 
 	@Override
