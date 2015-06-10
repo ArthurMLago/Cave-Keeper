@@ -196,13 +196,7 @@ public class GameController implements IGameController {
 	public void move() {
 		if (compMonster.isMonstersAlive()) {
 			compMonster.runMonstersActions(0);
-			if (compPlayer.getLighter()) {
-				try {
-					compItemManagement.useItem(ItemsList.Fuel);
-				} catch (OutofItemsException e) {
-					compPlayer.setLighter();
-				}
-			}
+			compPlayer.checkLighter();
 
 			if (compMapVisual instanceof IAudioEffect) {
 

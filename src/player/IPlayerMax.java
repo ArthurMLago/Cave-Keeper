@@ -17,4 +17,6 @@ public interface IPlayerMax extends Entidade {
 	public char getFacing();
 	public boolean getLighter();
 	public void connect(IMonster arg0, IItemManagement arg1);
+	public void checkLighter();
+	
 }
