@@ -44,6 +44,7 @@ import anima.component.InterfaceType;
  *
  */
 public class SlickMap extends BasicGame {
+	
 	private Animation spritePlayer, playerUp, playerDown, playerLeft,
 			playerRight;
 	private Animation shadowPlayer, shadowUp, shadowDown, shadowLeft,
