@@ -1,5 +1,6 @@
 package player;
 
+import items.interfaces.IItemManagement;
 import monster.Interfaces.IMonster;
 import gameController.*;
 
@@ -15,5 +16,5 @@ public interface IPlayerMax extends Entidade {
 	public int getY();
 	public char getFacing();
 	public boolean getLighter();
-	public void connect(IMonster arg0);
+	public void connect(IMonster arg0, IItemManagement arg1);
 }

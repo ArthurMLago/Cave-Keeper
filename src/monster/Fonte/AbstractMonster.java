@@ -74,9 +74,9 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 		
 		int steps = spaces;
 		
-		/*while (steps >= 0) {*/
+		while (steps >= 0) {
 			try {
-				int direcao = random.nextInt(2);
+				int direcao = random.nextInt(1);
 				
 				if (playerX > monsterX && playerY > monsterY) {
 					if (direcao == 0) {
@@ -167,7 +167,7 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		/*}*/
+		}
 	}
 	
 	/** Realiza um movimento aleatorio pelo mapa */

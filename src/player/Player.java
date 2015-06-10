@@ -3,6 +3,7 @@ package player;
 import gameController.Entidade;
 import gameController.GameController;
 import items.excecoes.OutofItemsException;
+import items.interfaces.IItemManagement;
 import items.itemManagement.ItemManagement;
 import items.itemManagement.ItemsList;
 import map.Event;
@@ -30,7 +31,7 @@ import anima.component.base.ComponentBase;
 
 @Component(id = "<http://cave.com/player.Player>", provides = { "<http://cave.com/player.IPlayer>" })
 public class Player extends ComponentBase implements IPlayerPosition,
-		IPlayerAction, IPlayerMax, Entidade, IRequires<IMonster> {
+		IPlayerAction, IPlayerMax, Entidade {
 
 	private int posX, posY;
 
@@ -38,10 +39,8 @@ public class Player extends ComponentBase implements IPlayerPosition,
 
 	private boolean lighter;
 
-	private ItemManagement bag;
-
 	private IMonster monster;
-
+	private IItemManagement bag;
 	private IGameMap map;
 
 	/**
@@ -326,7 +325,8 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	}
 
 	@Override
-	public void connect(IMonster arg0) {
+	public void connect(IMonster arg0, IItemManagement arg1) {
 		this.monster = arg0;
+		this.bag = arg1;
 	}
 }

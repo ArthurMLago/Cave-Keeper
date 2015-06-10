@@ -82,7 +82,7 @@ public class GameController implements IGameController {
 		compMonster.generateMonsters(1);
 		compMonster.setMonsterPosition(0);
 
-		compPlayer.connect(compMonster);
+		compPlayer.connect(compMonster, compItemManagement);
 
 		// TODO: Instanciar as outras ações do player
 		playerDown = new PlayerDownAction();
