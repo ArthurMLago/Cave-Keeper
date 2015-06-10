@@ -176,12 +176,53 @@ public class MapGenerator implements IMapGenerator{
 			for (int j = 0; j < MapWidth; j++){
 				String tileImage;
 				TileType tileEnum;
-				if (!(Matriz[i][j] == 0)){
-					tileImage = "Grass";
-					tileEnum = TileType.Walkable;
-				}else{
-					tileImage = "Rock";
+				
+				int Left,Up,Right,Down;
+//				if (!(Matriz[i][j] == 0)){
+//					tileImage = "Grass";
+//					tileEnum = TileType.Walkable;
+//				}else{
+//					tileImage = "Rock";
+//					tileEnum = TileType.Wall;
+//				}
+				Left = Matriz[clampToMapHeight(i)][clampToMapWidth(j - 1)];
+				Up = Matriz[clampToMapHeight(i - 1)][clampToMapWidth(j)];
+				Right = Matriz[clampToMapHeight(i)][clampToMapWidth(j + 1)];
+				Down = Matriz[clampToMapHeight(i + 1)][clampToMapWidth(j)];
+				
+				if (!(Matriz[i][j] != 0)){
+					tileImage = "WallFill";
 					tileEnum = TileType.Wall;
+				}else{
+					tileImage = "GroundFill";
+					
+					if (Right == 0){
+						tileImage = "Wall2";
+					}
+					if (Down == 0){
+						tileImage = "Wall1";
+					}
+					if (Left == 0){
+						tileImage = "Wall4";
+					}
+					if (Up == 0){
+						tileImage = "Wall3";
+					}
+					
+					if (Left == 0 && Up == 0){
+						tileImage = "Border1";
+					}
+					if (Right == 0 && Up == 0){
+						tileImage = "Border4";
+					}
+					if (Right == 0 && Down == 0){
+						tileImage = "Border3";
+					}
+					if (Left == 0 && Down == 0){
+						tileImage = "Border2";
+					}
+					
+					tileEnum = TileType.Walkable;
 				}
 				
 				ArrayList<Event> eventArray = new ArrayList<Event>();
@@ -355,6 +396,10 @@ public class MapGenerator implements IMapGenerator{
 			SpawnPointList.add(SpawnPointPosition[i]);
 			Matriz[SpawnPointPosition[i].getX()][SpawnPointPosition[i].getY()] = 8;
 		}
+	}
+	
+	public void spawnItems(){
+		
 	}
 	
 	/**
