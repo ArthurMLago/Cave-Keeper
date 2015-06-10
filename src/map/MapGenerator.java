@@ -163,6 +163,8 @@ public class MapGenerator implements IMapGenerator{
 		//Nao permitir pontos inpassaveis no meio de pontos passaveis:
 		filterIsolatedTiles();
 		
+		filterIsolatedTiles2();
+		
 		//tirar passsagems muito estreitas:
 		filterNarrowPassage();
 		
@@ -311,35 +313,46 @@ public class MapGenerator implements IMapGenerator{
 		}
 	}
 	
+	private void filterIsolatedTiles2(){
+		for (int i = 0; i < MapHeight; i++){
+			for (int j = 0; j < MapWidth; j++){
+				int Left,Up,Right,Down;
+				Left = Matriz[clampToMapHeight(i)][clampToMapWidth(j - 1)];
+				Up = Matriz[clampToMapHeight(i - 1)][clampToMapWidth(j)];
+				Right = Matriz[clampToMapHeight(i)][clampToMapWidth(j + 1)];
+				Down = Matriz[clampToMapHeight(i + 1)][clampToMapWidth(j)];
+				
+				if (Matriz[i][j] == 0){
+					if (Left + Up + Right + Down >= 3){
+						Matriz[i][j] = 1;
+					}
+				}else{
+					if (Left + Up + Right + Down < 2){
+						Matriz[i][j] = 0;
+					}
+				}
+			}
+		}
+				
+	}
+	
 	
 	/**
 	 * Método para aplicar filtro de remoção de passagems estreitas.
 	 */
 	private void filterNarrowPassage(){
-		for (int i = 0; i < MapHeight; i++){
-			for (int j = 0; j < MapWidth; j++){
-				int iActualMin = i - 1;
-				int iActualMax = i + 1;
-				int jActualMin = j - 1;
-				int jActualMax = j + 1;
-				if (i + 1 > MapHeight - 1){
-					iActualMax = MapHeight - 1;
-				}
-				if (i - 1 < 0){
-					iActualMin = 0;
-				}
-				if (j + 1 > MapWidth - 1){
-					jActualMax = MapWidth - 1;
-				}
-				if (j - 1 < 0){
-					jActualMin = 0;
-				}
-				if (Matriz[i][j] == 1){
-					if ((Matriz[iActualMin][j] == 0) && (Matriz[iActualMax][j] == 0)){
-						Matriz[i][j] = 1;
+		boolean Changed = true;
+		while(Changed == true){
+			Changed = false;
+			for (int i = 0; i < MapHeight; i++){
+				for (int j = 0; j < MapWidth; j++){
+					if ((Matriz[clampToMapHeight(i - 1)][j] != Matriz[i][j]) && (Matriz[clampToMapHeight(i + 1)][j] != Matriz[i][j])){
+						Matriz[i][j] = Matriz[clampToMapHeight(i - 1)][j];
+						Changed = true;
 					}
-					if ((Matriz[i][jActualMin] == 0) && (Matriz[i][jActualMax] == 0)){
-						Matriz[i][j] = 1;
+					if ((Matriz[i][clampToMapWidth(j - 1)] != Matriz[i][j]) && (Matriz[i][clampToMapWidth(j + 1)] != Matriz[i][j])){
+						Matriz[i][j] = Matriz[i][clampToMapWidth(j - 1)];
+						Changed = true;
 					}
 				}
 			}

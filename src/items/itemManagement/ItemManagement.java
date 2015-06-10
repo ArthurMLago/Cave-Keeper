@@ -33,7 +33,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  * Inicializando o ArrayList dos itens como vazio para todas as posi��es
  */
 	public ItemManagement() {
-		inventory.add(new Flare("flare", 5));
+		inventory.add(new Flare("flare", 500000));
 		inventory.add(new Flash("flash", 5));
 		inventory.add(new GeneralItems("fuel", 5));
 		inventory.add(new GeneralItems("saltAmmo", 5));
