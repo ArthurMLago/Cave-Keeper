@@ -27,6 +27,7 @@ public class PlayerDownAction implements IActionPlayer {
 	public void execute() {
 		if (player.move(Facing.SOUTH)) {
 			GameController.getSharedInstance().move();
+			player.checkLighter();
 		}
 	}
 

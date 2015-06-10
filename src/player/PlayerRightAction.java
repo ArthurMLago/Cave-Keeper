@@ -24,6 +24,7 @@ public class PlayerRightAction implements IActionPlayer {
 	public void execute() {
 		if(player.move(Facing.EAST)){
 			GameController.getSharedInstance().move();
+			player.checkLighter();
 		}
 	}
 

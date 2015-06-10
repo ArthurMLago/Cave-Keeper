@@ -23,6 +23,7 @@ public class PlayerSetLighterAction implements IActionPlayer {
 	@Override
 	public void execute() {
 		player.setLighter();
+		player.checkLighter();
 	}
 
 	@Override

@@ -29,6 +29,7 @@ public class PlayerFlareAction implements IActionPlayerMapVisual {
 	public void execute() {
 		if(player.useFlare()){
 			GameController.getSharedInstance().getMapVisual().flareVisual();
+			player.checkLighter();
 		}
 		
 	}

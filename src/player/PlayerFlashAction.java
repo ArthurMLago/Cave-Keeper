@@ -25,6 +25,7 @@ public class PlayerFlashAction implements IActionPlayer {
 	@Override
 	public void execute() {
 		player.useFlash();
+		player.checkLighter();
 	}
 
 	@Override

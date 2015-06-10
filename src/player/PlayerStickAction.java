@@ -23,6 +23,7 @@ public class PlayerStickAction implements IActionPlayer {
 	@Override
 	public void execute() {
 		player.useStick();
+		player.checkLighter();
 	}
 
 	@Override
