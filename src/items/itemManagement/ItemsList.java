@@ -12,5 +12,6 @@ public enum ItemsList {
 	Flash,
 	Fuel,
 	SaltAmmo,
-	Stick
+	Stick,
+	Trap
 }

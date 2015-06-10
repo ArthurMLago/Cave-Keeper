@@ -7,8 +7,11 @@ import items.inventory.Flare;
 import items.inventory.Flash;
 import items.inventory.GeneralItems;
 import items.inventory.Stick;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
+
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
@@ -33,7 +36,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  * Inicializando o ArrayList dos itens como vazio para todas as posi��es
  */
 	public ItemManagement() {
-		inventory.add(new Flare("flare", 500000));
+		inventory.add(new Flare("flare", 5));
 		inventory.add(new Flash("flash", 5));
 		inventory.add(new GeneralItems("fuel", 5));
 		inventory.add(new GeneralItems("saltAmmo", 5));
@@ -46,7 +49,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  */
 	public void startInventoryNumbers(ArrayList<Integer> quantities) {
 		for(int i = 0; i < quantities.size(); i++) {
-			inventory.get(i).setNumber(quantities.get(i));
+			inventory.get(i).setNumbers(quantities.get(i));
 		}
 	}
 	
@@ -57,23 +60,8 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  */
 	public void useItem(ItemsList place) throws OutofItemsException {
 		int position = 0;
-		switch(place) {
-		case Flare:
-			position = 0;
-			break;
-		case Flash:
-			position = 1;
-			break;
-		case Fuel:
-			position = 2;
-			break;
-		case SaltAmmo:
-			position = 3;
-			break;
-		case Stick:
-			position = 4;
-			break;
-		}
+		position = this.getPosition(place);
+		
 		inventory.get(position).effect();		
 	}
 
@@ -83,24 +71,19 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  */
 	public void obtainItem(ItemsList place) {
 		int position = 0;
-		switch(place) {
-		case Flare:
-			position = 0;
-			break;
-		case Flash:
-			position = 1;
-			break;
-		case Fuel:
-			position = 2;
-			break;
-		case SaltAmmo:
-			position = 3;
-			break;
-		case Stick:
-			position = 4;
-			break;
+		Random random_number = new Random();
+		ItemsList name;
+		
+		if(place == ItemsList.Trap) {
+			position = random_number.nextInt(5);
+			name = getEnum_name(position);
+			this.setNumber(name, 0);
 		}
+		else {
+		position = this.getPosition(place);
+		
 		inventory.get(position).increase();
+		}
 	}
 	
 
@@ -112,23 +95,8 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  */
 	public void obtainItem(ItemsList place, int quantidade) {
 		int position = 0;
-		switch(place) {
-		case Flare:
-			position = 0;
-			break;
-		case Flash:
-			position = 1;
-			break;
-		case Fuel:
-			position = 2;
-			break;
-		case SaltAmmo:
-			position = 3;
-			break;
-		case Stick:
-			position = 4;
-			break;
-		}
+		position = this.getPosition(place);
+		
 		inventory.get(position).increase(quantidade);
 	}
 	
@@ -139,23 +107,8 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  */	
 	public int displayNumber(ItemsList place) {
 		int position = 0;
-		switch(place) {
-		case Flare:
-			position = 0;
-			break;
-		case Flash:
-			position = 1;
-			break;
-		case Fuel:
-			position = 2;
-			break;
-		case SaltAmmo:
-			position = 3;
-			break;
-		case Stick:
-			position = 4;
-			break;
-		}
+		position = this.getPosition(place);
+		
 		return inventory.get(position).getNumber();
 	}
 	
@@ -167,24 +120,9 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  */	
 	public void setNumber(ItemsList place, int number) {
 		int position = 0;
-		switch(place) {
-		case Flare:
-			position = 0;
-			break;
-		case Flash:
-			position = 1;
-			break;
-		case Fuel:
-			position = 2;
-			break;
-		case SaltAmmo:
-			position = 3;
-			break;
-		case Stick:
-			position = 4;
-			break;
-		}
-		inventory.get(position).setNumber(number);
+		position = this.getPosition(place);
+		
+		inventory.get(position).setNumbers(number);
 	}
 	
 
@@ -194,6 +132,14 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  */	
 	public String displayName(ItemsList place) {
 		int position = 0;
+		position = this.getPosition(place);
+
+		return inventory.get(position).getName();
+	}
+	
+	public int getPosition(ItemsList place) {
+		int position = 0;
+		
 		switch(place) {
 		case Flare:
 			position = 0;
@@ -210,7 +156,30 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		case Stick:
 			position = 4;
 			break;
+		default:
+			System.out.println("numero invalido");	
 		}
-		return inventory.get(position).getName();
+			
+		return position;
+	}
+	public ItemsList getEnum_name(int place) {
+		ItemsList name;
+		
+		switch(place) {
+		case 0:
+			name = ItemsList.Flare;
+		case 1:
+			name = ItemsList.Flash;
+		case 2:
+			name = ItemsList.Fuel;
+		case 3:
+			name = ItemsList.SaltAmmo;
+		case 4:
+			name = ItemsList.Stick;
+		default:
+			System.out.println("posicao invalida");	
+			name = ItemsList.Flare;
+		}
+		return name;
 	}
 }

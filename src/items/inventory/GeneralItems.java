@@ -49,7 +49,7 @@ public class GeneralItems implements IItems, Serializable {
 /**	
  * @param number obtem valor do numero de itens disponiveis
  */
-	public void setNumber(int number) {
+	public void setNumbers(int number) {
 		this.number = number;
 	}
 	
