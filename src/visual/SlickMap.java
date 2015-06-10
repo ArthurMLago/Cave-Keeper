@@ -44,6 +44,7 @@ import anima.component.InterfaceType;
  *
  */
 public class SlickMap extends BasicGame {
+	
 	private Animation spritePlayer, playerUp, playerDown, playerLeft,
 			playerRight;
 	private Animation shadowPlayer, shadowUp, shadowDown, shadowLeft,
@@ -52,7 +53,7 @@ public class SlickMap extends BasicGame {
 	private IGameController gameController;
 	private IPlayerMax player;
 	private IGameMap map;
-	private String character = "cat";
+	private String character = "char";
 	private int duration = 10;
 	private boolean flare = false, message = false;
 	private int flareTime;
