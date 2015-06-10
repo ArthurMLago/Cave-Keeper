@@ -202,7 +202,7 @@ public class SlickMap extends BasicGame {
 
 		drawMonster(monsters);
 
-		if (flareTime > 99999)
+		if (flareTime > 2000)
 			flare = false;
 	}
 
@@ -223,8 +223,8 @@ public class SlickMap extends BasicGame {
 	}
 
 	private void drawAround() {
-		for (int xA = player.getX() - 1; xA < player.getX() + 1; xA++) {
-			for (int yA = player.getY() - 1; yA < player.getY() + 1; yA++) {
+		for (int xA = player.getX() - 1; xA <= player.getX() + 1; xA++) {
+			for (int yA = player.getY() - 1; yA <= player.getY() + 1; yA++) {
 				drawTile(xA, yA);
 			}
 		}

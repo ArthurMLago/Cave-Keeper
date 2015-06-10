@@ -208,9 +208,13 @@ public class Player extends ComponentBase implements IPlayerPosition,
 	 * @return verdadeiro se o tiro acertou o monstro
 	 */
 	public boolean shoot(char direction) {
-		if (bag.displayNumber(ItemsList.SaltAmmo) == 0)
+
+		try {
+			bag.useItem(ItemsList.SaltAmmo);
+		} catch (OutofItemsException e) {
 			return false;
-		
+		}
+
 		monster.setFollow();
 
 		facing = direction;
@@ -221,7 +225,7 @@ public class Player extends ComponentBase implements IPlayerPosition,
 		try {
 			if (direction == Facing.EAST) {
 				for (int i = x + 1; flag == 0; i++) {
-					System.out.println("X:" +x + "Y:" + y);
+					System.out.println("X:" + x + "Y:" + y);
 					if ((monster.getX(0) == i) && (monster.getY(0) == posY))
 						flag = 2;
 					else if ((TileType.Walkable != GameController
@@ -234,7 +238,7 @@ public class Player extends ComponentBase implements IPlayerPosition,
 
 			if (direction == Facing.WEST) {
 				for (int i = x - 1; flag == 0; i--) {
-					System.out.println("X:" +x + "Y:" + y);
+					System.out.println("X:" + x + "Y:" + y);
 					if ((monster.getX(0) == i) && (monster.getY(0) == posY))
 						flag = 2;
 					else if ((TileType.Walkable != GameController
@@ -245,7 +249,7 @@ public class Player extends ComponentBase implements IPlayerPosition,
 			}
 
 			if (direction == Facing.NORTH) {
-				System.out.println("X:" +x + "Y:" + y);
+				System.out.println("X:" + x + "Y:" + y);
 				for (int i = y - 1; flag == 0; i--) {
 					if ((monster.getX(0) == posX) && (monster.getY(0) == i))
 						flag = 2;
@@ -257,7 +261,7 @@ public class Player extends ComponentBase implements IPlayerPosition,
 			}
 
 			if (direction == Facing.SOUTH) {
-				System.out.println("X:" +x + "Y:" + y);
+				System.out.println("X:" + x + "Y:" + y);
 				for (int i = y + 1; flag == 0; i++) {
 					if ((monster.getX(0) == posX) && (monster.getY(0) == i))
 						flag = 2;
@@ -272,11 +276,9 @@ public class Player extends ComponentBase implements IPlayerPosition,
 
 		catch (OutOfMapBoundsException erro) {
 		}
-		
-		System.out.println("Flag: "+ flag);
 
-		if (flag == 1)
-			return false;
+		System.out.println("Flag: " + flag);
+
 		if (flag == 2) {
 			monster.getHit(0);
 		}
