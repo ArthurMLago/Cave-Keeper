@@ -17,6 +17,7 @@ import player.PlayerDownAction;
 import player.PlayerFlareAction;
 import player.PlayerLeftAction;
 import player.PlayerRightAction;
+import player.PlayerSetLighterAction;
 import player.PlayerShootDownAction;
 import player.PlayerShootLeftAction;
 import player.PlayerShootRightAction;
@@ -48,7 +49,7 @@ public class GameController implements IGameController {
 	private IActionPlayerMapVisual playerFlare, playerSetLighter,
 			playerShootDown, playerShootLeft, playerShootRight, playerShootUp;
 	private IActionPlayer playerDown, playerLeft, playerRight, playerUp,
-			playerStick, playerWait;
+			playerStick, playerWait, playerLighter;
 	private IGameMap compMap;
 	private IMonster compMonster;
 	private IPlayerMax compPlayer;
@@ -127,6 +128,10 @@ public class GameController implements IGameController {
 		playerWait = new PlayerWaitAction();
 		playerWait.setKey(Input.KEY_G);
 		playerWait.connect((IPlayerAction) compPlayer);
+		
+		playerLighter = new PlayerSetLighterAction();
+		playerLighter.setKey(Input.KEY_L);
+		playerLighter.connect((IPlayerAction) compPlayer);
 
 		// TODO: Conectar as outras ações no handler depois de instanciar
 
@@ -142,6 +147,7 @@ public class GameController implements IGameController {
 		handler.connect(playerFlare);
 		handler.connect(playerStick);
 		handler.connect(playerWait);
+		handler.connect(playerLighter);
 
 		// TODO: Conectar mapVisual as outras ações
 		compMapVisual = new MapVisual();
@@ -152,6 +158,8 @@ public class GameController implements IGameController {
 		playerShootLeft.connect(compMapVisual);
 		playerShootRight.connect(compMapVisual);
 		playerFlare.connect(compMapVisual);
+		
+		compMapVisual.start();
 	}
 
 	public static GameController getSharedInstance() {
@@ -200,6 +208,10 @@ public class GameController implements IGameController {
 
 				((IAudioEffect) compMapVisual).playEffect(
 						(float) (1-(compMonster.getDistance(0) / 10)), "footstep");
+			}
+			
+			if(compPlayer.getX() == compMonster.getX(0) && compPlayer.getY() == compMonster.getY(0)){
+				compMapVisual.end();
 			}
 		}
 	}

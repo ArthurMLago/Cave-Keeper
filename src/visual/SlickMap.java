@@ -5,6 +5,8 @@ import gameController.GameController;
 import gameController.IGameController;
 import items.itemManagement.ItemsList;
 
+import java.awt.Font;
+import java.awt.TextField;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -22,6 +24,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -51,13 +54,14 @@ public class SlickMap extends BasicGame {
 	private IGameMap map;
 	private String character = "cat";
 	private int duration = 10;
-	private boolean flare = false;
+	private boolean flare = false, message = false;
 	private int flareTime;
 	private HashMap<String, Image> imageMap;
 	private Audio footstepAudio;
 	private IMonster monsters;
 	private boolean explosionShoot = false;
-	private int explosionX, explosionY, explosionTime;
+	private int explosionX, explosionY, explosionTime, messageTime;
+	private String messageTxt;
 
 	public SlickMap(String title) {
 		super(title);
@@ -85,6 +89,12 @@ public class SlickMap extends BasicGame {
 
 		spritePlayer.draw(player.getX() * MapVisual.SIZEIMAGE, player.getY()
 				* MapVisual.SIZEIMAGE);
+		
+		if (message) {
+			Font font = new Font("Verdana", Font.BOLD, 30);
+			TrueTypeFont trueTypeFont = new TrueTypeFont(font, true);
+			trueTypeFont.drawString(50, 50, messageTxt);
+		}
 	}
 
 	@Override
@@ -162,9 +172,6 @@ public class SlickMap extends BasicGame {
 			}
 			if(monsters.isMonstersAlive() && monsters.getX(0) == x && monsters.getY(0) == y){
 				drawMonster(monsters);
-				System.out.println("Monstro vivo!");
-			} else {
-				System.out.println("Monstro morto!");
 			}
 		} catch (SlickException e) {
 			System.out.println(e);
@@ -202,7 +209,7 @@ public class SlickMap extends BasicGame {
 
 		drawMonster(monsters);
 
-		if (flareTime > 99999)
+		if (flareTime > 2000)
 			flare = false;
 	}
 
@@ -223,8 +230,8 @@ public class SlickMap extends BasicGame {
 	}
 
 	private void drawAround() {
-		for (int xA = player.getX() - 1; xA < player.getX() + 1; xA++) {
-			for (int yA = player.getY() - 1; yA < player.getY() + 1; yA++) {
+		for (int xA = player.getX() - 1; xA <= player.getX() + 1; xA++) {
+			for (int yA = player.getY() - 1; yA <= player.getY() + 1; yA++) {
 				drawTile(xA, yA);
 			}
 		}
@@ -244,6 +251,7 @@ public class SlickMap extends BasicGame {
 				&& monsters.getY(0) == player.getY() + yFacing)
 			drawMonster(monsters);
 	}
+	
 
 	/**
 	 * A fun��o mostra que no momento do render deve considerar a a��o por um
@@ -327,6 +335,11 @@ public class SlickMap extends BasicGame {
 		}
 
 		return name;
+	}
+	
+	public void setMessage(String messageTxt){
+		this.messageTxt = messageTxt;
+		message = true;
 	}
 
 	/**

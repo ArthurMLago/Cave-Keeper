@@ -31,4 +31,10 @@ public interface IMapVisual extends ISupports{
 	public void playEffect(float gain, String type);
 	
 	public void connect(GameController gameController);
+	
+	public void start();
+	
+	public void end();
+	
+	public void message(String messageTxt);
 }

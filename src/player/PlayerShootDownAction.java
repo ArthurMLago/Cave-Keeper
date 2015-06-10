@@ -26,8 +26,10 @@ public class PlayerShootDownAction implements IActionPlayerMapVisual {
 
 	@Override
 	public void execute() {
-		player.shoot(Facing.SOUTH);
-		GameController.getSharedInstance().getMapVisual().shootDirection(Facing.SOUTH);
+		if (player.shoot(Facing.SOUTH)) {
+			GameController.getSharedInstance().getMapVisual()
+					.shootDirection(Facing.SOUTH);
+		}
 	}
 
 	@Override
