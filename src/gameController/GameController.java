@@ -85,7 +85,7 @@ public class GameController implements IGameController {
 
 		compPlayer.connect(compMonster, compItemManagement);
 
-		// TODO: Instanciar as outras ações do player
+		// TODO: Inicializar as classes que correspondem a acoes do usuario.
 		playerDown = new PlayerDownAction();
 		playerDown.setKey(Input.KEY_DOWN);
 		playerDown.connect((IPlayerAction) compPlayer);
@@ -135,7 +135,9 @@ public class GameController implements IGameController {
 		playerLighter.connect((IPlayerAction) compPlayer);
 
 		// TODO: Conectar as outras ações no handler depois de instanciar
-
+		
+		/* Handler verifica se alguma tecla foi pressionada e executa a acao correspondente. */
+		
 		handler = new ActionHandler();
 		handler.connect(playerDown);
 		handler.connect(playerUp);
@@ -167,10 +169,20 @@ public class GameController implements IGameController {
 		return sharedInstance;
 	}
 
+	/* Eh chamado todo frame, ou seja, esta em loop infinito. */
 	@Override
 	public void update() {
-		if (handler != null)
+		if(playerGameOver()) {
+			compMapVisual.end();
+			System.out.println("Voce morreu.");
+		}	
+		else if (playerTestWin()){
+			compMapVisual.end();
+			System.out.println("Voce ganhou.");
+		}
+		else {
 			handler.handle(command);
+		}
 	}
 
 	@Override
@@ -194,18 +206,14 @@ public class GameController implements IGameController {
 		return compMapVisual;
 	}
 
+	/* Chamado toda vez que o player se move.
+	 * Nao eh chamado quando se usa itens. */
 	public void move() {
-		if (compMonster.isMonstersAlive()) {
-			compMonster.runMonstersActions(0);
+		compMonster.runMonstersActions(0);
 
-			if (compMapVisual instanceof IAudioEffect) {
-
-				((IAudioEffect) compMapVisual).playEffect(
-						(float) (1-(compMonster.getDistance(0) / 10)), "footstep");
-			}
-			
-			if(playerGameOver())
-				compMapVisual.end();
+		if (compMapVisual instanceof IAudioEffect) {
+			((IAudioEffect) compMapVisual).playEffect(
+					(float) (1-(compMonster.getDistance(0) / 10)), "footstep");
 		}
 	}
 	
