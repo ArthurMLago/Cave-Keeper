@@ -196,18 +196,21 @@ public class GameController implements IGameController {
 		return sharedInstance;
 	}
 
-	/* Eh chamado todo frame, ou seja, esta em loop infinito. */
+	/* Eh chamado todo frame, ou seja, esta, praticamente, em loop infinito. */
 	@Override
 	public void update() {
 		if(playerGameOver()) {
+			System.out.println("Entrou no game over.");
 			compMapVisual.end();
 			System.out.println("Voce morreu.");
 		}	
 		else if (playerTestWin()){
+			System.out.println("entrou no test win");
 			compMapVisual.end();
 			System.out.println("Voce ganhou.");
 		}
 		else {
+			System.out.println("entrou no handler");
 			handler.handle(command);
 		}
 	}
@@ -245,7 +248,7 @@ public class GameController implements IGameController {
 	}
 	
 	public boolean playerTestWin() {
-		if((compPlayer.getX() != compMonster.getX(0)) && (compPlayer.getY() != compMonster.getY(0)) && (compMonster.isMonstersAlive() == false))
+		if(compMonster.isMonstersAlive() == false)
 			return true;
 		else 
 			return false;
