@@ -1,14 +1,11 @@
 package map;
 
 
-import map.GameMap;
-import map.Position;
+import java.util.ArrayList;
+import java.util.Random;
+
 import map.enumerations.TileType;
 import map.interfaces.IMapGenerator;
-
-import java.util.Random;
-import java.util.ArrayList;
-
 import anima.annotation.Component;
 
 
@@ -36,7 +33,10 @@ public class MapGenerator implements IMapGenerator{
 	private int MapWidth, MapHeight;
 	private int MapWalkablePaths;
 	private int NSpawnPoints;
+	private int NTraps;
+	private ItemSpawn[] itemSpawnList;
 	private double lightPercentage;
+	
 	
 	//Variaveis para criação de mapa
 	private int[][] Matriz;
@@ -108,6 +108,21 @@ public class MapGenerator implements IMapGenerator{
 	
 	
 	/**
+	 * Define quantas armadilhas devem ser spawnadas no mapa
+	 * @param value Numero de armadilhas a serem spawnadas
+	 */
+	public void setNTraps(int value){	NTraps = value;}	
+	
+	
+	/**
+	 * Define a lista de items a serem spawnados no mapa, em formato de uma lista de objetos da classe ItemSpawn
+	 * @param value Vetor de objetos da classe ItemSpawn com os tipos e quantidas dos items a serem spawnados.
+	 */
+	public void setItemSpawnList(ItemSpawn[] value){
+		itemSpawnList = value;
+	}
+	
+	/**
 	 * Método que gera um mapa aleatório jogavel com as caracteristicas especificadas.
 	 * @return Um objeto da classe Mapa, contendo um mapa jogavel com as caracteristicas especificadas.
 	 */
@@ -163,10 +178,10 @@ public class MapGenerator implements IMapGenerator{
 		//Nao permitir pontos inpassaveis no meio de pontos passaveis:
 		filterIsolatedTiles();
 		
-		filterIsolatedTiles2();
+//		filterIsolatedTiles2();
 		
 		//tirar passsagems muito estreitas:
-		filterNarrowPassage();
+//		filterNarrowPassage();
 		
 		//Criar paredes:
 		setMapLimits();
@@ -411,8 +426,36 @@ public class MapGenerator implements IMapGenerator{
 		}
 	}
 	
-	public void spawnItems(){
+	public void SpawnItems(){
+		int NSpawns = NTraps + itemSpawnList.length;
 		
+		//Encontrar uma distancia minima entre os spawns:
+		double MinDistance = Math.sqrt(MapWalkablePaths) / NSpawns;
+		
+		//Ccriar SpawnPoint aleatorios ate que eles obedecam as condicoes necessarias
+		boolean satisfactory = false;
+		while(!satisfactory){
+			satisfactory = true;
+			
+			for (int i = 0; i < NSpawns; i++){
+				do{
+					SpawnPointPosition[i] = new Position(randomGenerator.nextInt(MapHeight),randomGenerator.nextInt(MapWidth));
+				}while(Matriz[SpawnPointPosition[i].getX()][SpawnPointPosition[i].getY()] == 0);
+			}
+			
+			for (int i = 0; (i < NSpawns) && satisfactory; i++){
+				for (int j = i + 1; (j < NSpawns) && satisfactory; j++){
+					if (SpawnPointPosition[i].distanceTo(SpawnPointPosition[j]) < MinDistance){
+						satisfactory = false;
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < NSpawns; i++){
+			SpawnPointList.add(SpawnPointPosition[i]);
+			Matriz[SpawnPointPosition[i].getX()][SpawnPointPosition[i].getY()] = 8;
+		}
 	}
 	
 	/**

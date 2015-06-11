@@ -1,15 +1,13 @@
 package gameController;
 
-import items.excecoes.OutofItemsException;
 import items.interfaces.IItemManagement;
-import items.itemManagement.ItemsList;
+import map.ItemSpawn;
 import map.MapGenerator;
 import map.Position;
 import map.interfaces.IGameMap;
 import monster.Interfaces.IMonster;
 
 import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 
 import player.IPlayerAction;
 import player.IPlayerMax;
@@ -34,7 +32,7 @@ import visual.interfaces.IMapVisual;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
-
+import items.itemManagement.*;
 /**
  * Componente que faz a conexao dos outros componentes
  * 
@@ -57,6 +55,34 @@ public class GameController implements IGameController {
 	private IMapVisual compMapVisual;
 	private int fase = 1;
 
+	
+	
+//	criacao do vetor de Itemspawns
+	public void colocaItens() {
+		ItemSpawn[] vetor = new ItemSpawn[50];
+		for(int i = 0;i < 50;i++) {
+			if(i >= 0 && i < 10) {
+				vetor[i] = new ItemSpawn(ItemsList.Flare, 5);
+			}
+			if(i >= 10 && i < 20) {
+				vetor[i] = new ItemSpawn(ItemsList.Flash, 5);
+			}
+			if(i >= 20 && i < 30) {
+				vetor[i] = new ItemSpawn(ItemsList.Fuel, 5);
+			}
+			if(i >= 30 && i < 40) {
+				vetor[i] = new ItemSpawn(ItemsList.SaltAmmo, 5);
+			}
+			if(i >= 40 && i < 50) {
+				vetor[i] = new ItemSpawn(ItemsList.Stick, 5);
+			}
+		}
+		
+		MapGenerator.sharedInstance().setItemSpawnList(vetor);
+		MapGenerator.sharedInstance().setNTraps(5);
+	}
+	
+	
 	private GameController() {
 	}
 
