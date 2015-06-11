@@ -29,9 +29,6 @@ import visual.interfaces.IActionPlayer;
 import visual.interfaces.IActionPlayerMapVisual;
 import visual.interfaces.IAudioEffect;
 import visual.interfaces.IMapVisual;
-import anima.component.IRequires;
-import anima.component.ISupports;
-import anima.component.InterfaceType;
 import items.itemManagement.*;
 /**
  * Componente que faz a conexao dos outros componentes
@@ -259,24 +256,6 @@ public class GameController implements IGameController {
 			return true;
 		else
 			return false;
-	}
-
-	@Override
-	public int addRef() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getInstanceId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int release() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override

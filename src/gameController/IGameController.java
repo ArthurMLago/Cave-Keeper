@@ -12,7 +12,7 @@ import map.interfaces.IGameMap;
 import player.IPlayerMax;
 import monster.Interfaces.*;
 
-public interface IGameController extends ISupports{
+public interface IGameController {
 	public IPlayerMax getPlayer();
 	public IGameMap getMap();
 	public IMonster getEntidades();
