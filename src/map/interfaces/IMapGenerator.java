@@ -2,7 +2,6 @@ package map.interfaces;
 
 import anima.annotation.ComponentInterface;
 import map.GameMap;
-import map.MapGenerator;
 
 @ComponentInterface("<http://cave.com/map.interfaces.IMapGenerator>")
 public interface IMapGenerator {
@@ -31,10 +30,10 @@ public interface IMapGenerator {
 	public void setNSpawnPoints(int value);
 	
 	
-	/**
-	 * Define a porcentagem do mapa que estará iluminada por luzes permanentes:
-	 */
-	public void setLightPercentage(double value);
+//	/**
+//	 * Define a porcentagem do mapa que estará iluminada por luzes permanentes:
+//	 */
+//	public void setLightPercentage(double value);
 	
 	
 	/**

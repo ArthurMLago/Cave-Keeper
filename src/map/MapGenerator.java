@@ -6,6 +6,7 @@ import java.util.Random;
 
 import map.enumerations.TileType;
 import map.interfaces.IMapGenerator;
+import map.events.*;
 import anima.annotation.Component;
 
 
@@ -35,12 +36,13 @@ public class MapGenerator implements IMapGenerator{
 	private int NSpawnPoints;
 	private int NTraps;
 	private ItemSpawn[] itemSpawnList;
-	private double lightPercentage;
+//	private double lightPercentage;
 	
 	
 	//Variaveis para criação de mapa
 	private int[][] Matriz;
 	private ArrayList<Position> SpawnPointList;
+	Event[][] EventListMatrix;
 	
 	
 	/**
@@ -63,7 +65,7 @@ public class MapGenerator implements IMapGenerator{
 		MapHeight = 30;
 		MapWalkablePaths = 450;
 		NSpawnPoints = 4;
-		lightPercentage = 0.1;
+//		lightPercentage = 0.1;
 		
 		randomGenerator = new Random();
 	}
@@ -100,11 +102,11 @@ public class MapGenerator implements IMapGenerator{
 	public void setNSpawnPoints(int value){ NSpawnPoints = value;}
 	
 	
-	/**
-	 * Define a porcentagem do mapa que estará iluminada por luzes permanentes:
-	 * @param value  Porcentagem do mapa iluminado (0.0 -> 1.0)
-	 */
-	public void setLightPercentage(double value){	lightPercentage = value;}
+//	/**
+//	 * Define a porcentagem do mapa que estará iluminada por luzes permanentes:
+//	 * @param value  Porcentagem do mapa iluminado (0.0 -> 1.0)
+//	 */
+//	public void setLightPercentage(double value){	lightPercentage = value;}
 	
 	
 	/**
@@ -132,6 +134,7 @@ public class MapGenerator implements IMapGenerator{
 		SpawnPointList = new ArrayList<Position>();
 		
 		TileMap[][] MatrizTiles = new TileMap[MapHeight][MapWidth];
+		EventListMatrix = new Event[MapWidth][MapHeight];
 		
 		//Posicao inicial do random blobber:
 		int PosX = MapWidth/2;
@@ -189,19 +192,14 @@ public class MapGenerator implements IMapGenerator{
 		//criar spawn points:
 		CreateSpawnPoints();
 		
+		SpawnItems();
+		
 		for (int i = 0; i < MapHeight; i++){
 			for (int j = 0; j < MapWidth; j++){
 				String tileImage;
 				TileType tileEnum;
 				
 				int Left,Up,Right,Down;
-//				if (!(Matriz[i][j] == 0)){
-//					tileImage = "Grass";
-//					tileEnum = TileType.Walkable;
-//				}else{
-//					tileImage = "Rock";
-//					tileEnum = TileType.Wall;
-//				}
 				Left = Matriz[clampToMapHeight(i)][clampToMapWidth(j - 1)];
 				Up = Matriz[clampToMapHeight(i - 1)][clampToMapWidth(j)];
 				Right = Matriz[clampToMapHeight(i)][clampToMapWidth(j + 1)];
@@ -242,9 +240,7 @@ public class MapGenerator implements IMapGenerator{
 					tileEnum = TileType.Walkable;
 				}
 				
-				ArrayList<Event> eventArray = new ArrayList<Event>();
-				
-				MatrizTiles[i][j] = new TileMap(tileEnum,tileImage,eventArray);
+				MatrizTiles[i][j] = new TileMap(tileEnum,tileImage,EventListMatrix[i][j]);
 			}
 		}
 		
@@ -426,8 +422,14 @@ public class MapGenerator implements IMapGenerator{
 		}
 	}
 	
-	public void SpawnItems(){
+	
+	/**
+	 * Função privada para spawnar items.
+	 */
+	private void SpawnItems(){
 		int NSpawns = NTraps + itemSpawnList.length;
+		Position[] spawnPositions = new Position[NSpawns];
+		EventListMatrix = new Event[MapHeight][MapWidth];
 		
 		//Encontrar uma distancia minima entre os spawns:
 		double MinDistance = Math.sqrt(MapWalkablePaths) / NSpawns;
@@ -439,22 +441,21 @@ public class MapGenerator implements IMapGenerator{
 			
 			for (int i = 0; i < NSpawns; i++){
 				do{
-					SpawnPointPosition[i] = new Position(randomGenerator.nextInt(MapHeight),randomGenerator.nextInt(MapWidth));
-				}while(Matriz[SpawnPointPosition[i].getX()][SpawnPointPosition[i].getY()] == 0);
+					spawnPositions[i] = new Position(randomGenerator.nextInt(MapHeight),randomGenerator.nextInt(MapWidth));
+				}while(Matriz[spawnPositions[i].getX()][spawnPositions[i].getY()] == 0);
 			}
 			
 			for (int i = 0; (i < NSpawns) && satisfactory; i++){
 				for (int j = i + 1; (j < NSpawns) && satisfactory; j++){
-					if (SpawnPointPosition[i].distanceTo(SpawnPointPosition[j]) < MinDistance){
+					if (spawnPositions[i].distanceTo(spawnPositions[j]) < MinDistance){
 						satisfactory = false;
 					}
 				}
 			}
 		}
 		
-		for (int i = 0; i < NSpawns; i++){
-			SpawnPointList.add(SpawnPointPosition[i]);
-			Matriz[SpawnPointPosition[i].getX()][SpawnPointPosition[i].getY()] = 8;
+		for (int i = 0; i < itemSpawnList.length; i++){
+			EventListMatrix[spawnPositions[i].getX()][spawnPositions[i].getY()] = new EventItem(itemSpawnList[i].getItemID(),itemSpawnList[i].getItemQuantity());
 		}
 	}
 	

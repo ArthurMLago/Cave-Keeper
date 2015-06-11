@@ -101,6 +101,7 @@ public class GameController implements IGameController {
 		MapGenerator.sharedInstance().setMapHeight(20);
 		MapGenerator.sharedInstance().setMapWidth(20);
 		MapGenerator.sharedInstance().setWalkablePath(175);
+		colocaItens();
 		compMap = MapGenerator.sharedInstance().generateMap();
 		playerSpawn = compMap.getSpawnPoint(compPlayer);
 		compPlayer.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
