@@ -83,11 +83,11 @@ public class GameController implements IGameController {
 	private GameController() {
 	}
 
-	public void conectar(IMonster compMonster, IPlayerMax compPlayer,
-			IItemManagement compItemManagement) {
+	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement/*, IMapVisual compMapVisual*/) {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
+		/*this.compMapVisual = compMapVisual;*/
 		bootGameController();
 	}
 

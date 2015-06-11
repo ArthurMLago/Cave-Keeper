@@ -1,5 +1,6 @@
 package visual.interfaces;
 
+import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
 import gameController.GameController;
 import gameController.IGameController;
@@ -8,6 +9,8 @@ import gameController.IGameController;
  * @author eitiyamamoto
  *
  */
+
+@ComponentInterface("<http://cave.com/visual.IMapVisual>")
 public interface IMapVisual extends ISupports{
 	
 	/**
