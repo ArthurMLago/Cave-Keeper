@@ -157,6 +157,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 			position = 4;
 			break;
 		default:
+			position = -1;
 			System.out.println("numero invalido");	
 		}
 			
