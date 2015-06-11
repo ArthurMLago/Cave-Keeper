@@ -2,6 +2,7 @@ package map.events;
 
 import gameController.GameController;
 import map.Event;
+import map.enumerations.EventType;
 import items.itemManagement.ItemsList;
 
 /**
@@ -19,6 +20,7 @@ public class EventItem extends Event {
 	 * @param Quantity Quantidade
 	 */
 	public EventItem(ItemsList ItemType, int Quantity) {
+		super(EventType.ITEM);
 		this.ItemType = ItemType;
 		this.Quantity = Quantity;
 	}
@@ -38,6 +40,8 @@ public class EventItem extends Event {
 	public ItemsList getItemType(){
 		return ItemType;
 	}
+	
+	
 	
 	/**
 	 * Getter basico para obter a quantidade do item que esta jogado no mapa.

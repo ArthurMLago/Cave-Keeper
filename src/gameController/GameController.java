@@ -101,6 +101,7 @@ public class GameController implements IGameController {
 		MapGenerator.sharedInstance().setMapHeight(20);
 		MapGenerator.sharedInstance().setMapWidth(20);
 		MapGenerator.sharedInstance().setWalkablePath(175);
+		colocaItens();
 		compMap = MapGenerator.sharedInstance().generateMap();
 		playerSpawn = compMap.getSpawnPoint(compPlayer);
 		compPlayer.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
@@ -160,7 +161,7 @@ public class GameController implements IGameController {
 		playerLighter.setKey(Input.KEY_L);
 		playerLighter.connect((IPlayerAction) compPlayer);
 
-		// TODO: Conectar as outras ações no handler depois de instanciar
+		// TODO: Conectar as outras aï¿½ï¿½es no handler depois de instanciar
 		
 		/* Handler verifica se alguma tecla foi pressionada e executa a acao correspondente. */
 		
@@ -178,7 +179,7 @@ public class GameController implements IGameController {
 		handler.connect(playerWait);
 		handler.connect(playerLighter);
 
-		// TODO: Conectar mapVisual as outras ações
+		// TODO: Conectar mapVisual as outras aï¿½ï¿½es
 		compMapVisual = new MapVisual();
 		compMapVisual.connect(this);
 

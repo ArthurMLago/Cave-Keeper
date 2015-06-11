@@ -1,7 +1,5 @@
 package map;
 
-import java.util.ArrayList;
-
 import map.Event;
 import map.enumerations.TileType;
 import map.enumerations.VisibilityMode;
@@ -19,7 +17,7 @@ public class TileMap {
 	private TileType type;
 	private VisibilityMode visibility;
 	private String tileImage;
-	private ArrayList<Event> EventList;
+	private Event Event;
 	
 	/**
 	 * Construtor padrão para um tile, recebe todas as informações necessarias para a formação de um Tile com
@@ -28,10 +26,10 @@ public class TileMap {
 	 * @param tileImage String com o caminho para o arquivo da imagem.
 	 * @param EventList tipo ArayList com os eventos presentes nesse Tile.
 	 */
-	public TileMap(TileType type, String tileImage, ArrayList<Event> EventList){
+	public TileMap(TileType type, String tileImage, Event Event){
 		this.type = type;
 		this.tileImage = tileImage;
-		this.EventList = EventList;
+		this.Event = Event;
 		this.visibility = VisibilityMode.Unknown;
 	}
 	
@@ -65,9 +63,9 @@ public class TileMap {
 	 * @return true, se existe um evento do tipo especificado, false, caso contrario.
 	 */
 	public Event checkForEvents(EventType type){
-		for (Event i : EventList){
-			if (i.getType() == type){
-				return i;
+		if (Event != null){
+			if (Event.getType() == type){
+				return Event;
 			}
 		}
 		return null;
@@ -78,10 +76,9 @@ public class TileMap {
 	 * @param type Tipo do evento.
 	 */
 	public void discardEventOfType(EventType type){
-		for (Event i: EventList){
-			if (i.getType() == type){
-				EventList.remove(i);
-			}
+		if (Event.getType() == type){
+//			removr o evento
+//			TODO: REMOVER O EVENTO
 		}
 	}
 	

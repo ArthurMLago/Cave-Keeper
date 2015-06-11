@@ -11,6 +11,10 @@ public abstract class Event {
 	
 	private EventType type;
 	
+	public Event(EventType type){
+		this.type = type;
+	}
+	
 	/**
 	 * Método que aplica os efeitos do evento no resto do jogo.Será reescrito para cada tipo de evento.
 	 */
