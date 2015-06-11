@@ -160,7 +160,7 @@ public class GameController implements IGameController {
 		playerLighter.setKey(Input.KEY_L);
 		playerLighter.connect((IPlayerAction) compPlayer);
 
-		// TODO: Conectar as outras ações no handler depois de instanciar
+		// TODO: Conectar as outras aï¿½ï¿½es no handler depois de instanciar
 		
 		/* Handler verifica se alguma tecla foi pressionada e executa a acao correspondente. */
 		
@@ -178,7 +178,7 @@ public class GameController implements IGameController {
 		handler.connect(playerWait);
 		handler.connect(playerLighter);
 
-		// TODO: Conectar mapVisual as outras ações
+		// TODO: Conectar mapVisual as outras aï¿½ï¿½es
 		compMapVisual = new MapVisual();
 		compMapVisual.connect(this);
 
@@ -244,7 +244,7 @@ public class GameController implements IGameController {
 	}
 	
 	public boolean playerTestWin() {
-		if(compPlayer.getX() != compMonster.getX(0) && compPlayer.getY() != compMonster.getY(0) && (compMonster.isMonstersAlive() == false))
+		if((compPlayer.getX() != compMonster.getX(0)) && (compPlayer.getY() != compMonster.getY(0)) && (compMonster.isMonstersAlive() == false))
 			return true;
 		else 
 			return false;
@@ -265,25 +265,6 @@ public class GameController implements IGameController {
 
 	@Override
 	public String getInstanceId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T extends ISupports> T queryInterface(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T extends ISupports> T queryInterface(String arg0,
-			InterfaceType arg1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T extends ISupports> IRequires<T> queryReceptacle(String arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
