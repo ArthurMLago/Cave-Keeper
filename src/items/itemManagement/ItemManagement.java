@@ -195,10 +195,8 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 			name = ItemsList.Stick;
 			break;
 		default:
-			name = ItemsList.Flare;
-			break;
-		}	
+			name = null;
+		}
 		return name;
-		
 	}
 }

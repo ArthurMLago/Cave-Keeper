@@ -1,4 +1,6 @@
-package visual.interfaces;
+package ioComponent.interfaces;
+
+import visual.interfaces.IMapVisual;
 
 /**
  * Interface de ação que necessita de um mapvisual

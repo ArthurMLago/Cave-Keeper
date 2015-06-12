@@ -1,4 +1,4 @@
-package ioComponent;
+package ioComponent.interfaces;
 
 import org.newdawn.slick.Input;
 

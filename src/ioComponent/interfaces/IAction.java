@@ -1,6 +1,4 @@
-package visual.interfaces;
-
-import anima.component.ISupports;
+package ioComponent.interfaces;
 
 /**
  * Interface que define aqueles métodos que executam alguma ação quando um
@@ -9,7 +7,7 @@ import anima.component.ISupports;
  * @author eitiyamamoto
  *
  */
-public interface IAction extends ISupports {
+public interface IAction {
 
 	/**
 	 * Retorna a chave utilizada para executar a ação

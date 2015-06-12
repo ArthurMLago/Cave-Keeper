@@ -1,9 +1,11 @@
-package ioComponent;
+package ioComponent.actions;
 
+import ioComponent.Facing;
+import ioComponent.interfaces.IActionPlayer;
 import gameController.GameController;
 import player.IPlayerMax;
 
-public class PlayerUpAction implements IActionPlayer {
+public class PlayerDownAction implements IActionPlayer {
 	private int key;
 	private IPlayerMax player;
 
@@ -19,7 +21,7 @@ public class PlayerUpAction implements IActionPlayer {
 
 	@Override
 	public void execute() {
-		if (player.move(Facing.NORTH)) {
+		if (player.move(Facing.SOUTH)) {
 			GameController.getSharedInstance().move();
 			player.checkLighter();
 		}
@@ -29,5 +31,5 @@ public class PlayerUpAction implements IActionPlayer {
 	public void connect(IPlayerMax player) {
 		this.player = player;
 	}
-	
+
 }

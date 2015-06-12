@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import map.enumerations.TileType;
+import map.events.EventItem;
+import map.events.EventTrap;
 import map.interfaces.IMapGenerator;
-import map.events.*;
 import anima.annotation.Component;
 
 
@@ -456,6 +457,9 @@ public class MapGenerator implements IMapGenerator{
 		
 		for (int i = 0; i < itemSpawnList.length; i++){
 			EventListMatrix[spawnPositions[i].getX()][spawnPositions[i].getY()] = new EventItem(itemSpawnList[i].getItemID(),itemSpawnList[i].getItemQuantity());
+		}
+		for (int i = itemSpawnList.length;i < NSpawns; i++){
+			EventListMatrix[spawnPositions[i].getX()][spawnPositions[i].getY()] = new EventTrap();
 		}
 	}
 	

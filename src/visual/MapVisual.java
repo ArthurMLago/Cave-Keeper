@@ -1,14 +1,17 @@
 package visual;
 
-import gameController.GameController;
-import gameController.IGameController;
+import ioComponent.interfaces.IIoComponent;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import map.interfaces.IGameMap;
+import monster.Interfaces.IMonster;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
+import player.IPlayerMax;
 import visual.interfaces.IAudioEffect;
 import visual.interfaces.IMapVisual;
 import anima.annotation.Component;
@@ -19,11 +22,19 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 		IAudioEffect {
 	private SlickMap compositeMap;
 	private AppGameContainer agc;
-	private GameController gameController;
 	public static int SIZEIMAGE = 32;
-
-	public MapVisual() {
-		compositeMap = new SlickMap("Cave's Keeper");
+	private IGameMap gameMap;
+	private IPlayerMax player;
+	private IMonster monsters;
+	private IIoComponent io;
+	
+	public MapVisual(IGameMap gm, IPlayerMax pm, IMonster mon, IIoComponent io) {
+		
+		this.gameMap = gm;
+		this.player = pm;
+		this.monsters = mon;
+		this.io = io;
+		compositeMap = new SlickMap("Cave's Keeper", gameMap, player, monsters, io);
 	}
 
 	@Override
@@ -48,16 +59,11 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 	}
 
 	@Override
-	public void connect(GameController gameController) {
-		this.gameController = gameController;
-	}
-
-	@Override
 	public void start() {
 		try {
 			agc = new AppGameContainer(compositeMap);
-			agc.setDisplayMode(gameController.getMap().getLimitX() * SIZEIMAGE,
-					gameController.getMap().getLimitY() * SIZEIMAGE, false);
+			agc.setDisplayMode(gameMap.getLimitX() * SIZEIMAGE,
+					gameMap.getLimitY() * SIZEIMAGE, false);
 			agc.start();
 		} catch (SlickException e) {
 			e.printStackTrace();

@@ -3,6 +3,7 @@ package visual;
 import gameController.Entidade;
 import gameController.GameController;
 import gameController.IGameController;
+import ioComponent.interfaces.IIoComponent;
 import items.itemManagement.ItemsList;
 
 import java.awt.Font;
@@ -50,7 +51,6 @@ public class SlickMap extends BasicGame {
 	private Animation shadowPlayer, shadowUp, shadowDown, shadowLeft,
 			shadowRight, shadowNext, shadowAround;
 	private int xFacing, yFacing;
-	private IGameController gameController;
 	private IPlayerMax player;
 	private IGameMap map;
 	private String character = "char";
@@ -63,13 +63,16 @@ public class SlickMap extends BasicGame {
 	private boolean explosionShoot = false;
 	private int explosionX, explosionY, explosionTime, messageTime;
 	private String messageTxt;
-
-	public SlickMap(String title) {
+	private IGameController gm;
+	private IIoComponent io;
+	
+	public SlickMap(String title, IGameMap gm, IPlayerMax pm, IMonster mon, IIoComponent io) {
 		super(title);
-		gameController = GameController.getSharedInstance();
-		map = gameController.getMap();
-		player = gameController.getPlayer();
-		monsters = gameController.getEntidades();
+		this.map = gm;
+		this.player = pm;
+		this.monsters = mon;
+		this.gm = GameController.getSharedInstance();
+		this.io = io;
 	}
 
 	@Override
@@ -139,7 +142,7 @@ public class SlickMap extends BasicGame {
 			e.printStackTrace();
 		}
 
-		faceSprite(gameController.getPlayer().getFacing());
+		faceSprite(player.getFacing());
 		imageMap = new HashMap<String, Image>();
 	}
 
@@ -161,15 +164,18 @@ public class SlickMap extends BasicGame {
 			tileAnimation
 					.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE);
 
-			Event event = map.getTileAt(x, y).checkForEvents(EventType.ITEM);
+			Event event = map.getTileAt(x, y).checkForEvents();
 			String nome = null;
 			if (event != null) {
-				if (event instanceof EventItem) {
+				if (event.getType() == EventType.ITEM){
 					nome = nameItem(((EventItem) event).getItemType());
-
-					Image item = getImage("resources/item/" + nome + ".png",
-							imageMap);
+	
+					Image item = getImage("resources/item/" + nome + ".png",imageMap);
+					
 					item.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE);
+				}else if(event.getType() == EventType.TRAP){
+					Image trap = getImage("resources/item/trap.png",imageMap);
+					trap.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE);
 				}
 			}
 			if(monsters.isMonstersAlive() && monsters.getX(0) == x && monsters.getY(0) == y){
@@ -368,9 +374,9 @@ public class SlickMap extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		gameController.setCommand(gc.getInput());
+		io.setCommand(gc.getInput());
 
-		gameController.update();
+		gm.update();
 
 		flareTime += delta;
 
