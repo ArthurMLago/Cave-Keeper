@@ -1,4 +1,4 @@
-package ioComponent;
+package ioComponent.interfaces;
 
 /**
  * Interface que define aqueles métodos que executam alguma ação quando um

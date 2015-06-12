@@ -1,5 +1,8 @@
 package ioComponent;
 
+import ioComponent.interfaces.IAction;
+import ioComponent.interfaces.IHandler;
+
 import java.util.ArrayList;
 
 import org.newdawn.slick.Input;

@@ -1,5 +1,6 @@
 package visual.interfaces;
 
+import map.interfaces.IGameMap;
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
 import gameController.GameController;
@@ -32,8 +33,6 @@ public interface IMapVisual extends ISupports{
 	public void changePlayerFacing(char facing);
 	
 	public void playEffect(float gain, String type);
-	
-	public void connect(GameController gameController);
 	
 	public void start();
 	

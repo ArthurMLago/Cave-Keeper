@@ -1,11 +1,15 @@
-package ioComponent;
+package ioComponent.actions;
 
 import gameController.GameController;
+import ioComponent.interfaces.IActionPlayerMapVisual;
+import items.excecoes.OutofItemsException;
+import visual.interfaces.IMapVisual;
 import player.IPlayerMax;
 
-public class PlayerLeftAction implements IActionPlayer {
+public class PlayerFlareAction implements IActionPlayerMapVisual {
 	private int key;
 	private IPlayerMax player;
+	private IMapVisual map;
 
 	@Override
 	public int getKey() {
@@ -19,15 +23,22 @@ public class PlayerLeftAction implements IActionPlayer {
 
 	@Override
 	public void execute() {
-		if(player.move(Facing.WEST)){
-			GameController.getSharedInstance().move();
+		if(player.useFlare()){
+			map.flareVisual();
 			player.checkLighter();
 		}
+		
 	}
 
 	@Override
 	public void connect(IPlayerMax player) {
 		this.player = player;
 	}
+	
+	@Override
+	public void connect(IMapVisual map) {
+		this.map = map;
+	}
+
 
 }

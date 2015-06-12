@@ -1,4 +1,4 @@
-package ioComponent;
+package ioComponent.actions;
 
 import visual.interfaces.IActionPlayer;
 import anima.component.IRequires;
