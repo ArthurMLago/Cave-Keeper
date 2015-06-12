@@ -70,8 +70,8 @@ public class TileMap {
 	 * Método para ativar o evento do Tile:
 	 * @param type Tipo do evento a ser ativado
 	 */
-	public void triggerEventOfType(EventType type){
-		if (Event.getType() == type){
+	public void triggerEvent(){
+		if (Event != null){
 			Event.applyEffect();
 		}
 	}
@@ -80,10 +80,8 @@ public class TileMap {
 	 * Método para descartar eventos de determinado tipo.
 	 * @param type Tipo do evento.
 	 */
-	public void discardEventOfType(EventType type){
-		if (Event.getType() == type){
-			Event = null;
-		}
+	public void discardEvent(){
+		Event = null;
 	}
 	
 }

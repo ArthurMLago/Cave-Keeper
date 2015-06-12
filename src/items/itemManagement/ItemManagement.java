@@ -169,18 +169,22 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		switch(place) {
 		case 0:
 			name = ItemsList.Flare;
+			break;
 		case 1:
 			name = ItemsList.Flash;
+			break;
 		case 2:
 			name = ItemsList.Fuel;
+			break;
 		case 3:
 			name = ItemsList.SaltAmmo;
+			break;
 		case 4:
 			name = ItemsList.Stick;
+			break;
 		default:
 			name = null;
-			
-		return name;
 		}
+		return name;
 	}
 }

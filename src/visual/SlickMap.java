@@ -170,6 +170,9 @@ public class SlickMap extends BasicGame {
 					Image item = getImage("resources/item/" + nome + ".png",imageMap);
 					
 					item.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE);
+				}else if(event.getType() == EventType.TRAP){
+					Image trap = getImage("resources/item/trap.png",imageMap);
+					trap.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE);
 				}
 			}
 			if(monsters.isMonstersAlive() && monsters.getX(0) == x && monsters.getY(0) == y){

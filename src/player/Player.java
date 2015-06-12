@@ -198,13 +198,18 @@ public class Player extends ComponentBase implements IPlayerPosition,
 		Event event;
 		try {
 			event = GameController.getSharedInstance().getMap().getTileAt(posX, posY).checkForEvents();
-			if (event != null && event.getType() == EventType.ITEM) {
-				GameController.getSharedInstance().getMap()
-						.getTileAt(posX, posY)
-						.triggerEventOfType(EventType.ITEM);
-				GameController.getSharedInstance().getMap()
-						.getTileAt(posX, posY)
-						.discardEventOfType(EventType.ITEM);
+			if (event != null){
+				if (event.getType() == EventType.ITEM) {
+					GameController.getSharedInstance().getMap()
+							.getTileAt(posX, posY)
+							.triggerEvent();
+					GameController.getSharedInstance().getMap()
+							.getTileAt(posX, posY)
+							.discardEvent();
+				}else if(event.getType() == EventType.TRAP){
+					GameController.getSharedInstance().getMap().getTileAt(posX, posY).triggerEvent();
+					GameController.getSharedInstance().getMap().getTileAt(posX, posY).discardEvent();
+				}
 			}
 		} catch (OutOfMapBoundsException e) {
 		}
