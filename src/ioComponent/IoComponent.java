@@ -6,9 +6,23 @@ import player.IPlayerMax;
 import visual.MapVisual;
 import visual.interfaces.IMapVisual;
 import anima.component.base.ComponentBase;
-import ioComponent.PlayerDownAction;
+import ioComponent.actions.PlayerDownAction;
+import ioComponent.actions.PlayerFlareAction;
+import ioComponent.actions.PlayerLeftAction;
+import ioComponent.actions.PlayerRightAction;
+import ioComponent.actions.PlayerSetLighterAction;
+import ioComponent.actions.PlayerShootDownAction;
+import ioComponent.actions.PlayerShootLeftAction;
+import ioComponent.actions.PlayerShootRightAction;
+import ioComponent.actions.PlayerShootUpAction;
+import ioComponent.actions.PlayerStickAction;
+import ioComponent.actions.PlayerUpAction;
+import ioComponent.actions.PlayerWaitAction;
+import ioComponent.interfaces.IActionPlayer;
+import ioComponent.interfaces.IActionPlayerMapVisual;
+import ioComponent.interfaces.IIoComponent;
 
-public class IoComponent extends ComponentBase {
+public class IoComponent extends ComponentBase implements IIoComponent {
 
 	private IMapVisual compVisual;
 	private IPlayerMax compPlayer;
@@ -16,6 +30,8 @@ public class IoComponent extends ComponentBase {
 	private IActionPlayerMapVisual playerFlare, playerSetLighter, playerShootDown, playerShootLeft, playerShootRight, playerShootUp;
 	private IActionPlayer playerDown, playerLeft, playerRight, playerUp, playerStick, playerWait, playerLighter;
 	private ActionHandler handler;
+	
+	private Input command;
 	
 	public void connect(IMapVisual mv, IPlayerMax p) {
 		this.compVisual = mv;
@@ -91,5 +107,17 @@ public class IoComponent extends ComponentBase {
 		handler.connect(playerWait);
 		handler.connect(playerLighter);
 
+	}
+	
+	public void setCommand(Input command) {
+		this.command = command;
+	}
+	
+	public Input getCommand() {
+		return this.command;
+	}
+	
+	public void executeAction() {
+		handler.handle(command);
 	}
 }

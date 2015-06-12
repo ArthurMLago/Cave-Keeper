@@ -1,5 +1,6 @@
-package ioComponent;
+package ioComponent.actions;
 
+import ioComponent.interfaces.IActionPlayer;
 import player.IPlayerMax;
 
 public class PlayerWaitAction implements IActionPlayer {

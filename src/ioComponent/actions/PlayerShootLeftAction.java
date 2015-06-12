@@ -1,11 +1,12 @@
-package ioComponent;
+package ioComponent.actions;
 
+import ioComponent.Facing;
+import ioComponent.interfaces.IActionPlayerMapVisual;
 import gameController.GameController;
-import items.excecoes.OutofItemsException;
 import visual.interfaces.IMapVisual;
 import player.IPlayerMax;
 
-public class PlayerFlareAction implements IActionPlayerMapVisual {
+public class PlayerShootLeftAction implements IActionPlayerMapVisual {
 	private int key;
 	private IPlayerMax player;
 	private IMapVisual map;
@@ -22,10 +23,9 @@ public class PlayerFlareAction implements IActionPlayerMapVisual {
 
 	@Override
 	public void execute() {
-		if(player.useFlare()){
-			GameController.getSharedInstance().getMapVisual().flareVisual();
-			player.checkLighter();
-		}
+		if (player.shoot(Facing.WEST))
+			map.shootDirection(Facing.WEST);
+		player.checkLighter();
 		
 	}
 
@@ -33,11 +33,9 @@ public class PlayerFlareAction implements IActionPlayerMapVisual {
 	public void connect(IPlayerMax player) {
 		this.player = player;
 	}
-	
+
 	@Override
 	public void connect(IMapVisual map) {
 		this.map = map;
 	}
-
-
 }

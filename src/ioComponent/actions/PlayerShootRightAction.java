@@ -1,5 +1,7 @@
-package ioComponent;
+package ioComponent.actions;
 
+import ioComponent.Facing;
+import ioComponent.interfaces.IActionPlayerMapVisual;
 import gameController.GameController;
 import visual.interfaces.IMapVisual;
 import player.IPlayerMax;

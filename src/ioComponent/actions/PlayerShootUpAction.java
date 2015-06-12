@@ -1,10 +1,12 @@
-package ioComponent;
+package ioComponent.actions;
 
+import ioComponent.Facing;
+import ioComponent.interfaces.IActionPlayerMapVisual;
 import gameController.GameController;
 import visual.interfaces.IMapVisual;
 import player.IPlayerMax;
 
-public class PlayerShootLeftAction implements IActionPlayerMapVisual {
+public class PlayerShootUpAction implements IActionPlayerMapVisual {
 	private int key;
 	private IPlayerMax player;
 	private IMapVisual map;
@@ -21,10 +23,10 @@ public class PlayerShootLeftAction implements IActionPlayerMapVisual {
 
 	@Override
 	public void execute() {
-		if (player.shoot(Facing.WEST))
-			map.shootDirection(Facing.WEST);
+		if (player.shoot(Facing.NORTH))
+			map.shootDirection(Facing.NORTH);
 		player.checkLighter();
-		
+
 	}
 
 	@Override
@@ -36,4 +38,5 @@ public class PlayerShootLeftAction implements IActionPlayerMapVisual {
 	public void connect(IMapVisual map) {
 		this.map = map;
 	}
+
 }

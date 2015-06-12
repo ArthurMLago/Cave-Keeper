@@ -1,8 +1,11 @@
-package ioComponent;
+package ioComponent.actions;
 
+import ioComponent.Facing;
+import ioComponent.interfaces.IActionPlayer;
+import gameController.GameController;
 import player.IPlayerMax;
 
-public class PlayerStickAction implements IActionPlayer {
+public class PlayerLeftAction implements IActionPlayer {
 	private int key;
 	private IPlayerMax player;
 
@@ -18,8 +21,10 @@ public class PlayerStickAction implements IActionPlayer {
 
 	@Override
 	public void execute() {
-		player.useStick();
-		player.checkLighter();
+		if(player.move(Facing.WEST)){
+			GameController.getSharedInstance().move();
+			player.checkLighter();
+		}
 	}
 
 	@Override

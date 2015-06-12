@@ -1,18 +1,16 @@
-package player;
+package ioComponent.actions;
 
-import gameController.GameController;
+import visual.interfaces.IActionPlayer;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
-import visual.interfaces.IActionPlayer;
 import visual.interfaces.IActionPlayerMapVisual;
 import visual.interfaces.IMapVisual;
 import player.IPlayerAction;
 
-public class PlayerShootLeftAction implements IActionPlayerMapVisual {
+public class PlayerFlashAction implements IActionPlayer {
 	private int key;
 	private IPlayerAction player;
-	private IMapVisual map;
 
 	@Override
 	public int getKey() {
@@ -26,23 +24,15 @@ public class PlayerShootLeftAction implements IActionPlayerMapVisual {
 
 	@Override
 	public void execute() {
-		if (player.shoot(Facing.WEST))
-			GameController.getSharedInstance().getMapVisual()
-					.shootDirection(Facing.WEST);
+		player.useFlash();
 		player.checkLighter();
-		
 	}
 
 	@Override
 	public void connect(IPlayerAction player) {
 		this.player = player;
 	}
-
-	@Override
-	public void connect(IMapVisual map) {
-		this.map = map;
-	}
-
+	
 	@Override
 	public int addRef() {
 		// TODO Auto-generated method stub
