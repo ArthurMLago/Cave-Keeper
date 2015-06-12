@@ -29,9 +29,6 @@ import visual.interfaces.IActionPlayer;
 import visual.interfaces.IActionPlayerMapVisual;
 import visual.interfaces.IAudioEffect;
 import visual.interfaces.IMapVisual;
-import anima.component.IRequires;
-import anima.component.ISupports;
-import anima.component.InterfaceType;
 import items.itemManagement.*;
 /**
  * Componente que faz a conexao dos outros componentes
@@ -86,11 +83,11 @@ public class GameController implements IGameController {
 	private GameController() {
 	}
 
-	public void conectar(IMonster compMonster, IPlayerMax compPlayer,
-			IItemManagement compItemManagement) {
+	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement/*, IMapVisual compMapVisual*/) {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
+		/*this.compMapVisual = compMapVisual;*/
 		bootGameController();
 	}
 
@@ -101,7 +98,6 @@ public class GameController implements IGameController {
 		MapGenerator.sharedInstance().setMapHeight(20);
 		MapGenerator.sharedInstance().setMapWidth(20);
 		MapGenerator.sharedInstance().setWalkablePath(175);
-		colocaItens();
 		compMap = MapGenerator.sharedInstance().generateMap();
 		playerSpawn = compMap.getSpawnPoint(compPlayer);
 		compPlayer.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
@@ -161,7 +157,7 @@ public class GameController implements IGameController {
 		playerLighter.setKey(Input.KEY_L);
 		playerLighter.connect((IPlayerAction) compPlayer);
 
-		// TODO: Conectar as outras aï¿½ï¿½es no handler depois de instanciar
+		// TODO: Conectar as outras ações no handler depois de instanciar
 		
 		/* Handler verifica se alguma tecla foi pressionada e executa a acao correspondente. */
 		
@@ -179,7 +175,7 @@ public class GameController implements IGameController {
 		handler.connect(playerWait);
 		handler.connect(playerLighter);
 
-		// TODO: Conectar mapVisual as outras aï¿½ï¿½es
+		// TODO: Conectar mapVisual as outras ações
 		compMapVisual = new MapVisual();
 		compMapVisual.connect(this);
 
@@ -196,18 +192,21 @@ public class GameController implements IGameController {
 		return sharedInstance;
 	}
 
-	/* Eh chamado todo frame, ou seja, esta em loop infinito. */
+	/* Eh chamado todo frame, ou seja, esta, praticamente, em loop infinito. */
 	@Override
 	public void update() {
 		if(playerGameOver()) {
+			System.out.println("Entrou no game over.");
 			compMapVisual.end();
 			System.out.println("Voce morreu.");
 		}	
 		else if (playerTestWin()){
+			System.out.println("entrou no test win");
 			compMapVisual.end();
 			System.out.println("Voce ganhou.");
 		}
 		else {
+			System.out.println("entrou no handler");
 			handler.handle(command);
 		}
 	}
@@ -246,7 +245,7 @@ public class GameController implements IGameController {
 	}
 	
 	public boolean playerTestWin() {
-		if(compPlayer.getX() != compMonster.getX(0) && compPlayer.getY() != compMonster.getY(0) && (compMonster.isMonstersAlive() == false))
+		if(compMonster.isMonstersAlive() == false)
 			return true;
 		else 
 			return false;
@@ -257,43 +256,6 @@ public class GameController implements IGameController {
 			return true;
 		else
 			return false;
-	}
-
-	@Override
-	public int addRef() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getInstanceId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T extends ISupports> T queryInterface(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T extends ISupports> T queryInterface(String arg0,
-			InterfaceType arg1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T extends ISupports> IRequires<T> queryReceptacle(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int release() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
