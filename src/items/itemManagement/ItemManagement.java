@@ -76,6 +76,10 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		inventory.get(position).increase();
 	}
 	
+/**
+ * metodo chamado ao pisar em uma armadilha
+ * zera a quantidade de um item aleatorio do inventario	
+ */
 	public void itsaTrap() {
 		int position = 0;
 		Random random_number = new Random();
@@ -138,6 +142,10 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		return inventory.get(position).getName();
 	}
 	
+/**	
+ * @param place tipo enumerado
+ * @return a posicao do tipo enumerado no arraylist
+ */
 	public int getPosition(ItemsList place) {
 		int position = 0;
 		
@@ -156,13 +164,17 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 			break;
 		case Stick:
 			position = 4;
-			break;
-		default:
-			position = -1;	
+			break;	
 		}
 			
 		return position;
 	}
+	
+/**
+ * faz o inverso do metodo acima	
+ * @param place inteiro que representa a casa no array list
+ * @return o tipo enumerado do item que tem na casa
+ */
 	public ItemsList getEnum_name(int place) {
 		ItemsList name;
 		
