@@ -195,12 +195,8 @@ public class Player extends ComponentBase implements IPlayerPosition, IPlayerMax
 			event = map.getTileAt(posX, posY).checkForEvents();
 			if (event != null){
 				if (event.getType() == EventType.ITEM) {
-					map
-							.getTileAt(posX, posY)
-							.triggerEvent();
-					map
-							.getTileAt(posX, posY)
-							.discardEvent();
+					map.getTileAt(posX, posY).triggerEvent();
+					map.getTileAt(posX, posY).discardEvent();
 				}else if(event.getType() == EventType.TRAP){
 					map.getTileAt(posX, posY).triggerEvent();
 					map.getTileAt(posX, posY).discardEvent();

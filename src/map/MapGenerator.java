@@ -1,6 +1,8 @@
 package map;
 
 
+import items.interfaces.IItemManagement;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -45,6 +47,7 @@ public class MapGenerator implements IMapGenerator{
 	private ArrayList<Position> SpawnPointList;
 	Event[][] EventListMatrix;
 	
+	private IItemManagement item;
 	
 	/**
 	 * Método para obter a instância da classe singleton, criando-a se ainda nao existir.
@@ -71,6 +74,9 @@ public class MapGenerator implements IMapGenerator{
 		randomGenerator = new Random();
 	}
 	
+	public void connect(IItemManagement item) {
+		this.item = item;
+	}
 	
 	/**
 	 * Define a largura do mapa a ser gerado.
@@ -135,7 +141,6 @@ public class MapGenerator implements IMapGenerator{
 		SpawnPointList = new ArrayList<Position>();
 		
 		TileMap[][] MatrizTiles = new TileMap[MapHeight][MapWidth];
-		EventListMatrix = new Event[MapWidth][MapHeight];
 		
 		//Posicao inicial do random blobber:
 		int PosX = MapWidth/2;
@@ -427,6 +432,7 @@ public class MapGenerator implements IMapGenerator{
 	/**
 	 * Função privada para spawnar items.
 	 */
+	// 0 parede // 1 andavel
 	private void SpawnItems(){
 		int NSpawns = NTraps + itemSpawnList.length;
 		Position[] spawnPositions = new Position[NSpawns];
@@ -456,10 +462,10 @@ public class MapGenerator implements IMapGenerator{
 		}
 		
 		for (int i = 0; i < itemSpawnList.length; i++){
-			EventListMatrix[spawnPositions[i].getX()][spawnPositions[i].getY()] = new EventItem(itemSpawnList[i].getItemID(),itemSpawnList[i].getItemQuantity());
+			EventListMatrix[spawnPositions[i].getX()][spawnPositions[i].getY()] = new EventItem(itemSpawnList[i].getItemID(),itemSpawnList[i].getItemQuantity(), item);
 		}
 		for (int i = itemSpawnList.length;i < NSpawns; i++){
-			EventListMatrix[spawnPositions[i].getX()][spawnPositions[i].getY()] = new EventTrap();
+			EventListMatrix[spawnPositions[i].getX()][spawnPositions[i].getY()] = new EventTrap(item);
 		}
 	}
 	

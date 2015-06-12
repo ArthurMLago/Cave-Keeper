@@ -19,5 +19,6 @@ public interface IPlayerMax extends Entidade {
 	public boolean getLighter();
 	public void connect(IMonster arg0, IItemManagement arg1, IGameMap arg2);
 	public void checkLighter();
+	public boolean useFlash();
 	
 }

@@ -1,8 +1,8 @@
 package map.events;
 
-import gameController.GameController;
 import map.Event;
 import map.enumerations.EventType;
+import items.interfaces.IItemManagement;
 import items.itemManagement.ItemsList;
 
 /**
@@ -13,16 +13,19 @@ import items.itemManagement.ItemsList;
 public class EventItem extends Event {
 	private ItemsList ItemType;
 	private int Quantity;
+	private IItemManagement item;
 
 	/**
 	 * Construtor padrão de um evento de item, recebe todas as informações necessarias para definir um evento
 	 * @param ItemType Tipo do evento
 	 * @param Quantity Quantidade
 	 */
-	public EventItem(ItemsList ItemType, int Quantity) {
+	public EventItem(ItemsList ItemType, int Quantity, IItemManagement item) {
 		super(EventType.ITEM);
 		this.ItemType = ItemType;
 		this.Quantity = Quantity;
+		this.item = item;
+		
 	}
 
 	/**
@@ -30,7 +33,7 @@ public class EventItem extends Event {
 	 */
 	@Override
 	public void applyEffect() {
-		GameController.getSharedInstance().getItemManagement().obtainItem(ItemType,Quantity);
+		item.obtainItem(ItemType,Quantity);
 	}
 	
 	/**

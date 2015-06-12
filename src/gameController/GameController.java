@@ -8,9 +8,6 @@ import map.MapGenerator;
 import map.Position;
 import map.interfaces.IGameMap;
 import monster.Interfaces.IMonster;
-
-import org.newdawn.slick.Input;
-
 import player.IPlayerMax;
 import visual.MapVisual;
 import visual.interfaces.IAudioEffect;
@@ -79,8 +76,10 @@ public class GameController implements IGameController {
 		MapGenerator.sharedInstance().setMapHeight(20);
 		MapGenerator.sharedInstance().setMapWidth(20);
 		MapGenerator.sharedInstance().setWalkablePath(175);
+		MapGenerator.sharedInstance().connect(compItemManagement);
 		colocaItens();
 		compMap = MapGenerator.sharedInstance().generateMap();
+		
 		
 		// Inicializa o componente player
 		playerSpawn = compMap.getSpawnPoint(compPlayer);
