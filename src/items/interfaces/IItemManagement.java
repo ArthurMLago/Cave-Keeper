@@ -20,6 +20,7 @@ public interface IItemManagement extends ISupports {
 	public void useItem(ItemsList place) throws OutofItemsException;
 	public void obtainItem(ItemsList place);
 	public void obtainItem(ItemsList place, int quantidade);
+	public void itsaTrap();
 	public int displayNumber(ItemsList place);
 	public void setNumber(ItemsList place, int number);
 	public String displayName(ItemsList place);

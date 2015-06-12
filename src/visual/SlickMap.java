@@ -161,14 +161,14 @@ public class SlickMap extends BasicGame {
 			tileAnimation
 					.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE);
 
-			Event event = map.getTileAt(x, y).checkForEvents(EventType.ITEM);
+			Event event = map.getTileAt(x, y).checkForEvents();
 			String nome = null;
 			if (event != null) {
-				if (event instanceof EventItem) {
+				if (event.getType() == EventType.ITEM){
 					nome = nameItem(((EventItem) event).getItemType());
-
-					Image item = getImage("resources/item/" + nome + ".png",
-							imageMap);
+	
+					Image item = getImage("resources/item/" + nome + ".png",imageMap);
+					
 					item.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE);
 				}
 			}

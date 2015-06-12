@@ -62,13 +62,8 @@ public class TileMap {
 	 * @param type Tipo do evento.
 	 * @return true, se existe um evento do tipo especificado, false, caso contrario.
 	 */
-	public Event checkForEvents(EventType type){
-		if (Event != null){
-			if (Event.getType() == type){
-				return Event;
-			}
-		}
-		return null;
+	public Event checkForEvents(){
+		return Event;
 	}
 	
 	/**

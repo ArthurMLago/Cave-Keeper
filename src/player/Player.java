@@ -197,9 +197,8 @@ public class Player extends ComponentBase implements IPlayerPosition,
 
 		Event event;
 		try {
-			event = GameController.getSharedInstance().getMap()
-					.getTileAt(posX, posY).checkForEvents(EventType.ITEM);
-			if (event != null && event instanceof EventItem) {
+			event = GameController.getSharedInstance().getMap().getTileAt(posX, posY).checkForEvents();
+			if (event != null && event.getType() == EventType.ITEM) {
 				GameController.getSharedInstance().getMap()
 						.getTileAt(posX, posY)
 						.triggerEventOfType(EventType.ITEM);
