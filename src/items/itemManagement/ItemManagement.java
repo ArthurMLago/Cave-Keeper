@@ -71,19 +71,20 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  */
 	public void obtainItem(ItemsList place) {
 		int position = 0;
+		
+		position = this.getPosition(place);
+		inventory.get(position).increase();
+	}
+	
+	public void itsaTrap() {
+		int position = 0;
 		Random random_number = new Random();
 		ItemsList name;
 		
-		if(place == ItemsList.Trap) {
-			position = random_number.nextInt(5);
-			name = getEnum_name(position);
-			this.setNumber(name, 0);
-		}
-		else {
-		position = this.getPosition(place);
+		position = random_number.nextInt(5);
+		name = getEnum_name(position);
+		this.setNumber(name, 0);
 		
-		inventory.get(position).increase();
-		}
 	}
 	
 
@@ -157,8 +158,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 			position = 4;
 			break;
 		default:
-			position = -1;
-			System.out.println("numero invalido");	
+			position = -1;	
 		}
 			
 		return position;
@@ -178,9 +178,9 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 		case 4:
 			name = ItemsList.Stick;
 		default:
-			System.out.println("posicao invalida");	
-			name = ItemsList.Flare;
-		}
+			name = null;
+			
 		return name;
+		}
 	}
 }
