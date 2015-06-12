@@ -31,8 +31,7 @@ import anima.component.base.ComponentBase;
  */
 
 @Component(id = "<http://cave.com/player.Player>", provides = { "<http://cave.com/player.IPlayer>" })
-public class Player extends ComponentBase implements IPlayerPosition,
-		IPlayerAction, IPlayerMax, Entidade {
+public class Player extends ComponentBase implements IPlayerPosition, IPlayerMax, Entidade {
 
 	private int posX, posY;
 
