@@ -8,7 +8,7 @@ import map.enumerations.EventType;
 
 /**
  * Classe usada para armazenar um Tile do mapa(um quadrado andavel).
- * Contém informações do tile(andavel ou não?), a imagem que ele exibe, a visibilidade dele e a lista de eventos em um
+ * Contém informações do tile(andavel ou não?), a imagem que ele exibe, a visibilidade dele e o evento em um
  * determinado tile.
  * @author ArthurMLago
  *
@@ -24,7 +24,7 @@ public class TileMap {
 	 * excessão da visibilidade, que sempre começa como desconhecido.
 	 * @param type Tipo do tile, se ele é andavel ou não. (vide {@link map.enumerations.TileType Enumeration TileType}).
 	 * @param tileImage String com o caminho para o arquivo da imagem.
-	 * @param EventList tipo ArayList com os eventos presentes nesse Tile.
+	 * @param Objeto da classe Event representando o Evento presente nesse Tile.
 	 */
 	public TileMap(TileType type, String tileImage, Event Event){
 		this.type = type;
@@ -72,13 +72,22 @@ public class TileMap {
 	}
 	
 	/**
+	 * Método para ativar o evento do Tile:
+	 * @param type Tipo do evento a ser ativado
+	 */
+	public void triggerEventOfType(EventType type){
+		if (Event.getType() == type){
+			Event.applyEffect();
+		}
+	}
+	
+	/**
 	 * Método para descartar eventos de determinado tipo.
 	 * @param type Tipo do evento.
 	 */
 	public void discardEventOfType(EventType type){
 		if (Event.getType() == type){
-//			removr o evento
-//			TODO: REMOVER O EVENTO
+			Event = null;
 		}
 	}
 	

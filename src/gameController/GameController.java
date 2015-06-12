@@ -237,6 +237,7 @@ public class GameController implements IGameController {
 	 * Nao eh chamado quando se usa itens. */
 	public void move() {
 		compMonster.runMonstersActions(0);
+		
 
 		if (compMapVisual instanceof IAudioEffect) {
 			((IAudioEffect) compMapVisual).playEffect(
