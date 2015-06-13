@@ -15,6 +15,7 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 	protected int hp, posX, posY, spaces;
 	protected boolean live = true;
 	protected boolean following;
+	protected boolean stuck = false;
 	
 	/** Getter do tipo de entidade, no caso um monstro. */
 	public String getTipo() {
@@ -68,11 +69,13 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 	}
 	
 	/** Realiza um movimento seguindo o player */
-	public void followWalk(int playerX, int playerY, IGameMap map) {
+	public void followWalk (int playerX, int playerY, IGameMap map) {
 		Random random = new Random();
 		
 		int monsterX = getX();
 		int monsterY = getY();
+		int verifyStuckX = monsterX;
+		int verifyStuckY = monsterY;
 		
 //		int steps = spaces;
 		
@@ -170,6 +173,9 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 				e.printStackTrace();
 			}
 		}
+		if (verifyStuckX == getX() &&  verifyStuckY == getY()) {
+			this.setStuck(true);
+		}
 	}
 	
 	/** Realiza um movimento aleatorio pelo mapa */
@@ -199,6 +205,20 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 		} catch (OutOfMapBoundsException e) {
 		}
 	}
+	
+	public void followWall (int playerX, int playerY, IGameMap map) {
+		int monsterX = this.getX();
+		int monsterY = this.getY();
+		
+		try {
+			if(map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable)
+				this.setPosition(monsterX, monsterY+1);
+		} catch (OutOfMapBoundsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	/** Define se o monstro deve começar a seguir o jogador */
 	public void setFollowing(boolean following) {
 		this.following = following;
@@ -208,6 +228,16 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 	public boolean getFollowing() {
 		return this.following;
 	}
+	
+	public boolean getStuck() {
+		return this.stuck;
+	}
+	
+	public void setStuck(boolean stuck) {
+		this.stuck = stuck;
+	}
+	
+	
 	public abstract String getImage();
 	
 }

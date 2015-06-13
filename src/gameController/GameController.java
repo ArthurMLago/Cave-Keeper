@@ -120,7 +120,7 @@ public class GameController implements IGameController {
 			System.out.println("Voce ganhou.");
 		}
 		else {
-			System.out.println("entrou no handler");
+//			System.out.println("entrou no handler");
 			compIo.executeAction();
 		}
 	}

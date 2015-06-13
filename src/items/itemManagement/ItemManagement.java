@@ -37,7 +37,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
  */
 	public ItemManagement() {
 		inventory.add(new Flare("flare", 50000));
-		inventory.add(new Flash("flash", 5));
+		inventory.add(new Flash("flash", 50000));
 		inventory.add(new GeneralItems("fuel", 5));
 		inventory.add(new GeneralItems("saltAmmo", 5));
 		inventory.add(new Stick("stick", 5));
