@@ -19,7 +19,6 @@ public class Monster extends ComponentBase implements IMonster {
 
 	IPlayerMax player;
 	IGameMap map;
-	private int stuckCounter = 5;
 
 	private ArrayList<AbstractMonster> list;
 	
@@ -88,24 +87,13 @@ public class Monster extends ComponentBase implements IMonster {
 		
 		if (monster.getFollowing() == false) {
 			monster.randomWalk(map);
-			System.out.println("To no aleatorio");
 		}
 		
 		else if (monster.getFollowing() == true) {
-			if (monster.getStuck() == false) {
+			for (int i = 0; i < monster.getSpaces(); i++) {
 				monster.followWalk(playerX, playerY, map);
-				System.out.println("To seguindo e nao to preso");
 			}
-			else if (monster.getStuck() == true) {
-				System.out.println("To preso");
-				monster.followWall(playerX, playerY, map);
-				stuckCounter--;
-			}
-		}
-		
-		if (stuckCounter == 0) {
-			monster.setStuck(false);
-			stuckCounter = 5;
+			
 		}
 	}
 	

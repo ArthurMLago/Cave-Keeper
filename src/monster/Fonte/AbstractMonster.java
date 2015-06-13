@@ -15,7 +15,6 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 	protected int hp, posX, posY, spaces;
 	protected boolean live = true;
 	protected boolean following;
-	protected boolean stuck = false;
 	
 	/** Getter do tipo de entidade, no caso um monstro. */
 	public String getTipo() {
@@ -74,107 +73,84 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 		
 		int monsterX = getX();
 		int monsterY = getY();
-		int verifyStuckX = monsterX;
-		int verifyStuckY = monsterY;
-		
-//		int steps = spaces;
-		
-		for (int i = 0; i < spaces; i++){
-			try {
-				int direcao = random.nextInt(1);
-				
-				if (playerX > monsterX && playerY > monsterY) {
-					if (direcao == 0) {
-						
-							if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
-								this.setPosition(monsterX+1, monsterY);
-//								steps--;
-							}
-					}
-					else if (direcao == 1) {
-						if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY+1);
-//							steps--;
-						}
-					}
-				}
-				if (playerX < monsterX && playerY > monsterY) {
-					if (direcao == 0) {
-						if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY+1);
-//							steps--;
-						}
-					}
-					else if (direcao == 1) {
-						if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
-							this.setPosition(monsterX-1, monsterY);
-//							steps--;
-						}
-					}
-				}
-				if (playerX < monsterX && playerY < monsterY) {
-					if (direcao == 0) {
-						if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY-1);
-//							steps--;
-						}
-					}
-					else if (direcao == 1) {
-						if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
-							this.setPosition(monsterX-1, monsterY);
-//							steps--;
-						}
-					}
-				}
-				if (playerX > monsterX && playerY < monsterY) {
-					if (direcao == 0) {
-						if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY-1);
-//							steps--;
-						}
-					}
-					else if (direcao == 1) {
+		try {
+			int direcao = random.nextInt(2);
+			
+			if (playerX > monsterX && playerY > monsterY) {
+				if (direcao == 0) {
 						if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
 							this.setPosition(monsterX+1, monsterY);
-//							steps--;
 						}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY+1);
 					}
 				}
-				if (playerX == monsterX) {
-					if (playerY > monsterY) {
-						if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY+1);
-//							steps--;
-						}
-					}
-					else if (playerY < monsterY) {
-						if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY-1);
-//							steps--;
-						}
-					}
-				}
-				if (playerY == monsterY) {
-					if (playerX > monsterX) {
-						if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
-							this.setPosition(monsterX+1, monsterY);
-//							steps--;
-						}
-					}
-					else if (playerX < monsterX) {
-						if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
-							this.setPosition(monsterX-1, monsterY);
-//							steps--;
-						}
-					}
-				}
-			} catch (OutOfMapBoundsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-		}
-		if (verifyStuckX == getX() &&  verifyStuckY == getY()) {
-			this.setStuck(true);
+			if (playerX < monsterX && playerY > monsterY) {
+				if (direcao == 0) {
+					if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY+1);
+					}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
+						this.setPosition(monsterX-1, monsterY);
+					}
+				}
+			}
+			if (playerX < monsterX && playerY < monsterY) {
+				if (direcao == 0) {
+					if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY-1);
+					}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
+						this.setPosition(monsterX-1, monsterY);
+					}
+				}
+			}
+			if (playerX > monsterX && playerY < monsterY) {
+				if (direcao == 0) {
+					if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY-1);
+					}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
+						this.setPosition(monsterX+1, monsterY);
+					}
+				}
+			}
+			if (playerX == monsterX) {
+				if (playerY > monsterY) {
+					if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY+1);
+					}
+				}
+				else if (playerY < monsterY) {
+					if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY-1);
+					}
+				}
+			}
+			if (playerY == monsterY) {
+				if (playerX > monsterX) {
+					if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
+						this.setPosition(monsterX+1, monsterY);
+					}
+				}
+				else if (playerX < monsterX) {
+					if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
+						this.setPosition(monsterX-1, monsterY);
+					}
+				}
+			}
+		} catch (OutOfMapBoundsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -229,12 +205,8 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 		return this.following;
 	}
 	
-	public boolean getStuck() {
-		return this.stuck;
-	}
-	
-	public void setStuck(boolean stuck) {
-		this.stuck = stuck;
+	public int getSpaces() {
+		return this.spaces;
 	}
 	
 	
