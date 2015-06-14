@@ -33,21 +33,21 @@ public class GameController implements IGameController {
 	
 //	criacao do vetor de Itemspawns
 	public void colocaItens() {
-		ItemSpawn[] vetor = new ItemSpawn[50];
+		ItemSpawn[] vetor = new ItemSpawn[25];
 		for(int i = 0;i < 50;i++) {
-			if(i >= 0 && i < 10) {
+			if(i >= 0 && i < 5) {
 				vetor[i] = new ItemSpawn(ItemsList.Flare, 5);
 			}
-			if(i >= 10 && i < 20) {
+			if(i >= 5 && i < 10) {
 				vetor[i] = new ItemSpawn(ItemsList.Flash, 5);
 			}
-			if(i >= 20 && i < 30) {
+			if(i >= 10 && i < 15) {
 				vetor[i] = new ItemSpawn(ItemsList.Fuel, 5);
 			}
-			if(i >= 30 && i < 40) {
+			if(i >= 15 && i < 20) {
 				vetor[i] = new ItemSpawn(ItemsList.SaltAmmo, 5);
 			}
-			if(i >= 40 && i < 50) {
+			if(i >= 20 && i < 25) {
 				vetor[i] = new ItemSpawn(ItemsList.Stick, 5);
 			}
 		}
@@ -152,5 +152,9 @@ public class GameController implements IGameController {
 			return true;
 		else
 			return false;
+	}
+	
+	public void saveEverything() {
+		
 	}
 }
