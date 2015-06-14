@@ -4,6 +4,7 @@ import gameController.Entidade;
 import gameController.GameController;
 import gameController.IGameController;
 import ioComponent.interfaces.IIoComponent;
+import items.inventory.Flare;
 import items.itemManagement.ItemsList;
 
 import java.awt.Font;
@@ -80,7 +81,8 @@ public class SlickMap extends BasicGame {
 		faceSprite(player.getFacing());
 		drawTile(player.getX(), player.getY());
 		drawTile(player.getX() + xFacing, player.getY() + yFacing);
-
+		
+		drawHUD();
 		if (flare) {
 			drawFlare();
 		} else if (player.getLighter()) {
@@ -258,6 +260,20 @@ public class SlickMap extends BasicGame {
 		if (monsters.getX(0) == player.getX() + xFacing
 				&& monsters.getY(0) == player.getY() + yFacing)
 			drawMonster(monsters);
+	}
+	
+	private void drawHUD() {
+		int nAmmo = 2, nFlare = 5, nFlash = 5, nFuel = 5, nStick = 5;
+		if (monsters.isMonstersAlive() == true) {
+			int style = Font.BOLD | Font.ITALIC;
+			Font font = new Font("Garamond", style, 15);
+			TrueTypeFont trueTypeFont = new TrueTypeFont(font, true);
+			trueTypeFont.drawString(0, 30, "Ammo: " + nAmmo);
+			trueTypeFont.drawString(100, 30, "Flare: " + nFlare);
+			trueTypeFont.drawString(200, 30, "Flash: " + nFlash);
+			trueTypeFont.drawString(300, 30, "Fuel: " + nFuel);
+			trueTypeFont.drawString(400, 30, "Stick: " + nStick);
+		}
 	}
 	
 

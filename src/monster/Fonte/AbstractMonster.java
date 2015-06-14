@@ -124,25 +124,27 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 					}
 				}
 			}
+			
+			direcao = random.nextInt(4);
 			if (playerX == monsterX) {
-				if (playerY > monsterY) {
+				if (playerY > monsterY && direcao < 3) {
 					if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
 						this.setPosition(monsterX, monsterY+1);
 					}
 				}
-				else if (playerY < monsterY) {
+				else if (playerY < monsterY && direcao < 3) {
 					if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
 						this.setPosition(monsterX, monsterY-1);
 					}
 				}
 			}
-			if (playerY == monsterY) {
+			if (playerY == monsterY && direcao < 3) {
 				if (playerX > monsterX) {
 					if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
 						this.setPosition(monsterX+1, monsterY);
 					}
 				}
-				else if (playerX < monsterX) {
+				else if (playerX < monsterX && direcao < 3) {
 					if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
 						this.setPosition(monsterX-1, monsterY);
 					}
