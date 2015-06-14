@@ -120,7 +120,7 @@ public class GameController implements IGameController {
 			System.out.println("Voce ganhou.");
 		}
 		else {
-			System.out.println("entrou no handler");
+//			System.out.println("entrou no handler");
 			compIo.executeAction();
 		}
 	}
@@ -129,11 +129,14 @@ public class GameController implements IGameController {
 	 * Nao eh chamado quando se usa itens. */
 	public void move() {
 		compMonster.runMonstersActions(0);
+		double volume = 1-(compMonster.getDistance(0) / 10);
 		
+		if (volume < 0) {
+			volume = 0;
+		}
 
 		if (compMapVisual instanceof IAudioEffect) {
-			((IAudioEffect) compMapVisual).playEffect(
-					(float) (1-(compMonster.getDistance(0) / 10)), "footstep");
+			((IAudioEffect) compMapVisual).playEffect((float) volume, "footstep");
 		}
 	}
 	

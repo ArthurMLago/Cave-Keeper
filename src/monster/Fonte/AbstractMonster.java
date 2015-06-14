@@ -68,107 +68,89 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 	}
 	
 	/** Realiza um movimento seguindo o player */
-	public void followWalk(int playerX, int playerY, IGameMap map) {
+	public void followWalk (int playerX, int playerY, IGameMap map) {
 		Random random = new Random();
 		
 		int monsterX = getX();
 		int monsterY = getY();
-		
-//		int steps = spaces;
-		
-		for (int i = 0; i < spaces; i++){
-			try {
-				int direcao = random.nextInt(1);
-				
-				if (playerX > monsterX && playerY > monsterY) {
-					if (direcao == 0) {
-						
-							if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
-								this.setPosition(monsterX+1, monsterY);
-//								steps--;
-							}
-					}
-					else if (direcao == 1) {
-						if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY+1);
-//							steps--;
-						}
-					}
-				}
-				if (playerX < monsterX && playerY > monsterY) {
-					if (direcao == 0) {
-						if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY+1);
-//							steps--;
-						}
-					}
-					else if (direcao == 1) {
-						if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
-							this.setPosition(monsterX-1, monsterY);
-//							steps--;
-						}
-					}
-				}
-				if (playerX < monsterX && playerY < monsterY) {
-					if (direcao == 0) {
-						if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY-1);
-//							steps--;
-						}
-					}
-					else if (direcao == 1) {
-						if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
-							this.setPosition(monsterX-1, monsterY);
-//							steps--;
-						}
-					}
-				}
-				if (playerX > monsterX && playerY < monsterY) {
-					if (direcao == 0) {
-						if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY-1);
-//							steps--;
-						}
-					}
-					else if (direcao == 1) {
+		try {
+			int direcao = random.nextInt(2);
+			
+			if (playerX > monsterX && playerY > monsterY) {
+				if (direcao == 0) {
 						if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
 							this.setPosition(monsterX+1, monsterY);
-//							steps--;
 						}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY+1);
 					}
 				}
-				if (playerX == monsterX) {
-					if (playerY > monsterY) {
-						if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY+1);
-//							steps--;
-						}
-					}
-					else if (playerY < monsterY) {
-						if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
-							this.setPosition(monsterX, monsterY-1);
-//							steps--;
-						}
-					}
-				}
-				if (playerY == monsterY) {
-					if (playerX > monsterX) {
-						if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
-							this.setPosition(monsterX+1, monsterY);
-//							steps--;
-						}
-					}
-					else if (playerX < monsterX) {
-						if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
-							this.setPosition(monsterX-1, monsterY);
-//							steps--;
-						}
-					}
-				}
-			} catch (OutOfMapBoundsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+			if (playerX < monsterX && playerY > monsterY) {
+				if (direcao == 0) {
+					if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY+1);
+					}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
+						this.setPosition(monsterX-1, monsterY);
+					}
+				}
+			}
+			if (playerX < monsterX && playerY < monsterY) {
+				if (direcao == 0) {
+					if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY-1);
+					}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
+						this.setPosition(monsterX-1, monsterY);
+					}
+				}
+			}
+			if (playerX > monsterX && playerY < monsterY) {
+				if (direcao == 0) {
+					if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY-1);
+					}
+				}
+				else if (direcao == 1) {
+					if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
+						this.setPosition(monsterX+1, monsterY);
+					}
+				}
+			}
+			if (playerX == monsterX) {
+				if (playerY > monsterY) {
+					if (map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY+1);
+					}
+				}
+				else if (playerY < monsterY) {
+					if (map.getTileAt(monsterX, monsterY-1).getType() == TileType.Walkable) {
+						this.setPosition(monsterX, monsterY-1);
+					}
+				}
+			}
+			if (playerY == monsterY) {
+				if (playerX > monsterX) {
+					if (map.getTileAt(monsterX+1, monsterY).getType() == TileType.Walkable) {
+						this.setPosition(monsterX+1, monsterY);
+					}
+				}
+				else if (playerX < monsterX) {
+					if (map.getTileAt(monsterX-1, monsterY).getType() == TileType.Walkable) {
+						this.setPosition(monsterX-1, monsterY);
+					}
+				}
+			}
+		} catch (OutOfMapBoundsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -199,6 +181,20 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 		} catch (OutOfMapBoundsException e) {
 		}
 	}
+	
+	public void followWall (int playerX, int playerY, IGameMap map) {
+		int monsterX = this.getX();
+		int monsterY = this.getY();
+		
+		try {
+			if(map.getTileAt(monsterX, monsterY+1).getType() == TileType.Walkable)
+				this.setPosition(monsterX, monsterY+1);
+		} catch (OutOfMapBoundsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	/** Define se o monstro deve começar a seguir o jogador */
 	public void setFollowing(boolean following) {
 		this.following = following;
@@ -208,6 +204,12 @@ public abstract class AbstractMonster implements IAbstractMonster, Serializable 
 	public boolean getFollowing() {
 		return this.following;
 	}
+	
+	public int getSpaces() {
+		return this.spaces;
+	}
+	
+	
 	public abstract String getImage();
 	
 }
