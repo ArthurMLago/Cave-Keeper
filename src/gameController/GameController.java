@@ -15,8 +15,9 @@ import visual.interfaces.IAudioEffect;
 import visual.interfaces.IMapVisual;
 import items.itemManagement.*;
 import anima.component.ISupports;
-
 import java.util.ArrayList;
+import saveGame.saveGame;
+
 /**
  * Componente que faz a conexao dos outros componentes
  * 
