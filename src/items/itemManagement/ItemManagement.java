@@ -195,6 +195,7 @@ public class ItemManagement extends ComponentBase implements IItemManagement, Se
 			name = ItemsList.Stick;
 			break;
 		default:
+			System.out.println("numero invalido");
 			name = null;
 		}
 		return name;
