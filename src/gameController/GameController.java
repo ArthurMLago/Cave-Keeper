@@ -13,6 +13,9 @@ import visual.MapVisual;
 import visual.interfaces.IAudioEffect;
 import visual.interfaces.IMapVisual;
 import items.itemManagement.*;
+
+import saveGame.saveGame;
+
 /**
  * Componente que faz a conexao dos outros componentes
  * 
@@ -154,7 +157,4 @@ public class GameController implements IGameController {
 			return false;
 	}
 	
-	public void saveEverything() {
-		
-	}
 }
