@@ -1,7 +1,6 @@
 package player;
 
 import gameController.Entidade;
-import gameController.GameController;
 import items.excecoes.OutofItemsException;
 import items.interfaces.IItemManagement;
 import items.itemManagement.ItemManagement;
@@ -9,12 +8,10 @@ import items.itemManagement.ItemsList;
 import map.Event;
 import map.enumerations.EventType;
 import map.enumerations.TileType;
-import map.events.EventItem;
 import map.exceptions.OutOfMapBoundsException;
 import map.interfaces.IGameMap;
 import monster.Interfaces.IMonster;
 import anima.annotation.Component;
-import anima.component.IRequires;
 import anima.component.base.ComponentBase;
 
 /**
@@ -29,7 +26,7 @@ import anima.component.base.ComponentBase;
  *
  */
 
-@Component(id = "<http://cave.com/player.Player>", provides = { "<http://cave.com/player.IPlayer>" })
+@Component(id = "<http://cave.com/player.Player>", provides = { "<http://cave.com/player.IPlayerMax>" })
 public class Player extends ComponentBase implements IPlayerPosition, IPlayerMax, Entidade {
 
 	private int posX, posY;

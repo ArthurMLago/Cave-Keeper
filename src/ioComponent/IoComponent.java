@@ -3,6 +3,7 @@ package ioComponent;
 import org.newdawn.slick.Input;
 
 import player.IPlayerMax;
+import saveGame.IsaveGame;
 import visual.MapVisual;
 import visual.interfaces.IMapVisual;
 import anima.component.base.ComponentBase;
@@ -18,24 +19,29 @@ import ioComponent.actions.PlayerShootUpAction;
 import ioComponent.actions.PlayerStickAction;
 import ioComponent.actions.PlayerUpAction;
 import ioComponent.actions.PlayerWaitAction;
+import ioComponent.actions.SaveGameAction;
 import ioComponent.interfaces.IActionPlayer;
 import ioComponent.interfaces.IActionPlayerMapVisual;
+import ioComponent.interfaces.IActionSave;
 import ioComponent.interfaces.IIoComponent;
 
 public class IoComponent extends ComponentBase implements IIoComponent {
 
 	private IMapVisual compVisual;
 	private IPlayerMax compPlayer;
+	private IsaveGame svg;
 	
 	private IActionPlayerMapVisual playerFlare, playerSetLighter, playerShootDown, playerShootLeft, playerShootRight, playerShootUp;
 	private IActionPlayer playerDown, playerLeft, playerRight, playerUp, playerStick, playerWait, playerLighter;
+	private IActionSave saveGame;
 	private ActionHandler handler;
 	
 	private Input command;
 	
-	public void connect(IMapVisual mv, IPlayerMax p) {
+	public void connect(IMapVisual mv, IPlayerMax p, IsaveGame svg) {
 		this.compVisual = mv;
 		this.compPlayer = p;
+		this.svg = svg;
 	}
 	
 	public void setActions() {
@@ -93,6 +99,10 @@ public class IoComponent extends ComponentBase implements IIoComponent {
 		playerLighter.setKey(Input.KEY_L);
 		playerLighter.connect(compPlayer);
 		
+		saveGame = new SaveGameAction();
+		saveGame.setKey(Input.KEY_P);
+		saveGame.connect(svg);
+		
 		handler = new ActionHandler();
 		handler.connect(playerDown);
 		handler.connect(playerUp);
@@ -106,6 +116,7 @@ public class IoComponent extends ComponentBase implements IIoComponent {
 		handler.connect(playerStick);
 		handler.connect(playerWait);
 		handler.connect(playerLighter);
+		handler.connect(saveGame);
 
 	}
 	
