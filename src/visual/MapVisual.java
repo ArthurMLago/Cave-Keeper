@@ -1,6 +1,7 @@
 package visual;
 
 import ioComponent.interfaces.IIoComponent;
+import items.interfaces.IItemManagement;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,15 +27,16 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 	private IGameMap gameMap;
 	private IPlayerMax player;
 	private IMonster monsters;
-	private IIoComponent io;
+	private IIoComponent ios;
+	private IItemManagement items;
 	
-	public MapVisual(IGameMap gm, IPlayerMax pm, IMonster mon, IIoComponent io) {
-		
+	public MapVisual(IGameMap gm, IPlayerMax pm, IMonster mon, IIoComponent io, IItemManagement item) {
 		this.gameMap = gm;
 		this.player = pm;
 		this.monsters = mon;
-		this.io = io;
-		compositeMap = new SlickMap("Cave's Keeper", gameMap, player, monsters, io);
+		this.ios = io;
+		this.items = item;
+		compositeMap = new SlickMap("Cave's Keeper", gameMap, player, monsters, ios, items);
 	}
 
 	@Override
@@ -63,7 +65,7 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 		try {
 			agc = new AppGameContainer(compositeMap);
 			agc.setDisplayMode(gameMap.getLimitX() * SIZEIMAGE,
-					gameMap.getLimitY() * SIZEIMAGE, false);
+					(gameMap.getLimitY()+2) * SIZEIMAGE, false);
 			agc.start();
 		} catch (SlickException e) {
 			e.printStackTrace();

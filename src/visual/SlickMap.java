@@ -4,12 +4,14 @@ import gameController.Entidade;
 import gameController.GameController;
 import gameController.IGameController;
 import ioComponent.interfaces.IIoComponent;
+import items.interfaces.IItemManagement;
 import items.inventory.Flare;
 import items.itemManagement.ItemsList;
 
 import java.awt.Font;
 import java.awt.TextField;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import map.Event;
@@ -22,6 +24,7 @@ import monster.Interfaces.IMonster;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -30,13 +33,14 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
-
 import player.Facing;
 import player.IPlayerMax;
 import player.IPlayerPosition;
 import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
+
+
 
 /**
  * Mapa que realiza a intera��o com a biblioteca utilizado para imprimir as
@@ -66,14 +70,17 @@ public class SlickMap extends BasicGame {
 	private String messageTxt;
 	private IGameController gm;
 	private IIoComponent io;
+	private IItemManagement items;
+	private TrueTypeFont font2;
 	
-	public SlickMap(String title, IGameMap gm, IPlayerMax pm, IMonster mon, IIoComponent io) {
+	public SlickMap(String title, IGameMap gm, IPlayerMax pm, IMonster mon, IIoComponent io, IItemManagement items) {
 		super(title);
 		this.map = gm;
 		this.player = pm;
 		this.monsters = mon;
 		this.gm = GameController.getSharedInstance();
 		this.io = io;
+		this.items = items;
 	}
 
 	@Override
@@ -263,17 +270,31 @@ public class SlickMap extends BasicGame {
 	}
 	
 	private void drawHUD() {
-		int nAmmo = 2, nFlare = 5, nFlash = 5, nFuel = 5, nStick = 5;
-		if (monsters.isMonstersAlive() == true) {
-			int style = Font.BOLD | Font.ITALIC;
-			Font font = new Font("Garamond", style, 15);
-			TrueTypeFont trueTypeFont = new TrueTypeFont(font, true);
-			trueTypeFont.drawString(0, 30, "Ammo: " + nAmmo);
-			trueTypeFont.drawString(100, 30, "Flare: " + nFlare);
-			trueTypeFont.drawString(200, 30, "Flash: " + nFlash);
-			trueTypeFont.drawString(300, 30, "Fuel: " + nFuel);
-			trueTypeFont.drawString(400, 30, "Stick: " + nStick);
-		}
+		float size = 35;
+		int i = 0;
+		Color color = new Color(50,205,50);
+		
+		
+		// load font from file
+        try {
+            InputStream inputStream = ResourceLoader.getResourceAsStream("/resources/font/Dashley.ttf");
+             
+            Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            awtFont2 = awtFont2.deriveFont(size); // set font size
+            
+            font2 = new TrueTypeFont(awtFont2, true);
+            
+            for(ItemsList item : ItemsList.values()) {
+    			String name = items.displayName(item);
+    			int number = items.displayNumber(item);
+    			font2.drawString(i, (map.getLimitY() * MapVisual.SIZEIMAGE),
+    					name + " " + number, color);
+    			i += name.length() * (size-10);
+    		}
+             
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 	
 
@@ -435,4 +456,5 @@ public class SlickMap extends BasicGame {
 			break;
 		}
 	}
+
 }

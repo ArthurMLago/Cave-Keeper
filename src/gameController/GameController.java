@@ -126,7 +126,7 @@ public class GameController implements IGameController {
 		compIo = new IoComponent();
 		
 		// Inicializa o componente visual
-		compMapVisual = new MapVisual(compMap, compPlayer, compMonster, compIo);
+		compMapVisual = new MapVisual(compMap, compPlayer, compMonster, compIo, compItemManagement);
 		
 		compIo.connect(compMapVisual, compPlayer, compSave);
 		compIo.setActions();
