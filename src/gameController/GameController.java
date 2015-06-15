@@ -30,33 +30,31 @@ import saveGame.saveGame;
 
 public class GameController implements IGameController {
 	private static final GameController sharedInstance = new GameController();
-
+	private static int stageNumber = 1;
 	private IGameMap compMap;
 	private IMonster compMonster;
 	private IPlayerMax compPlayer;
 	private IItemManagement compItemManagement;
 	private IMapVisual compMapVisual;
 	private IIoComponent compIo;
-	private IsaveManagement compSave;
-	private int fase;
 	
 //	criacao do vetor de Itemspawns
 	public void colocaItens() {
-		ItemSpawn[] vetor = new ItemSpawn[25];
+		ItemSpawn[] vetor = new ItemSpawn[50];
 		for(int i = 0;i < 50;i++) {
-			if(i >= 0 && i < 5) {
+			if(i >= 0 && i < 10) {
 				vetor[i] = new ItemSpawn(ItemsList.Flare, 5);
 			}
-			if(i >= 5 && i < 10) {
+			if(i >= 10 && i < 20) {
 				vetor[i] = new ItemSpawn(ItemsList.Flash, 5);
 			}
-			if(i >= 10 && i < 15) {
+			if(i >= 20 && i < 30) {
 				vetor[i] = new ItemSpawn(ItemsList.Fuel, 5);
 			}
-			if(i >= 15 && i < 20) {
+			if(i >= 30 && i < 40) {
 				vetor[i] = new ItemSpawn(ItemsList.SaltAmmo, 5);
 			}
-			if(i >= 20 && i < 25) {
+			if(i >= 40 && i < 50) {
 				vetor[i] = new ItemSpawn(ItemsList.Stick, 5);
 			}
 		}
@@ -66,69 +64,32 @@ public class GameController implements IGameController {
 	}
 	
 	
-	private GameController() {}
+	private GameController() {
+	}
 
-	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement, IsaveManagement svg, int f/*, IMapVisual compMapVisual*/) {
+	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement/*, IMapVisual compMapVisual*/) {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
-		this.compSave = svg;
 		/*this.compMapVisual = compMapVisual;*/
-		this.fase = f;
 		bootGameController();
-	}
-	
-	public void loadFromDeserialization(IsaveManagement svg) {
-		this.compSave = svg;
-		ArrayList <Object> list = compSave.deserializeEverything();
-		
-		// Corrigir essa falha de polimorfismo, nao sei como resolver. ACHO Q CORRIGIDO
-		this.compItemManagement = (IItemManagement) list.get(0);
-		this.compPlayer = (IPlayerMax) list.get(1);
-		this.compMonster = (IMonster) list.get(2);
-		this.compMap = (IGameMap) list.get(3);
-		
-		compIo = new IoComponent();
-		
-		// Inicializa o componente visual ISSO AINDA NAO SEI MUDAR
-		compMapVisual = new MapVisual(compMap, compPlayer, compMonster, compIo, compItemManagement);
-		
-		compIo.connect(compMapVisual, compPlayer, compSave);
-		compIo.setActions();
-		
-		compMapVisual.start();
-		
 	}
 
 	private void bootGameController() {
-		Position playerSpawn;
-
+		IStage newStage = new Stage(stageNumber);
+		newStage.connectToGameController();
+		newStage.bootStage();
 		
-		// Inicializa o componente mapa.
-		MapGenerator.sharedInstance().setMapHeight(20);
-		MapGenerator.sharedInstance().setMapWidth(20);
-		MapGenerator.sharedInstance().setWalkablePath(175);
-		MapGenerator.sharedInstance().connect(compItemManagement);
-		colocaItens();
-		compMap = MapGenerator.sharedInstance().generateMap();
-		
-		
-		// Inicializa o componente player
-		playerSpawn = compMap.getSpawnPoint(compPlayer);
-		compPlayer.setSpawnPointPlayer(playerSpawn.getX(), playerSpawn.getY());
-		compPlayer.connect(compMonster, compItemManagement, compMap);
-		
-		// Inicializa o componente monster
-		compMonster.connect(compPlayer, compMap);
-		compMonster.generateMonsters(this.fase);
-		compMonster.setMonsterPosition(0);		
+		compMonster = newStage.getMonster();
+		compMap = newStage.getMap();
+		compPlayer = newStage.getPlayer();
 
 		compIo = new IoComponent();
 		
 		// Inicializa o componente visual
 		compMapVisual = new MapVisual(compMap, compPlayer, compMonster, compIo, compItemManagement);
 		
-		compIo.connect(compMapVisual, compPlayer, compSave);
+		compIo.connect(compMapVisual, compPlayer);
 		compIo.setActions();
 		
 		compMapVisual.start();
@@ -148,7 +109,9 @@ public class GameController implements IGameController {
 		}	
 		else if (playerTestWin()){
 			System.out.println("entrou no test win");
+			stageNumber++;
 			compMapVisual.end();
+			bootGameController();
 			System.out.println("Voce ganhou.");
 		}
 		else {
@@ -170,6 +133,18 @@ public class GameController implements IGameController {
 		if (compMapVisual instanceof IAudioEffect) {
 			((IAudioEffect) compMapVisual).playEffect((float) volume, "footstep");
 		}
+	}
+	
+	public IPlayerMax getCompPlayer() {
+		return compPlayer;
+	}
+	
+	public IMonster getCompMonster() {
+		return compMonster;
+	}
+	
+	public IItemManagement getItemManagement() {
+		return compItemManagement;
 	}
 	
 	public boolean playerTestWin() {
