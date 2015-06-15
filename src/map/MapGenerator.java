@@ -40,6 +40,9 @@ public class MapGenerator implements IMapGenerator{
 	private int NTraps;
 	private ItemSpawn[] itemSpawnList;
 //	private double lightPercentage;
+	private boolean shouldApplyIsolatedTilesFilter;
+	private boolean shouldApplyIsolatedTilesFilter2;
+	private boolean shouldApplyNarrowPassagesFilter;
 	
 	
 	//Variaveis para criação de mapa
@@ -69,7 +72,9 @@ public class MapGenerator implements IMapGenerator{
 		MapHeight = 30;
 		MapWalkablePaths = 450;
 		NSpawnPoints = 4;
-//		lightPercentage = 0.1;
+		shouldApplyIsolatedTilesFilter = true;
+		shouldApplyIsolatedTilesFilter2 = false;
+		shouldApplyNarrowPassagesFilter = false;
 		
 		randomGenerator = new Random();
 	}
@@ -109,11 +114,6 @@ public class MapGenerator implements IMapGenerator{
 	public void setNSpawnPoints(int value){ NSpawnPoints = value;}
 	
 	
-//	/**
-//	 * Define a porcentagem do mapa que estará iluminada por luzes permanentes:
-//	 * @param value  Porcentagem do mapa iluminado (0.0 -> 1.0)
-//	 */
-//	public void setLightPercentage(double value){	lightPercentage = value;}
 	
 	
 	/**
@@ -130,6 +130,11 @@ public class MapGenerator implements IMapGenerator{
 	public void setItemSpawnList(ItemSpawn[] value){
 		itemSpawnList = value;
 	}
+	
+	
+	/**
+	 * 
+	 */
 	
 	/**
 	 * Método que gera um mapa aleatório jogavel com as caracteristicas especificadas.
