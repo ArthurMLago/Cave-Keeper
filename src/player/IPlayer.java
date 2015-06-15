@@ -3,8 +3,7 @@ package player;
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
 
-@ComponentInterface("<http://cave.com/player.IPlayer>")
-public interface IPlayer extends ISupports {
+public interface IPlayer {
 
 	public String getTipo();
 	public int getImage();

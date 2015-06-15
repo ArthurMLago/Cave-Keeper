@@ -1,11 +1,14 @@
 package player;
 
+import anima.annotation.ComponentInterface;
+import anima.component.ISupports;
 import items.interfaces.IItemManagement;
 import map.interfaces.IGameMap;
 import monster.Interfaces.IMonster;
 import gameController.*;
 
-public interface IPlayerMax extends Entidade {
+@ComponentInterface("<http://cave.com/player.IPlayerMax>")
+public interface IPlayerMax extends Entidade, ISupports {
 	
 	public void setSpawnPointPlayer(int x, int y);
 	public void setLighter();

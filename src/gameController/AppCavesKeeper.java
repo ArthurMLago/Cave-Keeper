@@ -25,12 +25,15 @@ public class AppCavesKeeper {
 			componentFactory.registerPrototype(ItemManagement.class);
 			componentFactory.registerPrototype(MapVisual.class);
 			
-			IMonster compMonster = componentFactory.createInstance("<http://cave.com/monster.Monster>");
-			IPlayerMax compPlayer = componentFactory.createInstance("<http://cave.com/player.Player>");
-			IItemManagement compItemManagement = componentFactory.createInstance("<http://cave.com/items.itemManagement.ItemManagement>");
-			/*IMapVisual compMapVisual = componentFactory.createInstance("<http://cave.com/visual.MapVisual>");*/
-			
-			GameController.getSharedInstance().conectar(compMonster, compPlayer, compItemManagement/*, compMapVisual*/);
+			for(int i = 1; i <= 4; i++) {
+				IMonster compMonster = componentFactory.createInstance("<http://cave.com/monster.Monster>");
+				IPlayerMax compPlayer = componentFactory.createInstance("<http://cave.com/player.Player>");
+				IItemManagement compItemManagement = componentFactory.createInstance("<http://cave.com/items.itemManagement.ItemManagement>");
+				/*IMapVisual compMapVisual = componentFactory.createInstance("<http://cave.com/visual.MapVisual>");*/
+				
+				GameController.getSharedInstance().conectar(compMonster, compPlayer, compItemManagement, i/*, compMapVisual*/);
+				System.out.println("passei aqui");
+			}
 			
 		}
 		catch(Exception e) { 

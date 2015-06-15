@@ -9,10 +9,15 @@ import map.Position;
 import map.interfaces.IGameMap;
 import monster.Interfaces.IMonster;
 import player.IPlayerMax;
+import saveGame.IsaveGame;
 import visual.MapVisual;
 import visual.interfaces.IAudioEffect;
 import visual.interfaces.IMapVisual;
 import items.itemManagement.*;
+import anima.component.ISupports;
+import java.util.ArrayList;
+import saveGame.saveGame;
+
 /**
  * Componente que faz a conexao dos outros componentes
  * 
@@ -29,7 +34,8 @@ public class GameController implements IGameController {
 	private IItemManagement compItemManagement;
 	private IMapVisual compMapVisual;
 	private IIoComponent compIo;
-	private int fase = 1;
+	private IsaveGame compSave;
+	private int fase;
 	
 //	criacao do vetor de Itemspawns
 	public void colocaItens() {
@@ -60,11 +66,12 @@ public class GameController implements IGameController {
 	private GameController() {
 	}
 
-	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement/*, IMapVisual compMapVisual*/) {
+	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement, int f/*, IMapVisual compMapVisual*/) {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
 		/*this.compMapVisual = compMapVisual;*/
+		this.fase = f;
 		bootGameController();
 	}
 
@@ -88,7 +95,7 @@ public class GameController implements IGameController {
 		
 		// Inicializa o componente monster
 		compMonster.connect(compPlayer, compMap);
-		compMonster.generateMonsters(1);
+		compMonster.generateMonsters(this.fase);
 		compMonster.setMonsterPosition(0);		
 
 		compIo = new IoComponent();
@@ -96,7 +103,7 @@ public class GameController implements IGameController {
 		// Inicializa o componente visual
 		compMapVisual = new MapVisual(compMap, compPlayer, compMonster, compIo, compItemManagement);
 		
-		compIo.connect(compMapVisual, compPlayer);
+		compIo.connect(compMapVisual, compPlayer, compSave);
 		compIo.setActions();
 		
 		compMapVisual.start();
@@ -152,6 +159,15 @@ public class GameController implements IGameController {
 			return true;
 		else
 			return false;
+	}
+	
+	public ArrayList<ISupports> getComponentsToSave() {
+		ArrayList<ISupports> list = new ArrayList<ISupports>();
+		list.add(compMap);
+		list.add(compMonster);
+		list.add(compPlayer);
+		list.add(compItemManagement);
+		return list;
 	}
 	
 	public void saveEverything() {

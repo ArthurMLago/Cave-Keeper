@@ -21,8 +21,8 @@ import anima.component.base.ComponentBase;
 @Component(id="<http://cave.com/saveGame.saveGame>", provides={"<http://cave.com/saveGame.IsaveGame>"})
 public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
 	
-	public static final String DIRETORIO_RELATIVO = "src/saveGame/tmp";
-	private String diretorio = saveGame.class.getResource(DIRETORIO_RELATIVO).getPath();
+//	public static final String DIRETORIO_RELATIVO = "src/saveGame/tmp";
+//	private String diretorio = saveGame.class.getResource(DIRETORIO_RELATIVO).getPath();
 	
 /**
  * metodo que faz a serializacao do objeto e
@@ -33,7 +33,9 @@ public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
 	public void saveState(T e, String Folder) {
 
 		try {
-			FileOutputStream fileOut = new FileOutputStream(diretorio + "/"	+ Folder + ".ser");
+//			FileOutputStream fileOut = new FileOutputStream(diretorio + "/"	+ Folder + ".ser");
+			FileOutputStream fileOut = new FileOutputStream("src/saveGame/tmp/"	+ Folder + ".ser");
+			
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(e);
 			
@@ -57,7 +59,9 @@ public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
 		
 		try {
 			T e = null;
-			FileInputStream fileIn = new FileInputStream(diretorio + "/" + Folder + ".ser");
+//			FileInputStream fileIn = new FileInputStream(diretorio + "/" + Folder + ".ser");
+			FileInputStream fileIn = new FileInputStream("src/saveGame/tmp/"	+ Folder + ".ser");
+			
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			e = (T) in.readObject();
 			
