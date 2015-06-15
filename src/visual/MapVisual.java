@@ -81,6 +81,11 @@ public class MapVisual extends ComponentBase implements IMapVisual,
 	public void end() {
 		agc.exit();
 	}
+
+	@Override
+	public void playFootstep(float gain) {
+		compositeMap.playFootstep(gain);
+	}
 	
 	
 }

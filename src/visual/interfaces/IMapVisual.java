@@ -32,7 +32,7 @@ public interface IMapVisual extends ISupports{
 	 */
 	public void changePlayerFacing(char facing);
 	
-	public void playEffect(float gain, String type);
+	public void playFootstep(float gain);
 	
 	public void start();
 	

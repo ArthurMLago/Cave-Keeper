@@ -131,7 +131,7 @@ public class GameController implements IGameController {
 		}
 
 		if (compMapVisual instanceof IAudioEffect) {
-			((IAudioEffect) compMapVisual).playEffect((float) volume, "footstep");
+			compMapVisual.playFootstep((float) volume);
 		}
 	}
 	
