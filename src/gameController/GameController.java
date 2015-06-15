@@ -91,7 +91,7 @@ public class GameController implements IGameController {
 		compIo = new IoComponent();
 		
 		// Inicializa o componente visual ISSO AINDA NAO SEI MUDAR
-		compMapVisual = new MapVisual(compMap, compPlayer, compMonster, compIo);
+		compMapVisual = new MapVisual(compMap, compPlayer, compMonster, compIo, compItemManagement);
 		
 		compIo.connect(compMapVisual, compPlayer, compSave);
 		compIo.setActions();
@@ -186,8 +186,8 @@ public class GameController implements IGameController {
 			return false;
 	}
 	
-	public ArrayList<ISupports> getComponentsToSave() {
-		ArrayList<ISupports> list = new ArrayList<ISupports>();
+	public ArrayList<Object> getComponentsToSave() {
+		ArrayList<Object> list = new ArrayList<Object>();
 		list.add(compItemManagement);
 		list.add(compPlayer);
 		list.add(compMonster);

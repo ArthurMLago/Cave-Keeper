@@ -12,7 +12,7 @@ import items.interfaces.*;
 
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
-
+import java.util.Scanner;
 
 
 public class AppCavesKeeper {
@@ -26,16 +26,19 @@ public class AppCavesKeeper {
 			componentFactory.registerPrototype(MapVisual.class);
 			componentFactory.registerPrototype(saveManagement.class);
 			
-			for(int i = 1; i <= 4; i++) {
-				IMonster compMonster = componentFactory.createInstance("<http://cave.com/monster.Monster>");
-				IPlayerMax compPlayer = componentFactory.createInstance("<http://cave.com/player.Player>");
-				IItemManagement compItemManagement = componentFactory.createInstance("<http://cave.com/items.itemManagement.ItemManagement>");
-				/*IMapVisual compMapVisual = componentFactory.createInstance("<http://cave.com/visual.MapVisual>");*/
-				IsaveManagement compSaveManagement = componentFactory.createInstance("<http://cave.com/saveGame.saveManagement>");
+			IMonster compMonster = componentFactory.createInstance("<http://cave.com/monster.Monster>");
+			IPlayerMax compPlayer = componentFactory.createInstance("<http://cave.com/player.Player>");
+			IItemManagement compItemManagement = componentFactory.createInstance("<http://cave.com/items.itemManagement.ItemManagement>");
+			/*IMapVisual compMapVisual = componentFactory.createInstance("<http://cave.com/visual.MapVisual>");*/
+			IsaveManagement compSaveManagement = componentFactory.createInstance("<http://cave.com/saveGame.saveManagement>");
 				
+			System.out.println("Digite o que quer: 1 - Novo jogo /// 2 - Load game");
+			Scanner entrada = new Scanner(System.in);
+
+			if()
 				GameController.getSharedInstance().conectar(compMonster, compPlayer, compItemManagement, compSaveManagement, i/*, compMapVisual*/);
-				System.out.println("passei aqui");
-			}
+			
+			System.out.println("passei aqui");
 			
 		}
 		catch(Exception e) { 
