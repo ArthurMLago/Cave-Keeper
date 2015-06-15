@@ -34,10 +34,12 @@ public class AppCavesKeeper {
 				
 			System.out.println("Digite o que quer: 1 - Novo jogo /// 2 - Load game");
 			Scanner entrada = new Scanner(System.in);
-
-			if()
-				GameController.getSharedInstance().conectar(compMonster, compPlayer, compItemManagement, compSaveManagement, i/*, compMapVisual*/);
+			int inteiro = entrada.nextInt();
 			
+			if(inteiro == 1)
+				GameController.getSharedInstance().conectar(compMonster, compPlayer, compItemManagement, compSaveManagement, 1/*, compMapVisual*/);
+			else
+				GameController.getSharedInstance().loadFromDeserialization(compSaveManagement);
 			System.out.println("passei aqui");
 			
 		}
