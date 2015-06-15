@@ -8,6 +8,7 @@ import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 import monster.Fonte.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /** Classe de gerenciamento dos monstros. Realiza a interacao com o game controller.
@@ -15,8 +16,10 @@ import java.util.ArrayList;
  * @author Pedro Ono */
 
 @Component(id="<http://cave.com/monster.Monster>", provides={"<http://cave.com/monster.Interfaces.IMonster>"})
-public class Monster extends ComponentBase implements IMonster {	
+public class Monster extends ComponentBase implements IMonster, Serializable {	
 
+	
+	private static final long serialVersionUID = 1L;
 	IPlayerMax player;
 	IGameMap map;
 

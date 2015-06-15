@@ -1,4 +1,6 @@
 package map;
+import java.io.Serializable;
+
 import map.enumerations.EventType;
 
 /**
@@ -7,8 +9,12 @@ import map.enumerations.EventType;
  * @author ArthurMLago
  *
  */
-public abstract class Event {
+public abstract class Event implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private EventType type;
 	
 	public Event(EventType type){

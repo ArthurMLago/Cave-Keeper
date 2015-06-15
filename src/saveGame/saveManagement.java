@@ -34,6 +34,7 @@ public class saveManagement extends ComponentBase implements IsaveManagement {
 				System.out.println("ops");	
 			}
 		}
+		System.out.println("show de esferas!!");
 	}
 	
 	public ArrayList <Object> deserializeEverything() {
@@ -45,20 +46,21 @@ public class saveManagement extends ComponentBase implements IsaveManagement {
 			// serialiaza cada obejto das casa de components
 			switch(i) {
 				case 0:
-					components.add(TheSaver.obtainState("items"));
+					components.add(0, (TheSaver.obtainState("items")));
 					break;
 				case 1:
-					components.add(TheSaver.obtainState("player"));
+					components.add(1, (TheSaver.obtainState("player")));
 					break;
 				case 2:
-					components.add(TheSaver.obtainState("monster"));
+					components.add(2, (TheSaver.obtainState("monster")));
 					break;
 				case 3:
-					components.add(TheSaver.obtainState("map"));
+					components.add(3, (TheSaver.obtainState("map")));
 				default:
 					System.out.println("ops");	
 			}
 		}
+		System.out.println("showzao");
 		return components;
 	}
 }

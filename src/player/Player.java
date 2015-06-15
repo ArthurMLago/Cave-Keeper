@@ -1,5 +1,7 @@
 package player;
 
+import java.io.Serializable;
+
 import gameController.Entidade;
 import items.excecoes.OutofItemsException;
 import items.interfaces.IItemManagement;
@@ -27,7 +29,9 @@ import anima.component.base.ComponentBase;
  */
 
 @Component(id = "<http://cave.com/player.Player>", provides = { "<http://cave.com/player.IPlayerMax>" })
-public class Player extends ComponentBase implements IPlayerPosition, IPlayerMax, Entidade {
+public class Player extends ComponentBase implements IPlayerPosition, IPlayerMax, Entidade, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private int posX, posY;
 

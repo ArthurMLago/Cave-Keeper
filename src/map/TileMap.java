@@ -1,9 +1,10 @@
 package map;
 
+import java.io.Serializable;
+
 import map.Event;
 import map.enumerations.TileType;
 import map.enumerations.VisibilityMode;
-
 import map.enumerations.EventType;
 
 /**
@@ -13,7 +14,11 @@ import map.enumerations.EventType;
  * @author ArthurMLago
  *
  */
-public class TileMap {
+public class TileMap implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private TileType type;
 	private VisibilityMode visibility;
 	private String tileImage;

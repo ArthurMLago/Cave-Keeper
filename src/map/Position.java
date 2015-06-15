@@ -1,11 +1,15 @@
 package map;
 
+import java.io.Serializable;
+
 /**
  * Classe simples apenas para passar uma posição no mapa.
  * @author ArthurMLago
  *
  */
-public class Position {
+public class Position implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	public int x,y;
 	
 	/**
