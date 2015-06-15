@@ -13,5 +13,4 @@ public enum ItemsList {
 	Fuel,
 	SaltAmmo,
 	Stick
-	
 }

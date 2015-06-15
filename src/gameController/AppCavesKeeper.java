@@ -13,6 +13,8 @@ import items.interfaces.*;
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 
+
+
 public class AppCavesKeeper {
 	public static void main(String argc[]) {
 		
