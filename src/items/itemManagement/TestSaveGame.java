@@ -45,9 +45,6 @@ public class TestSaveGame {
 //			
 //			salvador.serializeEverything(toBeSaved);
 			
-			ItemManagement mochila = null;
-			
-			toBeSaved.add(mochila);
 			
 			System.out.println(toBeSaved.size() + " :)");
 			
