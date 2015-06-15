@@ -104,7 +104,7 @@ public class SlickMap extends BasicGame {
 				* MapVisual.SIZEIMAGE);
 		
 		if (message) {
-			Font font = new Font("Verdana", Font.BOLD, 30);
+			Font font = new Font("Verdana", Font.BOLD, 20);
 			TrueTypeFont trueTypeFont = new TrueTypeFont(font, true);
 			trueTypeFont.drawString(50, 50, messageTxt);
 		}
@@ -195,6 +195,55 @@ public class SlickMap extends BasicGame {
 		} catch (OutOfMapBoundsException e) {
 		}
 	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * Sobrecarga do método drawTiles para desenhar com opacidade determinada
+	 * 
+	 * @param x
+	 *            - Posi��o x do tile a ser desenhado
+	 * @param y
+	 *            - POsi��o Y do tile a ser desenhado
+	 *
+	 * @param opacity Opacidade desejada
+	 */
+	private void drawTile(int x, int y, float opacity) {
+		try {
+			Image tile = getImage("resources/tile/"
+					+ map.getTileAt(x, y).getImage() + ".png", imageMap);
+
+			Image[] tiles = { tile };
+			Animation tileAnimation = new Animation(tiles, 1000);
+			tileAnimation
+					.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE, new Color(1.0f,1.0f,1.0f,opacity));
+
+			Event event = map.getTileAt(x, y).checkForEvents();
+			String nome = null;
+			if (event != null) {
+				if (event.getType() == EventType.ITEM){
+					nome = nameItem(((EventItem) event).getItemType());
+	
+					Image item = getImage("resources/item/" + nome + ".png",imageMap);
+					
+					item.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE, new Color(1.0f,1.0f,1.0f,opacity));
+				}else if(event.getType() == EventType.TRAP){
+					Image trap = getImage("resources/item/trap.png",imageMap);
+					trap.draw(x * MapVisual.SIZEIMAGE, y * MapVisual.SIZEIMAGE, new Color(1.0f,1.0f,1.0f,opacity));
+				}
+			}
+			if(monsters.isMonstersAlive() && monsters.getX(0) == x && monsters.getY(0) == y){
+				drawMonster(monsters, opacity);
+			}
+		} catch (SlickException e) {
+			System.out.println(e);
+		} catch (OutOfMapBoundsException e) {
+		}
+	}
+	
 
 	/**
 	 * Desenha a entidade desejada S� funciona quando chamado no render
@@ -216,17 +265,55 @@ public class SlickMap extends BasicGame {
 				System.out.println(ex);
 			}
 	}
+	
+	/**
+	 * Sobrecarga do método drawMonster para desenhar com determinada opacidade
+	 * @param monster
+	 */
+	private void drawMonster(IMonster monster, float opacity) {
+		try {
+			Image tile = getImage(
+					"resources/monster/" + monster.getImage(0) + ".png",
+					imageMap);
+
+			Image[] tiles = { tile };
+			Animation tileAnimation = new Animation(tiles, 1000);
+			tileAnimation.draw(monster.getX(0) * MapVisual.SIZEIMAGE,
+					monster.getY(0) * MapVisual.SIZEIMAGE,new Color(1.0f,1.0f,1.0f,opacity));
+		} catch (SlickException ex) {
+			System.out.println(ex);
+		}
+}
+	
 
 	private void drawFlare() {
-		for (int xR = 0; xR < map.getLimitX(); xR++) {
-			for (int yR = 0; yR < map.getLimitY(); yR++) {
-				drawTile(xR, yR);
+		if (flareTime < 100){
+			for (int xR = 0; xR < map.getLimitX(); xR++) {
+				for (int yR = 0; yR < map.getLimitY(); yR++) {
+					drawTile(xR, yR, flareTime/100.0f);
+				}
 			}
+			drawMonster(monsters, flareTime/100.0f);
+		}else if(flareTime < 600){
+			for (int xR = 0; xR < map.getLimitX(); xR++) {
+				for (int yR = 0; yR < map.getLimitY(); yR++) {
+					drawTile(xR, yR);
+				}
+			}
+			drawMonster(monsters);
+		}else {
+			for (int xR = 0; xR < map.getLimitX(); xR++) {
+				for (int yR = 0; yR < map.getLimitY(); yR++) {
+					drawTile(xR, yR,(1 - (flareTime - 600)/100.0f));
+				}
+			}
+			drawMonster(monsters, (1 - (flareTime - 600)/100.0f));
 		}
+		
 
-		drawMonster(monsters);
+		
 
-		if (flareTime > 2000)
+		if (flareTime > 699)
 			flare = false;
 	}
 
@@ -253,8 +340,7 @@ public class SlickMap extends BasicGame {
 			}
 		}
 
-		shadowAround.draw((player.getX() - 1) * MapVisual.SIZEIMAGE,
-				(player.getY() - 1) * MapVisual.SIZEIMAGE);
+		shadowAround.draw((player.getX() - 1) * MapVisual.SIZEIMAGE, (player.getY() - 1) * MapVisual.SIZEIMAGE);
 	}
 
 	private void drawShadowWithLighter() {
