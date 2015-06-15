@@ -36,7 +36,7 @@ public class saveManagement {
 	public void deserializeEverything(ArrayList <ISupports> components) {
 		saveGame <ISupports> TheSaver = new saveGame<ISupports>();
 		
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0;i < components.size() ; i++) {
 			// serialiaza cada obejto das casa de components
 			switch(i) {
 			case 0:
