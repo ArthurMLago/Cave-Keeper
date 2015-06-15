@@ -35,7 +35,7 @@ public class TestSaveGame {
 			
 			saveManagement salvador = new saveManagement();
 			
-			ArrayList<ISupports> toBeSaved = new ArrayList<ISupports>();
+			ArrayList<Object> toBeSaved = new ArrayList<Object>();
 			
 //			ItemManagement mochila = new ItemManagement();
 //			
@@ -46,9 +46,7 @@ public class TestSaveGame {
 //			salvador.serializeEverything(toBeSaved);
 			
 			
-			System.out.println(toBeSaved.size() + " :)");
-			
-			salvador.deserializeEverything(toBeSaved);
+			toBeSaved = salvador.deserializeEverything();
 			
 			System.out.println(((ItemManagement) toBeSaved.get(0)).displayNumber(ItemsList.Flare));
 			

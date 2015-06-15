@@ -12,8 +12,8 @@ import anima.component.base.ComponentBase;
 @Component(id="<http://cave.com/saveGame.saveManagement>", provides={"<http://cave.com/saveGame.IsaveManagement>"})
 public class saveManagement extends ComponentBase implements IsaveManagement {
 
-	public void serializeEverything(ArrayList <ISupports> components) {
-		saveGame <ISupports> TheSaver = new saveGame<ISupports>();
+	public void serializeEverything(ArrayList <Object> components) {
+		saveGame <Object> TheSaver = new saveGame<Object>();
 		
 		for(int i = 0; i < components.size(); i++) {
 			// serialiaza cada obejto das casa de components
@@ -36,9 +36,9 @@ public class saveManagement extends ComponentBase implements IsaveManagement {
 		}
 	}
 	
-	public ArrayList <ISupports> deserializeEverything() {
-		saveGame <ISupports> TheSaver = new saveGame<ISupports>();
-		ArrayList <ISupports> components = new ArrayList<ISupports>();
+	public ArrayList <Object> deserializeEverything() {
+		saveGame <Object> TheSaver = new saveGame<Object>();
+		ArrayList <Object> components = new ArrayList<Object>();
 		//para teste apenas de items, o i max eh 1
 		for(int i = 0;i < 4; i++) {
 			

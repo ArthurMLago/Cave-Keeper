@@ -80,17 +80,17 @@ public class GameController implements IGameController {
 	
 	public void loadFromDeserialization(IsaveManagement svg) {
 		this.compSave = svg;
-		ArrayList <ISupports> list = compSave.deserializeEverything();
+		ArrayList <Object> list = compSave.deserializeEverything();
 		
-		// Corrigir essa falha de polimorfismo, nao sei como resolver.
-		this.compItemManagement = (IItemManagements) list.get(0);
-		this.compPlayer = list.get(1);
-		this.compMonster = list.get(2);
-		this.compMap = list.get(3);
+		// Corrigir essa falha de polimorfismo, nao sei como resolver. ACHO Q CORRIGIDO
+		this.compItemManagement = (IItemManagement) list.get(0);
+		this.compPlayer = (IPlayerMax) list.get(1);
+		this.compMonster = (IMonster) list.get(2);
+		this.compMap = (IGameMap) list.get(3);
 		
 		compIo = new IoComponent();
 		
-		// Inicializa o componente visual
+		// Inicializa o componente visual ISSO AINDA NAO SEI MUDAR
 		compMapVisual = new MapVisual(compMap, compPlayer, compMonster, compIo);
 		
 		compIo.connect(compMapVisual, compPlayer, compSave);
