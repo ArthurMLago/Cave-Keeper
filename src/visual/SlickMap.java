@@ -11,6 +11,7 @@ import items.itemManagement.ItemsList;
 import java.awt.Font;
 import java.awt.TextField;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import map.Event;
@@ -32,8 +33,6 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
-import org.omg.CORBA.portable.InputStream;
-
 import player.Facing;
 import player.IPlayerMax;
 import player.IPlayerPosition;
@@ -41,16 +40,7 @@ import anima.component.IRequires;
 import anima.component.ISupports;
 import anima.component.InterfaceType;
 
-import java.awt.Font;
- 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.GL11;
- 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.util.ResourceLoader;
+
 
 /**
  * Mapa que realiza a intera��o com a biblioteca utilizado para imprimir as
@@ -81,6 +71,7 @@ public class SlickMap extends BasicGame {
 	private IGameController gm;
 	private IIoComponent io;
 	private IItemManagement items;
+	private TrueTypeFont font2;
 	
 	public SlickMap(String title, IGameMap gm, IPlayerMax pm, IMonster mon, IIoComponent io, IItemManagement items) {
 		super(title);
@@ -279,18 +270,31 @@ public class SlickMap extends BasicGame {
 	}
 	
 	private void drawHUD() {
-		int size = 20;
+		float size = 35;
 		int i = 0;
-		Font font = new Font("Verdana", Font.BOLD, size);
-		TrueTypeFont trueTypeFont = new TrueTypeFont(font, true);
+		Color color = new Color(50,205,50);
 		
-		for(ItemsList item : ItemsList.values()) {
-			String name = items.displayName(item);
-			int number = items.displayNumber(item);
-			trueTypeFont.drawString(i, (map.getLimitY() * MapVisual.SIZEIMAGE),
-					name + " " + number, Color.blue);
-			i += name.length() * size;
-		}
+		
+		// load font from file
+        try {
+            InputStream inputStream = ResourceLoader.getResourceAsStream("/resources/font/Dashley.ttf");
+             
+            Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            awtFont2 = awtFont2.deriveFont(size); // set font size
+            
+            font2 = new TrueTypeFont(awtFont2, true);
+            
+            for(ItemsList item : ItemsList.values()) {
+    			String name = items.displayName(item);
+    			int number = items.displayNumber(item);
+    			font2.drawString(i, (map.getLimitY() * MapVisual.SIZEIMAGE),
+    					name + " " + number, color);
+    			i += name.length() * (size-10);
+    		}
+             
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 	
 
@@ -452,4 +456,5 @@ public class SlickMap extends BasicGame {
 			break;
 		}
 	}
+
 }
