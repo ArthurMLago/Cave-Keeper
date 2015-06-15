@@ -18,8 +18,8 @@ import anima.component.base.ComponentBase;
  * classe responsavel pela serializacao e deserializacao dos objetos do jogo
  */
 
-@Component(id="<http://cave.com/saveGame.saveGame>", provides={"<http://cave.com/saveGame.IsaveGame>"})
-public class saveGame<T> extends ComponentBase implements IsaveGame<T>{
+
+public class saveGame<T> implements IsaveGame<T>{
 	
 //	public static final String DIRETORIO_RELATIVO = "src/saveGame/tmp";
 //	private String diretorio = saveGame.class.getResource(DIRETORIO_RELATIVO).getPath();

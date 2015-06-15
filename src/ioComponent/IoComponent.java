@@ -4,6 +4,7 @@ import org.newdawn.slick.Input;
 
 import player.IPlayerMax;
 import saveGame.IsaveGame;
+import saveGame.IsaveManagement;
 import visual.MapVisual;
 import visual.interfaces.IMapVisual;
 import anima.component.base.ComponentBase;
@@ -29,7 +30,7 @@ public class IoComponent extends ComponentBase implements IIoComponent {
 
 	private IMapVisual compVisual;
 	private IPlayerMax compPlayer;
-	private IsaveGame svg;
+	private IsaveManagement svg;
 	
 	private IActionPlayerMapVisual playerFlare, playerSetLighter, playerShootDown, playerShootLeft, playerShootRight, playerShootUp;
 	private IActionPlayer playerDown, playerLeft, playerRight, playerUp, playerStick, playerWait, playerLighter;
@@ -38,7 +39,7 @@ public class IoComponent extends ComponentBase implements IIoComponent {
 	
 	private Input command;
 	
-	public void connect(IMapVisual mv, IPlayerMax p, IsaveGame svg) {
+	public void connect(IMapVisual mv, IPlayerMax p, IsaveManagement svg) {
 		this.compVisual = mv;
 		this.compPlayer = p;
 		this.svg = svg;

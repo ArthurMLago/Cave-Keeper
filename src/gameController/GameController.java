@@ -10,12 +10,15 @@ import map.interfaces.IGameMap;
 import monster.Interfaces.IMonster;
 import player.IPlayerMax;
 import saveGame.IsaveGame;
+import saveGame.IsaveManagement;
 import visual.MapVisual;
 import visual.interfaces.IAudioEffect;
 import visual.interfaces.IMapVisual;
 import items.itemManagement.*;
 import anima.component.ISupports;
+
 import java.util.ArrayList;
+
 import saveGame.saveGame;
 
 /**
@@ -34,7 +37,7 @@ public class GameController implements IGameController {
 	private IItemManagement compItemManagement;
 	private IMapVisual compMapVisual;
 	private IIoComponent compIo;
-	private IsaveGame compSave;
+	private IsaveManagement compSave;
 	private int fase;
 	
 //	criacao do vetor de Itemspawns
@@ -63,16 +66,38 @@ public class GameController implements IGameController {
 	}
 	
 	
-	private GameController() {
-	}
+	private GameController() {}
 
-	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement, int f/*, IMapVisual compMapVisual*/) {
+	public void conectar(IMonster compMonster, IPlayerMax compPlayer, IItemManagement compItemManagement, IsaveManagement svg, int f/*, IMapVisual compMapVisual*/) {
 		this.compMonster = compMonster;
 		this.compPlayer = compPlayer;
 		this.compItemManagement = compItemManagement;
+		this.compSave = svg;
 		/*this.compMapVisual = compMapVisual;*/
 		this.fase = f;
 		bootGameController();
+	}
+	
+	public void loadFromDeserialization(IsaveManagement svg) {
+		this.compSave = svg;
+		ArrayList <ISupports> list = compSave.deserializeEverything();
+		
+		// Corrigir essa falha de polimorfismo, nao sei como resolver.
+		this.compItemManagement = (IItemManagements) list.get(0);
+		this.compPlayer = list.get(1);
+		this.compMonster = list.get(2);
+		this.compMap = list.get(3);
+		
+		compIo = new IoComponent();
+		
+		// Inicializa o componente visual
+		compMapVisual = new MapVisual(compMap, compPlayer, compMonster, compIo);
+		
+		compIo.connect(compMapVisual, compPlayer, compSave);
+		compIo.setActions();
+		
+		compMapVisual.start();
+		
 	}
 
 	private void bootGameController() {
@@ -163,14 +188,11 @@ public class GameController implements IGameController {
 	
 	public ArrayList<ISupports> getComponentsToSave() {
 		ArrayList<ISupports> list = new ArrayList<ISupports>();
-		list.add(compMap);
-		list.add(compMonster);
-		list.add(compPlayer);
 		list.add(compItemManagement);
+		list.add(compPlayer);
+		list.add(compMonster);
+		list.add(compMap);		
 		return list;
 	}
-	
-	public void saveEverything() {
-		
-	}
+
 }
