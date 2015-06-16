@@ -179,6 +179,18 @@ public class MapGenerator implements IMapGenerator{
 			//Garantir que esta dentro do mapa:
 			PosX = clampToMapWidth(PosX);
 			PosY = clampToMapHeight(PosY);
+			if (PosX < 1){
+				PosX = 1;
+			}
+			if (PosY < 1){
+				PosY = 1;
+			}
+			if (PosX > MapWidth - 2){
+				PosX = MapWidth - 2;
+			}
+			if (PosY > MapHeight - 2){
+				PosY = MapHeight - 2;
+			}
 			
 			//Se nao for passavel, agora eh:
 			if (Matriz[PosY][PosX] == 0){
