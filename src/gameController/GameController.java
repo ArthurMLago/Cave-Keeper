@@ -48,7 +48,7 @@ public class GameController implements IGameController {
 				vetor[i] = new ItemSpawn(ItemsList.Flash, 5);
 			}
 			if(i >= 10 && i < 15) {
-				vetor[i] = new ItemSpawn(ItemsList.Fuel, 5);
+				vetor[i] = new ItemSpawn(ItemsList.Fuel, 6);
 			}
 			if(i >= 15 && i < 20) {
 				vetor[i] = new ItemSpawn(ItemsList.SaltAmmo, 2);
