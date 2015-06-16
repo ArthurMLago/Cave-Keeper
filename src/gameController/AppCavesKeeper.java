@@ -9,9 +9,9 @@ import map.*;
 import items.*;
 import items.itemManagement.*;
 import items.interfaces.*;
-
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
+
 import java.util.Scanner;
 
 
@@ -31,7 +31,8 @@ public class AppCavesKeeper {
 			IItemManagement compItemManagement = componentFactory.createInstance("<http://cave.com/items.itemManagement.ItemManagement>");
 			/*IMapVisual compMapVisual = componentFactory.createInstance("<http://cave.com/visual.MapVisual>");*/
 			IsaveManagement compSaveManagement = componentFactory.createInstance("<http://cave.com/saveGame.saveManagement>");
-				
+			
+			TelaInicial bla = new TelaInicial(compMonster, compPlayer, compItemManagement, compSaveManagement);
 			System.out.println("Digite o que quer: 1 - Novo jogo /// 2 - Load game");
 			Scanner entrada = new Scanner(System.in);
 			int inteiro = entrada.nextInt();
