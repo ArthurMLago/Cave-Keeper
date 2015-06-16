@@ -2,9 +2,8 @@ package ioComponent.actions;
 
 import ioComponent.Facing;
 import ioComponent.interfaces.IActionPlayerMapVisual;
-import gameController.GameController;
-import visual.interfaces.IMapVisual;
 import player.IPlayerMax;
+import visual.interfaces.IMapVisual;
 
 public class PlayerShootRightAction implements IActionPlayerMapVisual {
 	private int key;

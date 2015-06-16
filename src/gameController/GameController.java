@@ -3,23 +3,20 @@ package gameController;
 import ioComponent.IoComponent;
 import ioComponent.interfaces.IIoComponent;
 import items.interfaces.IItemManagement;
+import items.itemManagement.ItemsList;
+
+import java.util.ArrayList;
+
 import map.ItemSpawn;
 import map.MapGenerator;
 import map.Position;
 import map.interfaces.IGameMap;
 import monster.Interfaces.IMonster;
 import player.IPlayerMax;
-import saveGame.IsaveGame;
 import saveGame.IsaveManagement;
 import visual.MapVisual;
 import visual.interfaces.IAudioEffect;
 import visual.interfaces.IMapVisual;
-import items.itemManagement.*;
-import anima.component.ISupports;
-
-import java.util.ArrayList;
-
-import saveGame.saveGame;
 
 /**
  * Componente que faz a conexao dos outros componentes

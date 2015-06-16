@@ -2,10 +2,7 @@ package items.itemManagement;
 
 import java.util.ArrayList;
 
-import anima.component.ISupports;
-import saveGame.saveGame;
 import saveGame.saveManagement;
-import items.itemManagement.*;
 
 public class TestSaveGame {
 		

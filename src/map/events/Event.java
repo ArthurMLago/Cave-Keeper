@@ -1,4 +1,4 @@
-package map;
+package map.events;
 import java.io.Serializable;
 
 import map.enumerations.EventType;

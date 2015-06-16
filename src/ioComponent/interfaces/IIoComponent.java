@@ -3,7 +3,6 @@ package ioComponent.interfaces;
 import org.newdawn.slick.Input;
 
 import player.IPlayerMax;
-import saveGame.IsaveGame;
 import saveGame.IsaveManagement;
 import visual.interfaces.IMapVisual;
 import anima.component.ISupports;

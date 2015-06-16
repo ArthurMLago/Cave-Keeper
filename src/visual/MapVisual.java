@@ -2,10 +2,6 @@ package visual;
 
 import ioComponent.interfaces.IIoComponent;
 import items.interfaces.IItemManagement;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import map.interfaces.IGameMap;
 import monster.Interfaces.IMonster;
 

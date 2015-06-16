@@ -2,7 +2,6 @@ package ioComponent.actions;
 
 import ioComponent.interfaces.IActionPlayer;
 import player.IPlayerMax;
-import player.IPlayerPosition;
 
 public class PlayerSetLighterAction implements IActionPlayer {
 	private int key;

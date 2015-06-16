@@ -1,13 +1,5 @@
 package ioComponent;
 
-import org.newdawn.slick.Input;
-
-import player.IPlayerMax;
-import saveGame.IsaveGame;
-import saveGame.IsaveManagement;
-import visual.MapVisual;
-import visual.interfaces.IMapVisual;
-import anima.component.base.ComponentBase;
 import ioComponent.actions.PlayerDownAction;
 import ioComponent.actions.PlayerFlareAction;
 import ioComponent.actions.PlayerLeftAction;
@@ -25,6 +17,13 @@ import ioComponent.interfaces.IActionPlayer;
 import ioComponent.interfaces.IActionPlayerMapVisual;
 import ioComponent.interfaces.IActionSave;
 import ioComponent.interfaces.IIoComponent;
+
+import org.newdawn.slick.Input;
+
+import player.IPlayerMax;
+import saveGame.IsaveManagement;
+import visual.interfaces.IMapVisual;
+import anima.component.base.ComponentBase;
 
 public class IoComponent extends ComponentBase implements IIoComponent {
 

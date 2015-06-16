@@ -1,18 +1,9 @@
 package gameController;
 
 import items.interfaces.IItemManagement;
-
-import java.util.ArrayList;
-
-import org.newdawn.slick.Input;
-
-import anima.component.ISupports;
-import map.GameMap;	
-import map.interfaces.IGameMap;
+import monster.Interfaces.IMonster;
 import player.IPlayerMax;
 import saveGame.IsaveManagement;
-import visual.interfaces.IMapVisual;
-import monster.Interfaces.*;
 
 public interface IGameController {
 	public void update();

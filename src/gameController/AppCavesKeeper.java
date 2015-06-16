@@ -41,6 +41,7 @@ public class AppCavesKeeper {
 			else
 				GameController.getSharedInstance().loadFromDeserialization(compSaveManagement);
 			System.out.println("passei aqui");
+			entrada.close();
 			
 		}
 		catch(Exception e) { 

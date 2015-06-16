@@ -1,12 +1,8 @@
 package ioComponent.actions;
 
-import java.util.ArrayList;
-
-import anima.component.ISupports;
-import saveGame.IsaveGame;
-import saveGame.IsaveManagement;
 import gameController.GameController;
 import ioComponent.interfaces.IActionSave;
+import saveGame.IsaveManagement;
 
 public class SaveGameAction implements IActionSave {
 

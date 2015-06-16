@@ -2,10 +2,9 @@ package map;
 
 import java.io.Serializable;
 
-import map.Event;
 import map.enumerations.TileType;
 import map.enumerations.VisibilityMode;
-import map.enumerations.EventType;
+import map.events.Event;
 
 /**
  * Classe usada para armazenar um Tile do mapa(um quadrado andavel).

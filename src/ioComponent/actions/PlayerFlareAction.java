@@ -1,10 +1,8 @@
 package ioComponent.actions;
 
-import gameController.GameController;
 import ioComponent.interfaces.IActionPlayerMapVisual;
-import items.excecoes.OutofItemsException;
-import visual.interfaces.IMapVisual;
 import player.IPlayerMax;
+import visual.interfaces.IMapVisual;
 
 public class PlayerFlareAction implements IActionPlayerMapVisual {
 	private int key;

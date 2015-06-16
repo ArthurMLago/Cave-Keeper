@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import map.enumerations.TileType;
+import map.events.Event;
 import map.events.EventItem;
 import map.events.EventTrap;
 import map.interfaces.IMapGenerator;
@@ -40,9 +41,9 @@ public class MapGenerator implements IMapGenerator{
 	private int NTraps;
 	private ItemSpawn[] itemSpawnList;
 //	private double lightPercentage;
-	private boolean shouldApplyIsolatedTilesFilter;
-	private boolean shouldApplyIsolatedTilesFilter2;
-	private boolean shouldApplyNarrowPassagesFilter;
+//	private boolean shouldApplyIsolatedTilesFilter;
+//	private boolean shouldApplyIsolatedTilesFilter2;
+//	private boolean shouldApplyNarrowPassagesFilter;
 	
 	
 	//Variaveis para criação de mapa
@@ -72,9 +73,9 @@ public class MapGenerator implements IMapGenerator{
 		MapHeight = 30;
 		MapWalkablePaths = 450;
 		NSpawnPoints = 4;
-		shouldApplyIsolatedTilesFilter = true;
-		shouldApplyIsolatedTilesFilter2 = false;
-		shouldApplyNarrowPassagesFilter = false;
+//		shouldApplyIsolatedTilesFilter = true;
+//		shouldApplyIsolatedTilesFilter2 = false;
+//		shouldApplyNarrowPassagesFilter = false;
 		
 		randomGenerator = new Random();
 	}

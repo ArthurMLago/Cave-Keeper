@@ -1,22 +1,19 @@
 package visual;
 
-import gameController.Entidade;
 import gameController.GameController;
 import gameController.IGameController;
 import ioComponent.interfaces.IIoComponent;
 import items.interfaces.IItemManagement;
-import items.inventory.Flare;
 import items.itemManagement.ItemsList;
 
 import java.awt.Font;
-import java.awt.TextField;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
-import map.Event;
 import map.enumerations.EventType;
 import map.enumerations.TileType;
+import map.events.Event;
 import map.events.EventItem;
 import map.exceptions.OutOfMapBoundsException;
 import map.interfaces.IGameMap;
@@ -33,12 +30,9 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
+
 import player.Facing;
 import player.IPlayerMax;
-import player.IPlayerPosition;
-import anima.component.IRequires;
-import anima.component.ISupports;
-import anima.component.InterfaceType;
 
 
 

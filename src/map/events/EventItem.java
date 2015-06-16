@@ -1,6 +1,5 @@
 package map.events;
 
-import map.Event;
 import map.enumerations.EventType;
 import items.interfaces.IItemManagement;
 import items.itemManagement.ItemsList;
@@ -11,6 +10,7 @@ import items.itemManagement.ItemsList;
  *
  */
 public class EventItem extends Event {
+	private static final long serialVersionUID = 1L;
 	private ItemsList ItemType;
 	private int Quantity;
 	private IItemManagement item;

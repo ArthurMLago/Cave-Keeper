@@ -1,11 +1,11 @@
 package map.events;
 
 import items.interfaces.IItemManagement;
-import map.Event;
 import map.enumerations.EventType;
 
 public class EventTrap extends Event{
 
+	private static final long serialVersionUID = 1L;
 	private IItemManagement item;
 	
 	/**
