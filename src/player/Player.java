@@ -318,6 +318,51 @@ public class Player extends ComponentBase implements IPlayerPosition, IPlayerMax
 		boolean usado = true;
 		try {
 			bag.useItem(ItemsList.Stick);
+			
+			Event event;
+			System.out.println("item usado");
+			
+			try {
+				event = map.getTileAt(posX + 1, posY).checkForEvents();
+				if (event != null){
+					if(event.getType() == EventType.TRAP) {
+						map.getTileAt(posX + 1, posY).discardEvent();
+					}
+				}
+			} catch (OutOfMapBoundsException e) {
+			}
+			
+			try {
+				event = map.getTileAt(posX - 1, posY).checkForEvents();
+				if (event != null){
+					if(event.getType() == EventType.TRAP) {
+						map.getTileAt(posX - 1, posY).discardEvent();
+					}
+				}
+			} catch (OutOfMapBoundsException e) {
+			}
+			
+			try {
+				event = map.getTileAt(posX, posY + 1).checkForEvents();
+				if (event != null){
+					if(event.getType() == EventType.TRAP) {
+						map.getTileAt(posX, posY + 1).discardEvent();
+					}
+				}
+			} catch (OutOfMapBoundsException e) {
+			}
+			
+			try {
+				event = map.getTileAt(posX, posY - 1).checkForEvents();
+				if (event != null){
+					if(event.getType() == EventType.TRAP) {
+						map.getTileAt(posX, posY - 1).discardEvent();
+					}
+				}
+			} catch (OutOfMapBoundsException e) {
+			}
+			
+			
 		} catch (OutofItemsException e) {
 			usado = false;
 		}
