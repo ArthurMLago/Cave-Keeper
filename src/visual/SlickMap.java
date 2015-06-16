@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Random;
 
 import map.enumerations.EventType;
 import map.enumerations.TileType;
@@ -82,8 +83,9 @@ public class SlickMap extends BasicGame {
 		faceSprite(player.getFacing());
 		drawTile(player.getX(), player.getY());
 		drawTile(player.getX() + xFacing, player.getY() + yFacing);
+		String hud = "";
 		
-		drawHUD();
+		hud = drawHUD(hud);
 		if (flare) {
 			drawFlare();
 		} else if (player.getLighter()) {
@@ -349,9 +351,10 @@ public class SlickMap extends BasicGame {
 			drawMonster(monsters);
 	}
 	
-	private void drawHUD() {
+	private String drawHUD(String last) {
 		float size = 35;
 		int i = 0;
+		String actual = new String();
 		Color color = new Color(50,205,50);
 		
 		
@@ -367,14 +370,19 @@ public class SlickMap extends BasicGame {
             for(ItemsList item : ItemsList.values()) {
     			String name = items.displayName(item);
     			int number = items.displayNumber(item);
-    			font2.drawString(i, (map.getLimitY() * MapVisual.SIZEIMAGE),
-    					name + " " + number, color);
-    			i += name.length() * (size-10);
+    			String strNumber = Integer.toString(number);
+    			actual = actual + name + strNumber + "  ";
     		}
-             
+            
+            if (actual.compareTo(last) != 0) {
+            	font2.drawString(i, (map.getLimitY() * MapVisual.SIZEIMAGE), actual, color);
+            	return actual;
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return actual;
 	}
 	
 
